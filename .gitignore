@@ -1,0 +1,16 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Office lock / temp files
+~$*
+*.tmp
+*.bak
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Note: .docx / .xlsx deliverables ARE tracked on purpose - they are the project.
