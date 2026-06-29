@@ -1,6 +1,7 @@
 # House BUS — Master Index & Reconciliation
 
 **Compiled:** 2026-06-25 · **Owner:** TJ (@humansinspace) · **Umbrella:** Divergent Futures
+**Open source:** public repo `divergent-house-bus` — hybrid license (CERN-OHL-S-2.0 hardware / MIT code / CC-BY-4.0 docs). See `README.md`, `LICENSE.md`. A ready-to-push `divergent-house-bus.bundle` and `.zip` are in this folder.
 **Status:** Living index. Folds the nine source documents together with the three starter deliverables and flags what's locked, what conflicts, and what needs deciding.
 
 ---
@@ -24,6 +25,7 @@ The build philosophy mirrors HABITAT: prove the integrated concept on a converte
 | `05_Energy_and_Thermal_Models` | `House_BUS_Energy_Model.xlsx` (starter model) |
 | `07_Interior_and_Habitability` | `EHouse_Bus_Closed_Loop_Shower_System_Design.md` · `E-House_Bus_Composting_System_Brainstorm.md` · `e-house-bus-composter-design-premise.md` |
 | `00_Admin_Budget_Schedule` | `House_BUS_Mass_Budget.xlsx` (component mass tally, payload & GVWR check) |
+| `11_Suppliers_BOM_Procurement` | `House_BUS_BOM.xlsx` (v0.1 bill of materials + approximate cost ranges, mirrors the mass-budget groups) |
 | `06, 08–14` | Empty — ready for chassis, controls/software, build logs, testing, BOM, research, V2, and an inbox. |
 
 ---
@@ -90,6 +92,4 @@ The starter docs were built before these sources were available, on deliberately
 
 **Subsystem design tracks set up** (`House_BUS_Subsystem_Tracker.xlsx` + `Subsystem_Design_TEMPLATE.md` at root). Eight tracks, each anchored to the I1–I12 interface map so integration is preserved. Seven seeded `.design.md` stubs are filed in their folders (Electrical & Lighting/48V → 03; Thermal/HVAC → 04; Structure → 06; Water & Safety → 07; Controls → 08), pre-filled with interfaces, known components, and load/mass links. Compliance is the 8th track — deferred per TJ. Sequence: Electrical + HVAC-sizing first → Water + Controls → 48V-internal research → Structure & Safety in parallel.
 
-**Subsystem detailing underway (sequential):** Track 1 **Electrical & Power Distribution = Detailed v0.1** (`03_.../Electrical_Power_Distribution.design.md`) — four voltage domains (800 V / 48 V / local / 120 V AC), load-domain placement, power & current budget, DC-DC sized ~10 kW (≈208 A at 48 V), protection/fusing, conductor & TE-connector sizing, charge arbitration, grounding, and the drive-reserve load-shed logic. Key open decision flagged: **inverter feed 48 V-fed vs 800 V-fed** (sizes the whole 48 V backbone).
-
-> Next in sequence: **Thermal / HVAC Integration** (the keystone). Then Water → Controls → 48V-internal → Structure & Safety, then assess and iterate.
+**Subsystem detailing underway (sequential):** Track 1 **Electrical & Power Distribution = Detailed v0.1** (`03_.../Electrical_Power_Distribution.design.md`) — four voltage domains (800 V / 48 V / local / 120 V AC), load-domain placement, power & current budget, DC-DC sized ~10 kW (≈208 A at 48 V), protect

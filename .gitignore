@@ -14,3 +14,6 @@ desktop.ini
 *.swp
 
 # Note: .docx / .xlsx deliverables ARE tracked on purpose - they are the project.
+
+# LibreOffice lock files
+.~lock.*#

@@ -24,7 +24,7 @@ The core move is to put each load on the **highest practical voltage** so curren
 | Domain | Serves | Why here |
 |---|---|---|
 | **800 V HV** | Traction motor/inverter, heat-pump compressor, any HV resistive heat (cabin/water final-lift, battery PTC), DC fast charge, DC-DC input | Big loads at low current; matches commercial EV/bus parts |
-| **48 V house rail** | Lighting, pumps, fans, fridge/freezer DC compressors, ERV, water UV, hydroponics, controls, and the AC inverter | The off-grid sweet spot: ~1/4 the current of 12 V, sealed TE connectors exist |
+| **48 V house rail** | Lighting, pumps, fans, ERV, water UV, hydroponics, controls, and the AC inverter (fridge/freezer cooling now rides the thermal loop, not a separate compressor - see Thermal track) | The off-grid sweet spot: ~1/4 the current of 12 V, sealed TE connectors exist |
 | **12 / 5 V local** | Electronics, sensors, network, USB | Bucked at point of use - no long low-voltage runs |
 | **120 V AC island** | Induction hob, microwave, washer/dryer, power tools | Legacy appliances only; kept as small as possible |
 
@@ -86,7 +86,9 @@ Every positive leg fused at 1.25x continuous current. HV orange conduit, physica
 | Solar (~3.5 kW roof / ~6 kW parked) | MPPT -> 48 V rail, then bidirectional DC-DC up to 800 V (or HV MPPT direct to 800 V) | Primary summer; arbitration favours solar first |
 | Shore (NEMA 14-50) | Inverter/charger -> 48 V -> DC-DC to 800 V (or HV charger) | Galvanic protection, transfer switch |
 | CHP genset (3.5 kW) | Rectifier -> pack (HV or via 48 V) | Winter; also delivers heat (Thermal track I7) |
-| DC fast charge | NACS direct to 800 V; MCS-ready | Travel charging; LFP/sodium take high C-rate |
+| DC fast charge - MCS | ~1 MW (up to 1.2 MW) direct to 800 V | Primary heavy-vehicle standard |
+| DC fast charge - NACS | ~250 kW to 800 V (hold ~200 kW across ~10-60%) | Tesla network incl. emerging drive-through truck/trailer stalls (I-5 / I-10) |
+| J1772 / CCS | via adapter only | Not installed as native ports |
 
 Charge priority (controller): **solar -> stored -> CHP (also yields heat) -> shore -> DC fast**. Bidirectional DC-DC is an open decision (lets 48 V solar assist traction charge).
 
