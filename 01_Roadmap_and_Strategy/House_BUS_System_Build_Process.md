@@ -66,11 +66,10 @@ Before closing the subsystem, write down the **V2 path** and **design the interf
 |---|---|---|---|---|---|---|
 | Drive axle / drivetrain | done | done | done | partial | — | noted |
 | Thermal core | done | done | **done** | v0.2+granular | done | noted |
-| Battery / pack | partial | — | — | v0.1 | — | 800 V noted |
-| Power electronics | — | — | — | in Electrical v0.2 | — | — |
-| Body / structure | partial | — | — | v0.1 | — | scalability noted |
-
-*Next subsystems to run through steps 1–2: battery/pack, power electronics, body.*
-
----
-*Process v1.0 — 2026-06-29. Apply it the same way every time. The point isn't bureaucracy; it's that "extrapolate every permutation" only stays honest if every subsystem actually gets walked through the field before we commit.*
+| Battery / pack | **done** | **done** | **done** | v0.1 | — | 800 V noted |
+| Power electronics | **done** | **done** | **done** | in Electrical v0.2 | — | 800 V / MCS noted |
+| Body / structure | **done** | **done** | **done** | v0.1 | — | ground-up noted |
+| Water | **done** | **done** | **done** | v0.1 | — | noted |
+| Controls / software | **done** | **done** | **done** | v0.2 | — | noted |
+| Safety / egress | **done** | **done** | **done** | v0.1 | — | noted |
+| Lighting / 48 V | **done** | **done** | **done** | v0.

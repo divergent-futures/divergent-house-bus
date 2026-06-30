@@ -56,31 +56,15 @@ The **25-27 ft is the reference platform**, not the only size. Scaling up (e.g. 
 
 Net: the platform is a family, not a one-off - a builder who wants 35 ft pays mostly in a bigger drivetrain and modestly more battery, not a proportional blow-up of every system.
 
-## 7. Open questions (resolve to close v0.2)
+## 6c. Pack footprint - does 330 kWh fit in a single layer? (sizing check, 2026-06-29)
 
-- **Conversion vs ground-up for V1** - the structural sodium floor implies ground-up for the real build; a donor-bus conversion may prove the systems first.
-- **Structural pack fabrication** method (composite vs cast vs hybrid).
-- **Slide-out winter seam** detailing.
-- **Glazing mounting** in composite walls; **air-suspension** selection.
-- **e-axle / drivetrain** packaging (single rear vs front+rear) - affects cooling routing.
+Yes, with ~20-25% spare. Using a representative current sodium prismatic cell (~3.1 V, 200 Ah, **620 Wh**, 280-class can 207 x 72 x 174 mm):
 
-## 8. Sourcing leads
+- **330 kWh (300 traction + 30 house) = ~532 cells** (the 30 kWh house domain = ~49 of them, wired 15S, own small BMS).
+- Raw cell footprint ~7.9 m^2; single-layer packed at 72-78% (cooling plates, module frames, busbars) -> **~10-11 m^2**.
+- Plus a ~0.4 m **control bay** at one end (both BMS + contactors + fuses + IMD) and aluminium side-intrusion rails + walls.
+- **Envelope ~= 5.4 m x 2.3 m x 0.22 m (~17.5-18.5 ft x ~90-92 in x ~8.7 in).**
 
-- EPP foam: FoamByMail, Arplank. Composites: Fibre Glast, Rock West.
-- e-axle: Allison eGen Power 85S, ZF AxTrax, Dana. Suspension: MAD, LiquidSpring.
-- Polycarbonate glazing: multiwall PC sheet suppliers.
+Available flat floor on the 25-27 ft platform is ~18-22 ft x ~7.4 ft (~13-15 m^2 gross within a 96-102 in body, inboard of the rockers), so the pack at ~11 m^2 is **~75-80% fill**. The binding constraint is **wheel-well intrusion** (notches around the rear/front arches), which the spare ~20-25% absorbs - not total area. At ~8.7 in thick it is a genuine low floor (lowest CG, the structural-floor concept holds).
 
-## 9. Decision checklist
-
-- [x] Form factor set (25-27 ft + slide-outs)
-- [x] Structural strategy set (battery floor + composite body + EPP interior)
-- [x] Glazing + insulation approach set
-- [x] Mass target + live budget in place (~20-29% strip)
-- [ ] Conversion-vs-ground-up for V1
-- [ ] Structural pack fab method
-- [ ] Slide-out seam + glazing mounting detail
-- [ ] e-axle packaging + cooling routing (with Thermal)
-- [ ] Component masses refined as parts are chosen
-
----
-*Detailed 2026-06-27 (v0.1). The mass budget is the live tracker for this track. Next (granular round, needs layout): pack-fab method, slide-out seam, e-axle packaging.*
+*Sensitivities:* larger ~300 Ah cells -> ~355 cells (simpler, similar area); packing efficiency is the main swing. Feeds floor-plan v0.2. Open: exact cell choice, wheel-well notch geometry, whether a thin second sub-layer is wanted in the arch-free zone for spar

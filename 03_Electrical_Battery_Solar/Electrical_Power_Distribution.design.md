@@ -11,7 +11,7 @@
 
 The single shared structural pack is the only energy store. This subsystem must:
 
-- Deliver **400 V** (V1; 800 V is the future/V2 target) for traction and the large thermal loads, and a stable **48 V** house rail for everyday loads, with **local 12/5 V** bucked near devices and a small **120 V AC** island for legacy appliances.
+- Deliver **400 V** (V1; 800 V is the future/V2 target) for traction and the large thermal loads, and a stable **48 V** house rail for everyday loads, with **local 12/5 V + USB-C PD** bucked near devices. **No global 120 V AC island** - the bus is all-DC; a small switchable convenience inverter (~1.5 kW) feeds a few AC outlets for rare plug-in items only (see all-DC reframe, §2).
 - **Protect mobility absolutely**: a software drive-reserve floor (~80 kWh) that house loads can never deplete.
 - Accept charge from **solar, shore, the CHP genset, and DC fast charge (NACS/MCS)** and arbitrate between them.
 - Be **safe in a wet, occupied dwelling**: HV isolated and monitored, SELV 48 V in wet zones, every circuit fused, correct grounding on shore and off-grid.
@@ -26,11 +26,15 @@ The core move is to put each load on the **highest practical voltage** so curren
 | Domain | Serves | Why here |
 |---|---|---|
 | **400 V HV** (V1; 800 V future) | Traction motor/inverter, heat-pump compressor, any HV resistive heat (cabin/water final-lift, battery PTC), DC fast charge, DC-DC input | Big loads; **400 V matches industrial 400/600 V compressors** (DC-DC, no AC inversion); 800 V is the future efficiency step |
-| **48 V house rail** | Lighting, pumps, fans, ERV, water UV, hydroponics, controls, and the AC inverter (fridge/freezer cooling now rides the thermal loop, not a separate compressor - see Thermal track) | The off-grid sweet spot: ~1/4 the current of 12 V, sealed TE connectors exist |
-| **12 / 5 V local** | Electronics, sensors, network, USB | Bucked at point of use - no long low-voltage runs |
-| **120 V AC island** | Induction hob, microwave, washer/dryer, power tools | Legacy appliances only; kept as small as possible |
+| **48 V house rail** | Lighting, pumps, fans, ERV, water UV, hydroponics, controls, **induction cooktop (48 V DC), washer/dryer** (fridge/freezer cooling rides the thermal loop) | The off-grid sweet spot: ~1/4 the current of 12 V, sealed TE connectors exist; carries the high-power DC house loads |
+| **12 / 5 V local + USB-C PD** | Electronics, TV, laptops, sensors, network, USB | Bucked at point of use - no long low-voltage runs |
+| **(no 120 V AC island - deleted)** | optional small switchable inverter for rare AC-only items only | see all-DC reframe below |
 
-**Load-placement rule:** anything multi-kW and resistive or motor-driven goes on the 400 V HV bus; everything with an efficient native-48 V part goes on the 48 V rail; only true legacy AC appliances justify the inverter.
+**Load-placement rule:** anything multi-kW and resistive or motor-driven goes on the 400 V HV bus; high-power DC house loads (induction, dryer, big pumps) on 48 V; electronics on 12/5 V or USB-C PD via point-of-use bucks. **No global AC inverter** - the bus is all-DC (below).
+
+> **ARCHITECTURE REFRESH (2026-06-29) - ALL-DC, inverter deleted.** The bus is a DC island (battery + solar are DC; shore/genset are rectified to charge the pack), so making 120 V AC internally only to have each appliance rectify it back to DC wastes ~10-20% per electronic load **and** burns ~0.5-1.2 kWh/day in inverter idle. **Decision: delete the 120 V AC island and the ~5 kW always-on inverter; run everything on 48 V / 24 V / 12 V / USB-C PD via efficient point-of-use bucks.** A small switchable inverter (~1.5 kW, hair-dryer-driven; 2 kW only for a full salon dryer; eco mode, off by default) is kept only as a convenience backstop for rare AC-only items (guest devices, odd tool). Cooking = 48 V DC induction. Full component-by-component audit + holdouts in `DC_Native_Appliance_Audit.md`.
+
+> **OPEN ARCHITECTURE REFINEMENT (2026-06-29) - dual-domain structural pack.** Option under consideration: rather than a single 400 V pack feeding the 48 V rail entirely through the DC-DC, build **two sodium domains inside the one structural enclosure** - ~270 kWh @ 400 V (traction) + ~20-30 kWh @ 48 V (house) - both BMS sealed inside, linked by a **bidirectional** DC-DC. Wins: physical fault isolation (house independent of the HV drive system), native-48 V efficiency, direct solar-to-48 V, one sealed enclosure. Costs: 2nd BMS + 2nd cell config; DC-DC stays (bidirectional, recharge/rebalance duty, not full-house-load duty); sizing trades house autonomy vs traction range/mass. Softly revises the founding "single shared reservoir / no separate house bank" decision. See `Battery_Pack_Supplier_Vetting.md` for the full analysis + the open sizing decision.
 
 ## 3. Power & current budget (representative)
 
@@ -43,24 +47,23 @@ Currents are what size the hardware. Peak, not average, sizes conductors and pro
 | HV resistive heat (cabin/water/battery) | 400 V | ~8-10 kW | ~20-25 A | Final-lift coil + battery PTC, intermittent |
 | DC-DC input (to 48 V rail) | 400 V | ~10 kW | ~25 A | See sizing below |
 | 48 V house base (lights, fridge, pumps, ERV, controls, hydro) | 48 V | ~1.5-2 kW pk | ~30-40 A | ~10.7 kWh/day average |
-| AC inverter draw (if 48 V-fed) | 48 V | ~5 kW | ~104 A | Dominant 48 V current term |
-| Induction hob | 120 V AC | ~1.8 kW | 15 A AC | Intermittent |
-| Microwave | 120 V AC | ~1.0 kW | 8 A AC | Intermittent |
-| Washer/dryer (heat-pump) | 120 V AC or 48 V | ~0.5 kW | - | Domain TBD |
+| Induction cooktop (DC) | 48 V | ~1.5-3.5 kW | ~30-73 A | 48 V DC hob; intermittent, dominant 48 V term |
+| Washer/dryer (heat-pump, DC) | 48 V / 24 V | ~0.5-1 kW | ~10-20 A | BLDC, DC-native |
+| Electronics (TV, laptops, etc.) | 12/5 V + USB-C PD | <0.5 kW | - | point-of-use bucks |
+| (optional convenience inverter) | 48 V | ~1.5 kW | ~31 A | hair-dryer-driven; off by default; AC-only items |
 
 **Pack C-rate check:** 250 kW traction on a 300 kWh pack is ~0.83C - comfortable for sodium/LFP; house loads are negligible against pack capacity.
 
-## 4. DC-DC and inverter sizing
+## 4. DC-DC sizing (no global inverter)
 
-The 48 V rail must feed both the house base **and** the AC inverter, so the DC-DC is sized to their combined peak:
+With the all-DC reframe, the 48 V rail feeds **DC house loads directly** - including the induction cooktop, the dominant peak - and there is **no 5 kW AC inverter** to carry. (In the dual-domain pack option the 48 V house pack supplies these directly and the DC-DC just recharges/rebalances.)
 
-- House base peak ~2 kW + inverter peak ~5 kW = **~7 kW**, sized up to **~10 kW** for surge and headroom.
-- At 400 V input, 10 kW is ~25 A. At 48 V output, 10 kW is **~208 A** - the high-current node that drives busbar and fuse sizing.
-- Build from stackable modules (e.g. 4 x 2.5 kW or 2 x 5 kW) for redundancy and serviceability.
+- 48 V peak driver is now the **induction cooktop (~1.5-3.5 kW, ~30-73 A)** plus house base ~2 kW - call it **~5-6 kW** peak, intermittent.
+- DC-DC (or house-pack feed) sized to **~6-8 kW** for surge/headroom; built from **stackable modules** (Vicor BCM-class) for redundancy.
+- Electronics convert **once at point of use** (DC-DC buck / USB-C PD, ~95-98%, near-zero standby) - not through a global inverter.
+- Optional convenience inverter is small (~1.5 kW, hair-dryer-driven), **switchable/eco**, on its own branch - it does not size the backbone.
 
-**Open architecture choice:** feed the 120 V inverter from the **48 V rail** (simpler ecosystem, but the DC-DC must carry inverter current) **or** from an **HV-input (400 V) inverter** (keeps the 48 V rail and DC-DC small, fewer conversions, but a less common part). This one decision sizes the whole 48 V backbone - resolve early. *Recommended start: 48 V-fed Victron-class inverter for V1 maturity; revisit HV-fed for V2.*
-
-Inverter: **3-6 kW pure sine** (e.g. Victron MultiPlus-II 48/5000) with transfer switch and charger built in.
+*The old "inverter feed 48 V-fed vs HV-fed" open question is moot - there is no main inverter. Resolved by deletion.*
 
 ## 5. Protection & fusing
 
@@ -69,7 +72,7 @@ Inverter: **3-6 kW pure sine** (e.g. Victron MultiPlus-II 48/5000) with transfer
 | Pack | Main HV fuse (class T / EV fuse, ~700-900 A to suit 400 V traction), main + pre-charge contactors (Gigavac), HVIL loop, insulation monitor (Bender IMD) |
 | HV branches | Individual HV fuses per branch: compressor, HV heater, DC-DC, charge inlet |
 | 48 V | DC-DC output main fuse; PDM (Victron Lynx-class) with MIDI/MEGA fuses per circuit (30-100 A); matched to conductor ampacity |
-| 120 V AC | Breakers; **GFCI on every wet-zone circuit** (galley, bath); shore inlet surge protection + transfer switch |
+| AC convenience outlets (off small inverter) | **GFCI on the bathroom + galley outlets**; shore inlet has its own surge protection + transfer to the AC->DC charger (no whole-bus AC bus) |
 | Local | Per-branch fusing at each buck converter |
 
 Every positive leg fused at 1.25x continuous current. HV orange conduit, physically separated from LV.
@@ -110,40 +113,4 @@ The rule that makes a shared pack safe: **house loads may never touch the ~80 kW
   1. **Protected:** drive reserve, battery thermal/BMS, controls, safety detection
   2. **Essential:** fridge/freezer, minimal lighting, water, comms
   3. **Discretionary (shed first):** hydroponics lights/pumps, climate bed, dryer, sauna, AC inverter non-critical
-- Solar input is prioritised to house charge; the CHP is called before the reserve is reached, not after.
-
-## 10. Monitoring
-
-Pack shunt + BMS (CAN); DC-DC and major-branch shunts; INA219 per 48 V zone; HV IMD; all surfaced on the controls dashboard (Controls & Software track, I12) with logging.
-
-## 11. Open questions (resolve to close v0.2)
-
-- **Inverter feed: 48 V-fed vs HV (400 V)-fed** - sizes the whole 48 V backbone (Section 4).
-- **Solar charge path:** 48 V MPPT + bidirectional DC-DC vs HV MPPT direct to the 400 V pack.
-- **Bidirectional DC-DC** yes/no (48 V solar assisting traction charge).
-- **HV resistive heat placement** (cabin/water final-lift on 400 V HV vs 48 V vs AC).
-- **Washer/dryer domain** (48 V DC vs 120 V AC).
-- **PDM topology:** zonal vs star; final TE connector/part map per branch.
-- **Pack main-fuse and contactor ratings** once traction power is fixed.
-
-## 12. Sourcing leads
-
-- **Cells/pack:** sodium-ion (target) or LFP blade; structural enclosure (see Structure track).
-- **DC-DC:** Vicor BCM (2.5 kW stackable), Eaton eMobility (5-8 kW), Infineon HV-LV (CAN).
-- **Inverter/charger + MPPT + monitoring:** Victron (MultiPlus-II, SmartSolar, Lynx, Cerbo/VRM).
-- **Connectors:** TE HALVONEX, Heavy-Duty Sealed, mixed families; Anderson Powerpole.
-- **HV safety:** Gigavac contactors, Bender IMD, class-T/EV fuses.
-
-## 13. Decision checklist (to mark this track "designed")
-
-- [ ] Inverter feed decided (48 V vs 800 V) and DC-DC sized to match
-- [ ] Solar charge path and bidirectional-DC-DC decision
-- [ ] HV branch list frozen with fuse/contactor ratings
-- [ ] 48 V backbone conductor + busbar sizing to under 3% drop
-- [ ] TE connector part map per circuit
-- [ ] Grounding/bonding scheme drawn (shore vs off-grid)
-- [ ] Load-shed priority table loaded into the controller
-- [ ] Single-line diagram drawn and cross-checked against the energy model and mass budget
-
----
-*Detailed 2026-06-26 (v0.1). Next: lock the inverter-feed decision (Section 4), then draw the single-line diagram. Keep Section 2 interfaces in sync with the architecture map.*
+- Solar input is prioritised to house charge; the CHP is called before the reserve is rea

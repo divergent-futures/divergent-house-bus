@@ -148,6 +148,7 @@ None are physics walls. Every one is engineering, supply chain, or regulation - 
 1. *Sodium-ion cells at ~LFP-comparable density (~175 Wh/kg, CATL Naxtra) are in mass production NOW and at commercial-vehicle scale through 2026 - the chemistry is available for an ~18-month build. The open call narrows to: by the build date, can a ~300 kWh 400 V (V1) STRUCTURAL sodium pack (not just cells) be sourced or built?* (Confidence: medium.)  **[Original end-2028 'no sodium pack' call superseded by CATL mass-production evidence - logged as a corrected forecast: the chemistry arrived faster than the first assay assumed.]**
 2. *A re-run of the mass budget with sodium density (~150 Wh/kg) raises pack mass to ~4,000-4,600 lb, cutting the curb-weight margin under the 19,500 lb GVWR target by ~600-1,100 lb.* (Confidence: medium-high; checkable by recompute.)
 3. *The dominant V1 build risk logged in the build log will be integration/controls or regulatory - not a physics/components failure.* (Confidence: medium; resolves during V1.)
+4. *Sodium-ion cell $/kWh falls below LFP by ~2027-2028 as CATL/BYD ramp and new entrants come online - so the pack costs less than today's budget by build time.* (Confidence: medium; checkable against cell price indices. Basis for the "design for today's cells; price + density gains are upside" stance - the dual-domain pack is sized at ~330 kWh / 245 mi floor now, enclosure able to accept denser/cheaper drop-in cells later.)
 
 **Kill / change conditions**
 - If sodium structural packs ship sooner and lighter than expected -> the V2-only phasing was too conservative (good problem).
@@ -174,7 +175,4 @@ Re-running the mass-budget battery line at CATL Naxtra's mass-production density
 | **Sodium - CATL Naxtra (cell)** | **175** | **3,780 lb (+300)** | **13,270** | **15,037** | **4,463** |
 | Sodium - conservative pack-derate | 160 | 4,134 lb (+654) | 13,624 | 15,391 | 4,109 |
 
-At CATL's shipping 175 Wh/kg the pack is only ~+300 lb over the LFP assumption - **near parity**, and the GVWR margin barely moves (4,763 -> 4,463). A conservative structural/pack derate to ~160 still leaves >4,000 lb of margin. Net: with Naxtra-class sodium, **the density penalty is no longer a material constraint**, and sodium's non-flammability + -40 C performance become straight wins. (Pack volume/packaging in the floor still needs a layout check.)
-
----
-*Assayed with The Assay v0.7. The instrument's discipline applied to our own project: report the clean run, keep the wildcard separate, and name the gate honestly. The gate here is supply + integration + regulation - not physics.*
+At CATL's shipping 175 Wh/kg the pack is only ~+300 lb over the LFP assumption - **near parity**, and the GVWR margin barely moves (4,763 -> 4,463). A conservative structural/pack derate to ~160 still leaves >4,000 lb of margin. Net: with Naxtra-class sodium, **t
