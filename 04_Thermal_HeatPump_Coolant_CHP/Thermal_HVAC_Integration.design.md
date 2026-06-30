@@ -42,7 +42,7 @@ The keystone question is **not** "add up the averages." It is: **what is the wor
 ## 4. Heat-pump core sizing
 
 - Size the core at **~8-10 kW thermal**, modulating to **~1 kW** for efficient part-load.
-- Cooling electric input at COP ~3: ~2.7-3.3 kW - an **800 V HV compressor** (this is why the compressor lives on 800 V, not 48 V; see Electrical track).
+- Cooling electric input at COP ~3: ~2.7-3.3 kW - an **HV compressor on the 400 V pack** (V1; 800 V future) - this is why the compressor lives on HV, not 48 V; see Electrical track.
 - Heating: same core delivers ~3-5 kW thermal at COP ~2-2.5 in the cold; CHP supplements and warms the battery when air-source COP collapses.
 - **Size reference to watch:** the Tesla Semi's thermal system is the closest production analogue to our scale (large cabin + big pack + drivetrain). When teardowns appear, use it to sanity-check loop sizing - we will be a bit larger again (fridge, multiple HVAC zones, water, hydroponics).
 
@@ -143,7 +143,7 @@ Manifold valve positions, pump speeds, and per-compressor modulation are command
 - I7 Genset -> coolant loop (CHP waste heat)
 - I8 Loop -> battery warmer/cooler; drivetrain cooling
 - I9 ERV <-> cabin air (zoned)
-- Power: 800 V HV compressors + pumps from the Electrical track
+- Power: HV compressors (400 V V1; 800 V future) + pumps from the Electrical track
 
 ## 18. Open questions (resolve to close v0.3)
 

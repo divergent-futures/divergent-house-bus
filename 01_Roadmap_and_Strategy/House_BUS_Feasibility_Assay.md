@@ -10,7 +10,7 @@
 
 ## Rapid Screen (project level)
 
-1. **Decode:** "An 800 V, ~300 kWh, sodium-ion, all-electric self-moving dwelling that reuses waste heat across one integrated thermal loop, ~245 mi range, ~15 kWh/day house load, at ~13,000 lb curb." Mostly an *assembly* of mature parts.
+1. **Decode:** "A 400 V (V1), ~300 kWh, sodium-ion, all-electric self-moving dwelling that reuses waste heat across one integrated thermal loop, ~245 mi range, ~15 kWh/day house load, at ~13,000 lb curb." Mostly an *assembly* of mature parts.
 2. **Single-axis ceiling:** nothing claimed beats a hard limit - COP, heat recovery, range, and efficiency all sit well inside physics.
 3. **Tradeoff frontier:** the one place a free-energy tell could hide is the heat reuse. It does **not** trip, because the design is explicitly **grade-matched** - recovered heat is low-grade and only does low-grade jobs; high-grade loads (sauna, cooking) stay electric. "Waste heat runs the appliances" would be fool's gold; "waste heat preheats, electricity finishes" is honest.
 4. **Provenance/incentive:** a design in the open, no metric being sold, no raise/stock riding on belief. Incentive to over-claim is low.
@@ -42,15 +42,15 @@ Analogue (failed): over-integrated one-off RV/marine builds that become unservic
                    plan exists to answer.
 ```
 
-### B - The 800 V, ~300 kWh sodium-ion structural pack (the floor)  [UPDATED 2026-06-29: CATL Naxtra]
+### B - The 400 V (V1; 800 V future), ~300 kWh sodium-ion structural pack (the floor)  [UPDATED 2026-06-29: CATL Naxtra]
 ```
-DECODED:        ~300 kWh sodium-ion pack, 800 V, structural floor, for a build ~18 months out.
+DECODED:        ~300 kWh sodium-ion pack, 400 V (V1), structural floor, for a build ~18 months out.
 NEW EVIDENCE:   CATL's Naxtra sodium-ion line is in MASS PRODUCTION (launched Apr 2025) at
                 ~175 Wh/kg cell - essentially LFP-comparable - with large-scale deployment
                 across passenger AND commercial vehicles through 2026, >10,000 cycles, and a
                 -40 to 70 C range. This materially de-risks the bet vs the first assay.
 TRL act/impl:   sodium CELLS now ~8-9 (mass-produced, in shipping vehicles). The remaining gap
-                is the FORM FACTOR - a ~300 kWh, 800 V, STRUCTURAL (cell-to-chassis) pack - an
+                is the FORM FACTOR - a ~300 kWh, 400 V (V1), STRUCTURAL (cell-to-chassis) pack - an
                 integration/engineering item, NOT a chemistry-availability one.
 Density:        ~175 Wh/kg cell ~ near parity with the ~190 Wh/kg pack figure used for LFP. The
                 first assay's ~140-160 was too pessimistic; the mass penalty now ~+300 lb (table).
@@ -58,7 +58,7 @@ Tradeoff:       still the honest sodium trade (slightly lower density for non-fl
                 + abundance) - but the density gap is now SMALL, and sodium ADDS cold-weather
                 performance (-40 C), a genuine plus for the ski-weekend case.
 VERDICT:        PLAUSIBLE, and now largely DE-RISKED on chemistry for an ~18-month horizon.
-                Remaining gate = engineering/sourcing the 800 V STRUCTURAL pack (not the cells).
+                Remaining gate = engineering/sourcing the 400 V (V1) STRUCTURAL pack (not the cells); 400 V is a more mature voltage class than 800 V, lowering this risk.
                 Honest call shifts: sodium is viable for the actual build window, not only V2.
 Leading indicator: a sodium PACK (not just cells) in a commercial truck/bus; a CTP/structural
                 sodium pack product.
@@ -108,7 +108,7 @@ one load that legitimately exceeds it - which is what the CHP exists for.
 
 The Assay's core output is *where the gate is*. For the House BUS it is emphatically **not physics**. In order:
 
-1. **The 800 V STRUCTURAL sodium pack (form factor, not chemistry)** - chemistry availability is now largely solved (CATL Naxtra in mass production, ~175 Wh/kg, commercial-vehicle scale through 2026). The remaining gate is sourcing/engineering a ~300 kWh 800 V *structural* pack and its packaging; the density penalty vs LFP is now small (~+300 lb).
+1. **The 400 V (V1) STRUCTURAL sodium pack (form factor, not chemistry)** - chemistry availability is now largely solved (CATL Naxtra in mass production, ~175 Wh/kg, commercial-vehicle scale through 2026). The remaining gate is sourcing/engineering a ~300 kWh **400 V (V1)** *structural* pack and its packaging (400 V is more mature than 800 V, which lowers this risk; 800 V is the V2 target); the density penalty vs LFP is now small (~+300 lb).
 2. **Systems-integration & controls complexity** - one core, a custom >8-port manifold, dual-compressor failover, fridge-on-loop. Integration TRL, not component TRL.
 3. **Mass / payload discipline** - compounded by sodium density; the "silent governor."
 4. **Regulatory wildcard** - registration class, full-time-occupancy legality, insurance, reclaimed-water rules (see Wildcard below).
@@ -120,7 +120,7 @@ None are physics walls. Every one is engineering, supply chain, or regulation - 
 
 ## Wildcard Layer (non-engineering friction - LOW confidence, kept separate)
 
-- **Brakes (dominant here):** vehicle registration as RV vs custom/commercial; full-time-occupancy bans; insurance for a one-off 800 V build; reclaimed-water-for-washing legality; GVWR/licence class. The project already names this the **"regulatory cage"** - its own antagonist. This is the **widest band** in the assay.
+- **Brakes (dominant here):** vehicle registration as RV vs custom/commercial; full-time-occupancy bans; insurance for a one-off HV (400 V) build; reclaimed-water-for-washing legality; GVWR/licence class. The project already names this the **"regulatory cage"** - its own antagonist. This is the **widest band** in the assay.
 - **Accelerants (weak):** the open-source community (replication, scrutiny, improvement); no DIY subsidies to lean on. Mostly road-clearing at best, not ramp-bending.
 - **Wildcard = binding constraint?** Plausibly **yes** for *deploying and living in it legally*, even when the engineering is sound. Classic Divergent Futures line: *the tech is feasible; the friction is political.*
 
@@ -145,7 +145,7 @@ None are physics walls. Every one is engineering, supply chain, or regulation - 
 - A V1 (LFP) build proving the **integrated thermal core** actually routes and fails over as designed.
 
 **Logged predictions (dated, gradable - for the ledger)**
-1. *Sodium-ion cells at ~LFP-comparable density (~175 Wh/kg, CATL Naxtra) are in mass production NOW and at commercial-vehicle scale through 2026 - the chemistry is available for an ~18-month build. The open call narrows to: by the build date, can a ~300 kWh 800 V STRUCTURAL sodium pack (not just cells) be sourced or built?* (Confidence: medium.)  **[Original end-2028 'no sodium pack' call superseded by CATL mass-production evidence - logged as a corrected forecast: the chemistry arrived faster than the first assay assumed.]**
+1. *Sodium-ion cells at ~LFP-comparable density (~175 Wh/kg, CATL Naxtra) are in mass production NOW and at commercial-vehicle scale through 2026 - the chemistry is available for an ~18-month build. The open call narrows to: by the build date, can a ~300 kWh 400 V (V1) STRUCTURAL sodium pack (not just cells) be sourced or built?* (Confidence: medium.)  **[Original end-2028 'no sodium pack' call superseded by CATL mass-production evidence - logged as a corrected forecast: the chemistry arrived faster than the first assay assumed.]**
 2. *A re-run of the mass budget with sodium density (~150 Wh/kg) raises pack mass to ~4,000-4,600 lb, cutting the curb-weight margin under the 19,500 lb GVWR target by ~600-1,100 lb.* (Confidence: medium-high; checkable by recompute.)
 3. *The dominant V1 build risk logged in the build log will be integration/controls or regulatory - not a physics/components failure.* (Confidence: medium; resolves during V1.)
 

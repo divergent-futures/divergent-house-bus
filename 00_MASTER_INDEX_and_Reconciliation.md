@@ -18,14 +18,15 @@ The build philosophy mirrors HABITAT: prove the integrated concept on a converte
 
 | Folder | Contents now |
 |---|---|
-| `01_Roadmap_and_Strategy` | `house-bus-concept-v0_1.md` (concept & thesis anchor) · `PROJECT-SLIPSTREAM-Prototype-Roadmap.md` (separate sibling project — see §6) · `House_BUS_Master_Roadmap.docx` (roadmap v0.2, locked) · `House_BUS_Gap_Analysis.docx` (gap analysis) · `House_BUS_Design_Decisions_Log.docx` (gap resolutions, integration-first) |
+| `01_Roadmap_and_Strategy` | `House_BUS_Thesis_v1.0.md` (**canonical portable thesis snapshot** — drop into other projects for reference) · `house-bus-concept-v0_1.md` (original concept anchor) · `PROJECT-SLIPSTREAM-Prototype-Roadmap.md` (separate sibling project — see §6) · `House_BUS_Master_Roadmap.docx` (roadmap v0.2, locked) · `House_BUS_Gap_Analysis.docx` · `House_BUS_Design_Decisions_Log.docx` · `House_BUS_Feasibility_Assay.md` |
 | `02_Systems_Architecture` | `E-House_Bus_Project_Design_Document.md` (central reference) · `E-House_Bus_Conversion_Planning_Summary.md` (TMS / HV evolution) · `House_BUS_Systems_Architecture.docx` (starter architecture) |
 | `03_Electrical_Battery_Solar` | `E-House_Bus_Structural_Battery_Pack_Design_Summary.md` · `e-house-bus-solar-power-thermal-plan.md` |
 | `04_Thermal_HeatPump_Coolant_CHP` | `E_House_Bus_Sleep8_Bed_Climate_Control_Plan.md` (climate-bed on the shared loop) |
 | `05_Energy_and_Thermal_Models` | `House_BUS_Energy_Model.xlsx` (starter model) |
 | `07_Interior_and_Habitability` | `EHouse_Bus_Closed_Loop_Shower_System_Design.md` · `E-House_Bus_Composting_System_Brainstorm.md` · `e-house-bus-composter-design-premise.md` |
 | `00_Admin_Budget_Schedule` | `House_BUS_Mass_Budget.xlsx` (component mass tally, payload & GVWR check) |
-| `11_Suppliers_BOM_Procurement` | `House_BUS_BOM.xlsx` (v0.1 bill of materials + approximate cost ranges, mirrors the mass-budget groups) |
+| `11_Suppliers_BOM_Procurement` | `House_BUS_BOM.xlsx` (v0.1 BOM + cost ranges) · `Sourcing_Strategy_ThreeTier.md` (build-ourselves / low-end-China / high-end per subsystem; range & sizing rationale) · `House_BUS_EAxle_Sourcing.xlsx` (e-axle candidate tracker, tiered) |
+| `12_Reference_and_Research` | `House_BUS_Research_and_Validation_v0.1.md` (confirmation-phase: efficiency, thermal, heat-scavenging products, e-axles, sourced + cited) |
 | `06, 08–14` | Empty — ready for chassis, controls/software, build logs, testing, BOM, research, V2, and an inbox. |
 
 ---
@@ -48,7 +49,7 @@ The build philosophy mirrors HABITAT: prove the integrated concept on a converte
 
 | # | Decision | Locked value | Rationale |
 |---|---|---|---|
-| D1 | **Pack voltage** | **800 V** (target as supply chain matures over ~2 yrs) | Aligns with commercial EV/bus components; lower current. |
+| D1 | **Pack voltage** | **400 V for V1** (mature; matches industrial 400/600 V thermal/compressor gear via DC-DC, no AC inversion). **800 V = V2/future** (~5–7 yrs to maturity; thinner HV cable). | 400 V trades ~2× HV current for availability + off-the-shelf-compressor compatibility. *Updated 2026-06-29, revising the earlier 800 V-first call.* |
 | D2 | **Battery capacity** | **~300 kWh**, structural — **sodium-ion floor** of the bus by build time | 300 kWh is far less LFP volume/cost in ~18 mo; sodium pack expected at similar weight, forming the entire structural floor. |
 | D3 | **Vehicle length** | **25–27 ft**, with **slide-outs** to gain interior space | National-park entrances and tight places (e.g. South America). Slide-out thermal bridging is accepted because deep-winter living is out of scope. |
 | D4 | **Build path** | **Slipstream first** (learning trailer) → bus is effectively "version two" | Low-cost way to test shared components and learn lessons before committing to the bus. |
@@ -88,8 +89,6 @@ The starter docs were built before these sources were available, on deliberately
 
 **Still open (deferred deliberately):** HVAC sizing to serve cabin + battery + generator together (the core integration-sizing problem); dehumidifier loop-shared vs dedicated; rainwater include-in-V1 decision; turn the 20–25% mass target into a component-by-component budget.
 
-**Mass budget started** (`00_Admin/House_BUS_Mass_Budget.xlsx`): bottom-up component tally, baseline ~18,240 lb vs optimized ~12,970 lb = **~29% strip** (exceeds the 20–25% target — optimistic, editable; battery ~3,480 lb is the fixed anchor). Loaded ~14,740 lb against a 19,500 lb GVWR target = ~4,760 lb margin; curb CG ~156 in (balanced). Refine component cells as parts are chosen.
-
-**Subsystem design tracks set up** (`House_BUS_Subsystem_Tracker.xlsx` + `Subsystem_Design_TEMPLATE.md` at root). Eight tracks, each anchored to the I1–I12 interface map so integration is preserved. Seven seeded `.design.md` stubs are filed in their folders (Electrical & Lighting/48V → 03; Thermal/HVAC → 04; Structure → 06; Water & Safety → 07; Controls → 08), pre-filled with interfaces, known components, and load/mass links. Compliance is the 8th track — deferred per TJ. Sequence: Electrical + HVAC-sizing first → Water + Controls → 48V-internal research → Structure & Safety in parallel.
-
-**Subsystem detailing underway (sequential):** Track 1 **Electrical & Power Distribution = Detailed v0.1** (`03_.../Electrical_Power_Distribution.design.md`) — four voltage domains (800 V / 48 V / local / 120 V AC), load-domain placement, power & current budget, DC-DC sized ~10 kW (≈208 A at 48 V), protect
+**Latest (2026-06-29):**
+- **D1 revised to 400 V (V1).** Industrial/EV thermal gear is 400/600 V → DC-DC to the pack (no AC inversion); 800 V structural packs not yet mature. 800 V is now the V2/future target. **Consistency sweep DONE** — propagated through Electrical track (v0.2), Thesis v1.0, Thermal vetting, Thermal HVAC + granular docs, Feasibility Assay, and the Architecture **.docx** (cleaned via find-replace, since the build script is gone). Remaining "800 V" mentions are all explicit V2/future context.
+- **Thermal core RESOLVED (research pass, 2026-06-29).** Answered all 5 open questions. Key findings: whole OEM units (Konvekta UltraLight 700 = 26.5 kW / ~2.1×2.7 m) are **oversized 

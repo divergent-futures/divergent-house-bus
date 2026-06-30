@@ -17,7 +17,7 @@ A lightweight structural shell with the **sodium pack as the structural floor**,
 
 ## 3. Structural strategy
 
-- **Structural battery floor (full-floor, square-ish pack):** legacy buses run steel frame rails down the middle - wasteful and a poor fit for an EV. Instead the ~300 kWh sodium pack is a **large, square-ish slab roughly the size of the floor**, acting as the load-bearing structure itself, with **aluminium/composite stub rails** front and rear for crash structure, steering, and hitch loads.
+- **Structural battery floor (full-floor, square-ish pack):** legacy buses run steel frame rails down the middle - wasteful and a poor fit for an EV. Instead the ~300 kWh sodium pack (**400 V for V1; 800 V a future target**) is a **large, square-ish slab roughly the size of the floor**, acting as the load-bearing structure itself, with **aluminium/composite stub rails** front and rear for crash structure, steering, and hitch loads.
 - **Why a floor pack:** it puts the single heaviest mass as low as physically possible, giving a **very low centre of gravity** (rollover becomes extremely unlikely) and the stiffest possible floor, **while saving the weight of the deleted frame rails** - weight you need back, because the pack is far heavier than a conventional chassis. The sodium chemistry is also non-flammable (see Safety track), which makes a large under-floor pack much more acceptable.
 - **Body:** carbon/glass-over-foam composite panels (light, stiff, insulating).
 - **Interior:** EPP foam with carbon/fibreglass skins instead of wood/metal framing - large mass saving, integral insulation, wiring channels mouldable in.
@@ -41,6 +41,20 @@ A lightweight structural shell with the **sodium pack as the structural floor**,
 - Hosts every subsystem; the **central bay** must allow service access (inside + an external door) and a **fire-containment enclosure** (Safety track).
 - Cold-plate channels for the battery floor (Thermal); coolant/loop and wiring runs kept short by the central-bay location.
 - Roof: solar array + mounts (Electrical); slide-out seams engineered for the winter thermal bridge (accepted trade).
+
+## 6a. Why slide-outs + 25-27 ft (the form-factor rationale)
+
+Slide-outs add a large amount of interior space **while keeping the bus short** - and short is what unlocks everything else: a 25-27 ft bus **goes anywhere in the continental US**, is **easily shipped**, drives small roads, fits **national and state parks**, and parks/boondocks in a small footprint. A 35 ft bus gains ~10 ft of floor but loses that go-anywhere parkability and adds weight. The accepted cost of slide-outs is some structure around the openings and **winter thermal bridging at the seams** - acceptable because winter use is **short ski trips (a weekend, maybe a week), not months**, with the slide-outs in and energy use low. Net: **25-27 ft + slide-outs is the optimum** of space vs go-anywhere.
+
+## 6b. Scalability - length variants scale sub-linearly
+
+The **25-27 ft is the reference platform**, not the only size. Scaling up (e.g. a 35 ft variant) scales **sub-linearly**, which is the nice property of this architecture:
+
+- **Battery does NOT scale with length.** Adding ~10 ft does not mean adding ~100 kWh. The extra length adds some mass and a little aero/rolling load, but the marginal energy-per-mile rise is modest - roughly **+50 kWh keeps the same ~250 mi range**. You scale the pack to hold the range target, not to fill the floor.
+- **Drivetrain DOES need uprating.** A longer, heavier bus raises GVWR and grade loads, so the e-axle steps up a size (and the tiered sourcing picks a higher-power option). This is the main thing that genuinely scales with length.
+- **Structure/thermal/water scale gently** with occupancy and volume, not dramatically.
+
+Net: the platform is a family, not a one-off - a builder who wants 35 ft pays mostly in a bigger drivetrain and modestly more battery, not a proportional blow-up of every system.
 
 ## 7. Open questions (resolve to close v0.2)
 

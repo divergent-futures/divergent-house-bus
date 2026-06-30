@@ -1,7 +1,9 @@
 # Electrical & Power Distribution - Design Track
 
-**Status:** Detailed v0.1 (first deep pass)  ·  **Priority/Sequence:** 1 (foundation - feeds everything)  ·  **Depends on:** none
+**Status:** Detailed v0.2 (400 V V1 voltage decision)  ·  **Priority/Sequence:** 1 (foundation - feeds everything)  ·  **Depends on:** none
 **Part of:** House BUS subsystem design tracks. Integration is the thesis - every component names its interface back to the shared loop / bus.
+
+> **VOLTAGE DECISION (V1 = 400 V pack; 800 V is the V2/future target).** Chosen because (a) industrial/EV thermal gear - compressors, AC units, Konvekta/Guchen - is mostly **400/600 V**, so the pack feeds them **DC-DC (buck/boost), avoiding 48 V->AC inversion losses**; and (b) **800 V structural-pack architecture is not yet mature (~5-7 yrs out)**, so ~90% likely V1 is 400 V. Cost: 400 V carries **~2x the HV current** of an 800 V system for the same power (heavier HV cable) - acceptable at our modest power. Current figures below are at 400 V.
 
 ---
 
@@ -9,7 +11,7 @@
 
 The single shared structural pack is the only energy store. This subsystem must:
 
-- Deliver **800 V** for traction and the large thermal loads, and a stable **48 V** house rail for everyday loads, with **local 12/5 V** bucked near devices and a small **120 V AC** island for legacy appliances.
+- Deliver **400 V** (V1; 800 V is the future/V2 target) for traction and the large thermal loads, and a stable **48 V** house rail for everyday loads, with **local 12/5 V** bucked near devices and a small **120 V AC** island for legacy appliances.
 - **Protect mobility absolutely**: a software drive-reserve floor (~80 kWh) that house loads can never deplete.
 - Accept charge from **solar, shore, the CHP genset, and DC fast charge (NACS/MCS)** and arbitrate between them.
 - Be **safe in a wet, occupied dwelling**: HV isolated and monitored, SELV 48 V in wet zones, every circuit fused, correct grounding on shore and off-grid.
@@ -23,12 +25,12 @@ The core move is to put each load on the **highest practical voltage** so curren
 
 | Domain | Serves | Why here |
 |---|---|---|
-| **800 V HV** | Traction motor/inverter, heat-pump compressor, any HV resistive heat (cabin/water final-lift, battery PTC), DC fast charge, DC-DC input | Big loads at low current; matches commercial EV/bus parts |
+| **400 V HV** (V1; 800 V future) | Traction motor/inverter, heat-pump compressor, any HV resistive heat (cabin/water final-lift, battery PTC), DC fast charge, DC-DC input | Big loads; **400 V matches industrial 400/600 V compressors** (DC-DC, no AC inversion); 800 V is the future efficiency step |
 | **48 V house rail** | Lighting, pumps, fans, ERV, water UV, hydroponics, controls, and the AC inverter (fridge/freezer cooling now rides the thermal loop, not a separate compressor - see Thermal track) | The off-grid sweet spot: ~1/4 the current of 12 V, sealed TE connectors exist |
 | **12 / 5 V local** | Electronics, sensors, network, USB | Bucked at point of use - no long low-voltage runs |
 | **120 V AC island** | Induction hob, microwave, washer/dryer, power tools | Legacy appliances only; kept as small as possible |
 
-**Load-placement rule:** anything multi-kW and resistive or motor-driven goes on 800 V; everything with an efficient native-48 V part goes on the 48 V rail; only true legacy AC appliances justify the inverter.
+**Load-placement rule:** anything multi-kW and resistive or motor-driven goes on the 400 V HV bus; everything with an efficient native-48 V part goes on the 48 V rail; only true legacy AC appliances justify the inverter.
 
 ## 3. Power & current budget (representative)
 
@@ -36,10 +38,10 @@ Currents are what size the hardware. Peak, not average, sizes conductors and pro
 
 | Load | Domain | Peak (W) | Current | Notes |
 |---|---|---|---|---|
-| Traction drive | 800 V | 200-250 kW | ~310 A pk / ~100 A cont | Separate from house; drive-reserve protects it |
-| Heat-pump compressor | 800 V | ~6 kW | ~7.5 A | EV-grade HV compressor |
-| HV resistive heat (cabin/water/battery) | 800 V | ~8-10 kW | ~10-12 A | Final-lift coil + battery PTC, intermittent |
-| DC-DC input (to 48 V rail) | 800 V | ~10 kW | ~12.5 A | See sizing below |
+| Traction drive | 400 V | 200-250 kW | ~500-625 A pk / ~250 A cont | Separate from house; drive-reserve protects it |
+| Heat-pump compressor | 400 V | ~6 kW | ~15 A | EV-grade HV compressor |
+| HV resistive heat (cabin/water/battery) | 400 V | ~8-10 kW | ~20-25 A | Final-lift coil + battery PTC, intermittent |
+| DC-DC input (to 48 V rail) | 400 V | ~10 kW | ~25 A | See sizing below |
 | 48 V house base (lights, fridge, pumps, ERV, controls, hydro) | 48 V | ~1.5-2 kW pk | ~30-40 A | ~10.7 kWh/day average |
 | AC inverter draw (if 48 V-fed) | 48 V | ~5 kW | ~104 A | Dominant 48 V current term |
 | Induction hob | 120 V AC | ~1.8 kW | 15 A AC | Intermittent |
@@ -53,10 +55,10 @@ Currents are what size the hardware. Peak, not average, sizes conductors and pro
 The 48 V rail must feed both the house base **and** the AC inverter, so the DC-DC is sized to their combined peak:
 
 - House base peak ~2 kW + inverter peak ~5 kW = **~7 kW**, sized up to **~10 kW** for surge and headroom.
-- At 800 V input, 10 kW is ~12.5 A (trivial wiring). At 48 V output, 10 kW is **~208 A** - the high-current node that drives busbar and fuse sizing.
+- At 400 V input, 10 kW is ~25 A. At 48 V output, 10 kW is **~208 A** - the high-current node that drives busbar and fuse sizing.
 - Build from stackable modules (e.g. 4 x 2.5 kW or 2 x 5 kW) for redundancy and serviceability.
 
-**Open architecture choice:** feed the 120 V inverter from the **48 V rail** (simpler ecosystem, but the DC-DC must carry inverter current) **or** from an **800 V-input inverter** (keeps the 48 V rail and DC-DC small, fewer conversions, but a less common part). This one decision sizes the whole 48 V backbone - resolve early. *Recommended start: 48 V-fed Victron-class inverter for V1 maturity; revisit HV-fed for V2.*
+**Open architecture choice:** feed the 120 V inverter from the **48 V rail** (simpler ecosystem, but the DC-DC must carry inverter current) **or** from an **HV-input (400 V) inverter** (keeps the 48 V rail and DC-DC small, fewer conversions, but a less common part). This one decision sizes the whole 48 V backbone - resolve early. *Recommended start: 48 V-fed Victron-class inverter for V1 maturity; revisit HV-fed for V2.*
 
 Inverter: **3-6 kW pure sine** (e.g. Victron MultiPlus-II 48/5000) with transfer switch and charger built in.
 
@@ -64,7 +66,7 @@ Inverter: **3-6 kW pure sine** (e.g. Victron MultiPlus-II 48/5000) with transfer
 
 | Level | Protection |
 |---|---|
-| Pack | Main HV fuse (class T / EV fuse, ~400-600 A to suit traction), main + pre-charge contactors (Gigavac), HVIL loop, insulation monitor (Bender IMD) |
+| Pack | Main HV fuse (class T / EV fuse, ~700-900 A to suit 400 V traction), main + pre-charge contactors (Gigavac), HVIL loop, insulation monitor (Bender IMD) |
 | HV branches | Individual HV fuses per branch: compressor, HV heater, DC-DC, charge inlet |
 | 48 V | DC-DC output main fuse; PDM (Victron Lynx-class) with MIDI/MEGA fuses per circuit (30-100 A); matched to conductor ampacity |
 | 120 V AC | Breakers; **GFCI on every wet-zone circuit** (galley, bath); shore inlet surge protection + transfer switch |
@@ -74,7 +76,7 @@ Every positive leg fused at 1.25x continuous current. HV orange conduit, physica
 
 ## 6. Conductors & connectors
 
-- **800 V runs are thin** (low current) - the win of HV. Keep them short, sealed, orange, and clear of wet zones (SELV discipline keeps only 48 V in bath/galley).
+- **400 V HV carries ~2x the current** of an 800 V system for the same power - heavier HV cable than the 800 V ideal, accepted for V1 (mature packs + industrial 400/600 V gear compatibility). Keep runs short, sealed, orange, clear of wet zones (SELV discipline keeps only 48 V in bath/galley). 800 V (thinner cable) is the V2 efficiency step.
 - **48 V backbone is the heavy copper** - the ~208 A DC-DC output and inverter feed need **2/0-4/0 AWG or copper busbars**; keep runs under ~20 ft to hold voltage drop below 2-3%.
 - **Connectors:** TE Connectivity 48V portfolio - **HALVONEX** (sealed, up to 400 A) for the backbone; **Heavy-Duty Sealed** for chassis branches; **mixed signal+power** for smart subsystems (pump+sensors in one housing); Anderson Powerpole for modular low-power branches.
 - Marine-grade tinned cable, proper crimps, strain relief, grommeted bulkhead passes.
@@ -83,11 +85,11 @@ Every positive leg fused at 1.25x continuous current. HV orange conduit, physica
 
 | Source | Path | Notes |
 |---|---|---|
-| Solar (~3.5 kW roof / ~6 kW parked) | MPPT -> 48 V rail, then bidirectional DC-DC up to 800 V (or HV MPPT direct to 800 V) | Primary summer; arbitration favours solar first |
-| Shore (NEMA 14-50) | Inverter/charger -> 48 V -> DC-DC to 800 V (or HV charger) | Galvanic protection, transfer switch |
+| Solar (~3.5 kW roof / ~6 kW parked) | MPPT -> 48 V rail, then bidirectional DC-DC up to the 400 V pack (or HV MPPT direct) | Primary summer; arbitration favours solar first |
+| Shore (NEMA 14-50) | Inverter/charger -> 48 V -> DC-DC to the 400 V pack (or HV charger) | Galvanic protection, transfer switch |
 | CHP genset (3.5 kW) | Rectifier -> pack (HV or via 48 V) | Winter; also delivers heat (Thermal track I7) |
-| DC fast charge - MCS | ~1 MW (up to 1.2 MW) direct to 800 V | Primary heavy-vehicle standard |
-| DC fast charge - NACS | ~250 kW to 800 V (hold ~200 kW across ~10-60%) | Tesla network incl. emerging drive-through truck/trailer stalls (I-5 / I-10) |
+| DC fast charge - MCS | ~1 MW (up to 1.2 MW) direct to the 400 V pack | Primary heavy-vehicle standard |
+| DC fast charge - NACS | ~250 kW to the 400 V pack (hold ~200 kW across ~10-60%) | Tesla network incl. emerging drive-through truck/trailer stalls (I-5 / I-10) |
 | J1772 / CCS | via adapter only | Not installed as native ports |
 
 Charge priority (controller): **solar -> stored -> CHP (also yields heat) -> shore -> DC fast**. Bidirectional DC-DC is an open decision (lets 48 V solar assist traction charge).
@@ -116,10 +118,10 @@ Pack shunt + BMS (CAN); DC-DC and major-branch shunts; INA219 per 48 V zone; HV 
 
 ## 11. Open questions (resolve to close v0.2)
 
-- **Inverter feed: 48 V-fed vs 800 V-fed** - sizes the whole 48 V backbone (Section 4).
-- **Solar charge path:** 48 V MPPT + bidirectional DC-DC vs HV MPPT direct to 800 V.
+- **Inverter feed: 48 V-fed vs HV (400 V)-fed** - sizes the whole 48 V backbone (Section 4).
+- **Solar charge path:** 48 V MPPT + bidirectional DC-DC vs HV MPPT direct to the 400 V pack.
 - **Bidirectional DC-DC** yes/no (48 V solar assisting traction charge).
-- **HV resistive heat placement** (cabin/water final-lift on 800 V vs 48 V vs AC).
+- **HV resistive heat placement** (cabin/water final-lift on 400 V HV vs 48 V vs AC).
 - **Washer/dryer domain** (48 V DC vs 120 V AC).
 - **PDM topology:** zonal vs star; final TE connector/part map per branch.
 - **Pack main-fuse and contactor ratings** once traction power is fixed.
