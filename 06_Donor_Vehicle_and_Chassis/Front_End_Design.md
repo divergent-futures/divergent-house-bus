@@ -27,12 +27,7 @@ So the front carries cab-climate + steering + lighting + frunk + crush structure
 - Net rule: **maximise overlap of crumple + raked windshield + cabin** so the front delivers best Cd with minimal interior loss; whatever length the front consumes comes off the rear/living box, so it's a direct floor-plan input.
 - Action for v0.3: fix the **front-zone length** (crumple + cabin) and the **cab/lounge bulkhead position**, then re-allocate the remaining length to lounge/core/bedroom.
 
-## Open questions
-1. Target **Cd** + a CFD pass (confirms the kWh/mi the range model assumes).
-2. **Front-zone length** split: crumple (~2-3 ft) vs cabin (~5 ft) vs how much overlaps.
-3. Cab air-handler: branch off the central core (preferred) vs a dedicated front evaporator.
-4. Frunk volume + access (front storage in the non-crush part).
-5. Mirror/camera placement vs frontal area (FMVSS 111 mirrors now, CMS-ready).
-
----
-*Front-end design v0.1, 2026-06-29. Integrate the cabin into a raked low-Cd nose; ~2-3 ft crumple carrying only crash-safe items (lighting, steering, frunk, cab air-handler - NO HV/pressure vessels); sealable insulated cab conditioned off the central CO2 core. Feeds floor-plan v0.3 + the range model.*
+## Frunk, ride-height & body form (TJ, 2026-06-29)
+- **Frunk contents:** the non-crush part of the nose is a storage cavity for **bulky outdoor gear** - tents, boots, SUP boards, inflatable kayaks, awnings, camp equipment. (Crush structure still sits ahead of it.)
+- **Air-suspension ride height (dual-use: capability + aero):** the air suspension (Structure track) **lifts** for ground clearance / light off-road access and **drops on the highway to cut drag** - lower ride height + smaller underbody gap = measurably better CFD at speed. A free aero win from hardware we already carry.
+- **Uniform front curvature:** curve the *entire* front consistently (not just the windshield) for clean attached flow - part of the raked l

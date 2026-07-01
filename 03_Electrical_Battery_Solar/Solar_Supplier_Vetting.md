@@ -17,17 +17,10 @@
 ## Verdict
 **Adopt panels + MPPT off-the-shelf; lean rigid + tiltable for yield** (flexible only where the roof shape forces it - it runs hotter and yields ~10-20% less). The **value-add is the autonomously deployable array** (Tier A) - the thing that turns ~3.5 kW fixed into ~5-10 kW parked and makes the bus **net-positive while parked** (banks ~5-15 mi/day in summer while running the house - the "parked car loses range, parked house bus gains it" point). MPPT and the 48 V-direct feed are already covered in the Power-Electronics track.
 
-## Open questions
-1. **Fixed vs deployable split** (how much kW fixed vs the deployable array) - sets roof layout + the deploy mechanism size.
-2. Rigid-vs-flexible mix by roof region (yield vs conformity).
-3. **Autonomous-deploy mechanism** design (actuators, stow/deploy, wind/stow safety, theft).
-4. **48 V MPPT vs HV MPPT** path (ties to the bidirectional-DC-DC + dual-domain decisions).
+## The "triplicate" deployable roof (TJ, 2026-06-29)
 
-## V2+ headroom
-Integrated solar skin (body-integrated PV); sun-tracking deploy; bifacial.
-
-## Sources
-- [Flexible vs rigid (rigid + tilt = best real yield; flexible ~10-20% lower, runs hot)](https://www.thervgeeks.com/flexible-solar-panels-vs-rigid/) · [Flexible panel 2025 efficiency ~22.5%](https://solartechonline.com/blog/flexible-solar-panels-guide/) · Victron SmartSolar (Power-Electronics track)
-
----
-*Solar, steps 1-2 done. Adopt rigid+tiltable panels + Victron MPPT; the autonomously deployable array (3.5 -> 5-10 kW) is the Tier-A value-add that makes the bus net-positive parked. Resolve the fixed/deployable split + deploy mechanism, then a solar tracker.*
+Roof kept **flat/square** to host a three-panel deployable array:
+- **Center panel - fixed, rigid glass mono (~3.4 kW):** always on top, efficient, durable; this is the **driving-mode array** (stays put when moving).
+- **Two flexible wings - deploy outward when parked:** flexible mono on a **fiberglass substrate** (light, thin, stow flat over/under the center panel), each ~roof-sized. Deployed they roughly **triple the footprint -> ~8.7 kW over ~50 m^2**, and **shade the bus + make covered outdoor space** (cuts cabin solar gain -> less A/C - a thermal co-benefit).
+- **Panel-type decision:** **rigid glass = fixed center** (protected base, highest yield); **flexible = the fold-out wings** (light enough to cantilever on actuators). A heavy glass wing cantilevered out would be a weight/wind/mechanism problem, so **glass-on-wings is rejected**. The wings give up ~10-20% efficiency + run hotter, but they're *bonus parked area*, so that's the right trade.
+- **Stowed (driving) ~3.4 kW; deployed (parked)
