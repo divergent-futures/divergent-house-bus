@@ -24,6 +24,9 @@ Assumptions: air ρ 1.2 kg/m³; **frontal area A ≈ 7.0 m²** (~2.5 m wide × ~
 - **Speed is the biggest lever** (drag ∝ v³): cruising **60 instead of 65 adds ~35 mi** (~305 vs ~270). Reinforces the "≤65 mph, don't oversize the drivetrain" stance and the drive-the-cool-edges-of-the-day rhythm.
 - **The flat solar roof is affordable aero.** Its penalty is real but small next to nose shaping + ride-drop; a **flat roof + rounded leading edge + side fairings + tapered tail** keeps the ~0.42-0.45 target while preserving the triplicate-solar real estate.
 
+## Rear boat-tail - now committed (free, from the layout)
+The **bedroom sits at the rear and needs no standing height**, so the roof **tapers down over the aft section** into a boat-tail. Rear taper is one of the **largest Cd levers** (it shrinks the wake, the biggest drag region) - typically **-0.02 to -0.05 Cd** - and here it costs *nothing* functionally. **Flexible PV conforms to the sloped rear**, so almost no solar is lost. This pushes the achievable Cd toward the **~0.38-0.40** end (~307-332 mi @65) rather than 0.45. Also feeds the firmed frontal area (rear is below the 8.40 ft max).
+
 ## Design targets that fall out
 - **Cd target ~0.42-0.45** (dropped): raked nose with **uniform curvature**, rounded leading edges, smooth underbody, roof-to-side fairings, tapered rear, wheel-gap management, minimal protrusions.
 - **Mirrors:** minimal frontal area, faired, **removable / CMS-ready**.
@@ -31,12 +34,4 @@ Assumptions: air ρ 1.2 kg/m³; **frontal area A ≈ 7.0 m²** (~2.5 m wide × ~
 
 ## Open questions
 1. Real **CFD / wind-tunnel** pass to confirm Cd (this model assumes it).
-2. Firm the **frontal area A** once height/width are fixed (standing room + solar roof + floor pack).
-3. Rear/tail treatment (a boat-tail/taper is the next-biggest Cd lever after the nose).
-4. Mirror model + fairing that minimises ΔCd while meeting FMVSS 111.
-
-## Sources / basis
-- Physics: standard aero+rolling road-load model. Cd values from vehicle-class literature (boxy RV/bus ~0.6-0.7; well-shaped large vehicle ~0.4-0.45). Confirm by CFD.
-
----
-*CFD/Cd first-order pass, 2026-06-29. Target Cd ~0.42-0.45 -> ~1.0-1.05 kWh/mi @65 mph -> ~270 mi (245 floor is conservative). Mirrors ~-15 mi (remove when CMS-legal); ride-drop ~+13 mi; 60 vs 65 mph ~+35 mi. Real CFD to verify.*
+2. Firm the **frontal area A** once height/width are fixed (standing room + solar roo

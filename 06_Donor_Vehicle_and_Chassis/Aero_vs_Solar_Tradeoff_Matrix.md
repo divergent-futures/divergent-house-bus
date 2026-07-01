@@ -38,7 +38,7 @@ So the rule writes itself: **the roof is prioritised for solar; Cd is bought fro
 |---|---|---|---|---|
 | **Roof camber** | flat (max panel area, easy mount) | slight curve | small - a flat roof is fine *if* the leading edge is rounded | **flat roof** (win for solar) |
 | **Roof leading edge** | panels to the front edge | rounded/raked transition | rounding costs a little front panel length | **round it** - clean flow onto the roof matters more than a few cm of panel |
-| **Rear roofline / boat-tail above roofline** | panels to the back | downward taper (kammback) | a roof-height taper shortens rear panels | **partial** - taper mostly *below* roofline; keep the roof flat for panels, taper the body |
+| **Rear roofline / boat-tail** | panels to the back | downward taper (kammback) | ~~roof taper shortens rear panels~~ **RESOLVED (TJ)** - the **bedroom is at the rear and needs no standing height**, so the roof can **taper down over the aft section for free** (one of the biggest Cd levers - shrinks the wake). And **flexible panels conform to the taper**, so put flexible PV on the sloped rear and lose almost no solar. | **taper the rear roof over the bedroom + flexible PV on the slope** - a win/win |
 | **Overall height** | taller = more side-wing stow + interior | lower = smaller frontal area (A) | **the real lever** - height drives both frontal area (drag) and interior/solar | **balance**: only as tall as standing room needs; height is the main Cd knob, so don't over-height for its own sake |
 | **Deployable-wing stow** | thick stack on the roof | flush, smooth | stowed wings add roof bulk + disrupt flow | **flush-stow** the wings into a shallow roof recess (protect the flat aero surface) |
 
@@ -55,4 +55,4 @@ So the rule writes itself: **the roof is prioritised for solar; Cd is bought fro
 4. Rear treatment: how much taper below vs at roofline before it eats rear panels.
 
 ---
-*Aero-vs-solar matrix, 2026-06-29. They mostly don't conflict: solar owns the (flat, full) roof; Cd is won from tail/underbody/wheels/sides/edges/ride-height/mirrors - roof-neutral, plausibly Cd ~0.35-0.40 (~307-326 mi @65). The one real shared trade is overall HEIGHT. When a true tie, lean solar (parked-dominant duty cycle).*
+*Aero-vs-solar matrix, 2026-06-29. They mostly don't conf
