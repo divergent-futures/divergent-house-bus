@@ -6,6 +6,11 @@
 Road power at cruise = aero + rolling: **P = ½·ρ·Cd·A·v³ + Crr·m·g·v**, then energy/mile = P/v ÷ drivetrain efficiency.
 Assumptions: air ρ 1.2 kg/m³; **frontal area A ≈ 7.0 m²** (~2.5 m wide × ~3.0 m tall, shape-filled); loaded mass **7,000 kg**; Crr 0.007 (good tyres); drivetrain η 0.88; **usable traction ≈ 285 kWh** (~95% of the 300 kWh domain).
 
+> **⚠ PENDING RERUN (frontal area) — 2 corrections to fold in when this pass is redone:**
+> 1. **Height stack-up firmed A → ~5.5 m²** (not 7.0) once the 6'4" stack (~2.56 m overall) was set — the earlier 7.0 was conservative, so the range figures below are pessimistic (real idealised range is higher).
+> 2. **Body width DECIDED 98 → 102 in (2026-07-03):** +102 mm width adds **~+0.23 m² frontal area = +~4.2%** (→ ~+3.2% highway energy, ~-10 mi from drag alone, largely offset by the wider floor's +24 kWh). **Fold +4.2% into A** at the next CFD/range rerun.
+> Net: rerun with **A ≈ 5.5 m² × 1.042 ≈ 5.7 m²** and update the range table.
+
 ## Results
 
 | Configuration | Cd | @ 60 mph | @ 65 mph |
@@ -34,4 +39,12 @@ The **bedroom sits at the rear and needs no standing height**, so the roof **tap
 
 ## Open questions
 1. Real **CFD / wind-tunnel** pass to confirm Cd (this model assumes it).
-2. Firm the **frontal area A** once height/width are fixed (standing room + solar roo
+2. Firm the **frontal area A** once height/width are fixed (standing room + solar roof + floor pack).
+3. Rear/tail treatment (a boat-tail/taper is the next-biggest Cd lever after the nose).
+4. Mirror model + fairing that minimises ΔCd while meeting FMVSS 111.
+
+## Sources / basis
+- Physics: standard aero+rolling road-load model. Cd values from vehicle-class literature (boxy RV/bus ~0.6-0.7; well-shaped large vehicle ~0.4-0.45). Confirm by CFD.
+
+---
+*CFD/Cd first-order pass, 2026-06-29. Target Cd ~0.42-0.45 -> ~1.0-1.05 kWh/mi @65 mph -> ~270 mi (245 floor is conservative). Mirrors ~-15 mi (remove when CMS-legal); ride-drop ~+13 mi; 60 vs 65 mph ~+35 mi. Real CFD to verify.*
