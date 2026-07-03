@@ -52,12 +52,13 @@ Representative sodium-ion prismatic (the class small builders can buy now; CATL 
 - **Peripheral spine** channels (outboard, ~0 kWh) carry plumbing + LV wiring the length of the bus.
 - Both BMS and all protection live **inside the pack** — zero cabin/core volume.
 
-## 5. Open / to firm (Structure track)
-1. **Real cell pick** — lock the sodium prismatic (V/Ah/dimensions) from the battery tracker; re-run the S×P and the footprint at the actual cell (the ±0.8 m² margin is sensitive to cell size).
-2. **Wheel-well + rear-notch geometry** — exact tire size (19.5 vs 22.5), track width, and rear e-axle envelope set the real carve-out area (= real range cost).
-3. **Under-cab cells** — confirm the cab floor can sit on pack (crash rules keep HV out of the *crush* zone, but the cab proper behind it is fair game).
-4. **Module architecture** — module count/size, pressure end-plates (sodium likes a little pack pressure), cold-plate routing across the floor.
-5. **Thinner cells over the rear** — could a shallow cell layer sit *above* the raised rear floor to claw back some of the notch's lost kWh? (trades bed height.)
+## 6. Side-impact structure + body width (2026-07-03)
+See `pack_width_bodyover_crosssection.png`.
 
----
-*Structural pack layout + fit, 2026-07-03. Structure spans the full length (it IS the chassis); cells fill the ~22 ft zone minus crush zones, 4 wheel wells, and the rear e-axle notch → **net ~11.8 m²**. ~560 sodium cells (200 Ah/3.1 V): traction 128S4P ~317 kWh nom (~300 usable) + house 16S3P ~30 kWh, needing ~11.0 m² → **fits with ~+5 kWh margin**. The cells MUST extend forward under the cab/lounge; a mid-bus-only pack won't hold 330 kWh. Pack is multi-function (structure + energy + crash path + cold-plate). Every m² of notch/well ≈ 30 kWh ≈ 30 mi. See `structural_pack_seethrough.png`.*
+**What others use.** The standard BEV side-impact structure is a **rocker/sill separate from the cells**. Tesla Model 3 = a bonded **aluminium sill extrusion backed by ultra-high-strength (Martensitic) steel cross-beams**, pack bolted/integrated. Industry alternative = **multi-cell UHSS steel sills**. Both are "outboard crushable member → cells inboard."
+
+**Architecture = body-over-pack (chosen).** A real outer body shell with its **own structural rocker**, separate from the pack — like a normal car. Impact path: **1) hits the body rocker → crushes, 2) gap, 3) pack side rail → cells stay intact.** The pack becomes **serviceable/swappable** with a crash buffer to the cells. Costs a little more mass than a pure structural pack (rocker *and* pack rail), but more repairable and safer separation — fits the open-source/repairable ethos. (The pack still stiffens the floor in bending/torsion, so most of the frame-deletion weight win holds.)
+
+**Width cross-section, per side (cell-edge → body-edge = 205 mm):** skin 15 + **body rocker 130** (Al extrusion + UHSS steel) + gap 15 (pack bolts to body) + pack side rail 30 + thermal edge 15.
+
+**BODY WIDTH → 102 in (2,591 mm) — the US legal max** on the National Network, excl. mirrors/safety devices (STAA 1982; Hawaii 108). *Was drawn at 98 in conservatively.* Going to the full 102 in is what **pays for the 
