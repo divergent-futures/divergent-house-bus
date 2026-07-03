@@ -13,7 +13,8 @@ Adds the **interior side elevation** so we can read **heights + vertical packagi
 **Vertical packaging bands (floor = 0):**
 - **Below floor:** structural pack (cells, ~220 mm) front+mid; **rear mech + energy module + e-axle** aft (under the raised bed).
 - **0–900 mm:** seats, galley counter (900), WC (500), water-tank tops, low storage.
-- **900–1,500 mm:** fridge column (~1,500), windows, hydro-wall mid.
+- **900–1,500 mm:** windows, hydro-wall mid.
+- **Full-size FRIDGE + FREEZER (galley):** **30 × 60 × 30 in (762 × 1,524 × 762 mm), ~20 cu ft internal** — a real household fridge/freezer for 2–3 people on the road. **Loop-fed advantage:** because cooling comes from the central thermal loop (+ the low-temp circuit for the freezer), there is **no compressor/condenser pack in the cabinet** — just an insulated box + evaporator plate — so it **reclaims the depth normally lost to the compressor bay** and keeps full internal volume in a shallower external unit. Floor-standing; a short overhead cabinet sits above (~1,620–1,900).
 - **1,500–1,930 mm:** overhead cabinets + standing head clearance (**6'4" standing** through cab → lounge/galley → wet room).
 - **Bedroom:** bed on a **raised platform (~500 mm)** over the mech module; mattress top ~850; **boat-tail roof** above = sit/lie (~1,100–1,200 mm), no standing; rear hatch egress.
 
@@ -93,13 +94,4 @@ Bath + closed-loop reticulating shower, composting toilet (urine -> hydroponics)
 
 - **No whole-bus AC bus.** 48 V backbone (induction, big pumps, dryer) + 12/24 V + USB-C via point-of-use bucks.
 - A small **~1.5 kW switchable convenience inverter near the bathroom** (hair-dryer-driven, off by default) feeds **GFCI AC outlets at bath (primary), galley, and lounge**.
-- Shore AC -> DC charger; solar -> 48 V MPPT; DC fast charge (NACS, MCS-ready) -> the 400 V pack.
-
-## 7. Living zones & air quality
-
-Four zones - **driving cabin, main lounge, bath/hydroponics, bedroom** - each with its own air-quality array (CO / CO2 / O2 / humidity / particulates) feeding ventilation logic. Driving cabin seals from the rear so only it is conditioned on the move.
-
-## 8. Slide-outs, roof & underfloor
-
-- **Slide-outs** widen the lounge and bedroom when parked (accepted thermal-bridge trade; winter occasional).
-- **Roof:** ~3.5 kW fixed solar + deployable array (to ~5-10 kW); ventilation built into the loop; kept cl
+- Shore AC -> DC charger; solar -> 48 V MPPT; DC fast charge (NACS
