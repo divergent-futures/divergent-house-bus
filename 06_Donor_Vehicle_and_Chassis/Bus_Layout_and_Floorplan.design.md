@@ -1,6 +1,6 @@
 # Bus Layout & Floor Plan - V2 (integrated bus)
 
-**Status:** Layout v0.2 (firmed-footprint pass)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging
+**Status:** Layout v0.3 (measured, 25 ft — for iteration)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging
 **Part of:** House BUS subsystem design tracks. Where the now-sized components become a physical arrangement.
 
 ---
@@ -16,20 +16,21 @@ Dimensions are firmer but still provisional; the goal remains the arrangement an
 
 ## 2. The floor plan
 
-![House BUS V2 floor plan](bus_floorplan.png)
+![House BUS V2 floor plan v0.3](bus_floorplan_v0_3.png)
 
-Front (cab) at left, rear (bed) at right. **~25-27 ft x ~8 ft body**, slide-outs widening the lounge and bedroom when parked. The **400 V/48 V sodium structural pack is the full floor** under everything (~8.7 in thick, lowest CG).
+Front (cab) at left, rear (bed) at right. **25 ft (locked) x ~98 in body**, slide-outs widening the lounge and bedroom when parked. The **400 V/48 V sodium structural pack is the full floor** (~8.7 in, lowest CG). Side elevation shows the **raked low-Cd nose**, the **flat 6 ft 4 in standing box** (cab -> lounge -> core), and the **boat-tail** tapering over the rear bedroom. *(v0.2 schematic image retained as `bus_floorplan.png`.)*
 
-## 3. Zone allocation (front -> rear)
+## 3. Zone allocation (front -> rear) — measured, 25 ft (300 in)
 
-| Zone | Approx length | Contents |
+| Zone | Length | Contents |
 |---|---|---|
-| Front crash / steering | ~2 ft | Stub structure, steering, front crash |
-| **Driving cabin** | ~5 ft | Driver + 2-3 seats, tablet control; sealable, conditioned on the move |
-| **Main lounge / galley** | ~6 ft | Convertible dinette/sofa-bed, table; **48 V induction + DC oven** + sink; slide-out widens |
-| **Central core** | ~7 ft | Mechanical bay (one side) + bath/closed-loop shower + composting toilet + hydroponic wall + fridge/freezer + drying/dehumid |
-| **Bedroom** | ~6 ft | Climate bed, storage, rear emergency hatch; slide-out widens |
-| Rear crash / e-axle | ~1.5 ft | e-axle, rear crash, hitch for the toad |
+| Front crush / steering | 2.0 ft | crumple structure, steering, front lighting; **no HV/pressure vessels** (Front-End doc) |
+| **Driving cabin** | 4.5 ft | 2-3 seats + tablet; **sealable** (insulated bulkhead); integrated into the **raked nose**; cab air-handler off the central core |
+| **Main lounge / galley** | 6.0 ft | convertible dinette/sofa-bed; **48 V induction + DC oven** + sink; slide-out widens |
+| **Central core** | 6.0 ft | mech bay (top: CO2 core, manifold, DHW+buffers, DC-DC/IMD, CHP, both BMS) + wet cluster (bottom: shower+composting WC, hydroponic wall, fridge/freezer, drying) |
+| **Bedroom** | 5.5 ft | climate bed + storage; under the **boat-tail** (sit/lie, no standing); rear emergency hatch; slide-out widens |
+| Rear crush / e-axle | 1.0 ft | e-axle, rear crumple, hitch for the toad |
+| **Total** | **25.0 ft** | usable interior ~22 ft (cab -> bed) |
 
 ## 4. The central mechanical bay (the heart)
 
@@ -66,13 +67,4 @@ Four zones - **driving cabin, main lounge, bath/hydroponics, bedroom** - each wi
 
 ## 10. Why this arrangement
 
-Heaviest mass central + low (battery floor) -> stable handling; thermal core central -> shortest loops + best heat harvest; wet cluster central -> one plumbing zone, condensate harvested where made; sleep rear -> quietest, own egress; cab sealable -> condition only the front on the move.
-
-## 11. Open questions (toward v0.3 / measured)
-
-- Galley along the lounge wall vs wrapped into the core.
-- Bath vs hydroponics split within the wet cluster (rail-mounted shower/hydro space-share idea).
-- Cab seat count (2 vs 3-4); convert/stow.
-- Storage volume targets per zone.
-- Exact slide-out extents.
-- Pack wheel-well notch geometry vs
+Heaviest mass central + low (battery floor) -> stable handling; thermal core central -> shortest loops + best heat harvest; we
