@@ -5,11 +5,13 @@
 ---
 
 ## 1. The three tiers (sodium potted-CTP, 102 in floor)
-| | **ENTRY ~100 mi** | **MID ~200 mi** | **HIGH ~300 mi (max)** |
+| | **ENTRY** | **MID** | **HIGH (max)** |
 |---|---|---|---|
 | Battery total | 155 kWh | 280 kWh | 390 kWh |
 | Split | 125 kWh traction + 30 house | 250 + 30 | 360 + 30 |
-| Range (cons.–ideal) | 99–115 mi | 198–230 mi | 286–331 mi |
+| **Range @65 mph (highway)** | **~111 mi** | **~217 mi** | **~307 mi** |
+| **Range @~50 mph (local)** | **~165 mi** | **~321 mi** | **~450 mi** |
+| Efficiency (weight-adj.) | 1.04 kWh/mi | 1.06 kWh/mi | 1.08 kWh/mi |
 | Cells weight | ~1,953 lb | ~3,527 lb | ~4,913 lb |
 | **Pack weight** | **~2,845 lb** | **~4,356 lb** | **~5,688 lb** |
 | Cells cost (basis ~$80/kWh) | ~$12.4k | ~$22.4k | ~$31.2k |
@@ -26,19 +28,15 @@
 ## 3. Chemistry note (same across tiers)
 All tiers are **sodium** (non-flammable, −40 °C cold, ESG-clean). Same floor, swap chemistry for different range at the same size: **LFP blade ≈ 1.45×** these ranges; **NMC ≈ 450–550 mi** (rejected on fire safety for a live-in vehicle). So a builder could also pick chemistry as a second axis later.
 
+## 3b. Range is now WEIGHT-ADJUSTED (corrected)
+Earlier the tiers used a fixed kWh/mi (didn't credit the lighter packs). Fixed: **E/mi = a mass-independent aero term + a rolling term that scales with mass.** Calibrated at High (1.08 kWh/mi, aero ~78% / rolling ~22%), scaling rolling by loaded mass.
+
+**Two lessons:**
+1. **At 65 mph the weight credit is small (~+5 mi for Entry).** Aero is ~78% of highway drag and **doesn't change with weight**; only the ~22% rolling part scales. So dropping ~3,000 lb moves efficiency 1.08 → 1.04 kWh/mi, not dramatically. The bus is **aero-limited** at highway speed.
+2. **The bus eats ~1.0 kWh/mi (~5× a car)** because a 25-ft dwelling is a big, draggy brick — so **155 kWh ≈ ~110 mi at highway is correct**, not a low estimate. Car intuition (155 kWh should go far) doesn't transfer to a rolling apartment.
+3. **Weight + aero both pay off at low speed** (aero energy ∝ v²): at ~50 mph the Entry tier does **~165 mi** (not 110), the whole line stretches (Mid ~321, High ~450). Since the Entry buyer drives **local/slower**, the "~100 mi" label is the conservative *highway* figure — real local use is 150+.
+
 ## 4. Assumptions / caveats
-- Range = usable traction (0.92 × nominal) ÷ **1.16 (conservative) to 1.00 (idealised, firmed A≈5.5) kWh/mi**; real-world lands in-band. Lighter tiers do slightly better per mile (less mass) — not yet credited, so Entry/Mid ranges are mildly conservative.
+- Range @65 mph (highway planning) and @~50 mph (local); real-world in-band. Loaded masses: Entry ~14,252 lb, Mid ~15,763, High ~17,095 (non-pack curb ~9,640 + pack + payload ~1,767).
 - Cells ~$80/kWh sodium (cost basis, rough); retail ~1.75× on the **cell delta** (pack structure/BMS/electronics are ~common across tiers, so the *difference* is mostly cells).
-- Pack mass = cells + inter-cell foam potting (~12%) + honeycomb fill + Al faces/frame (~220 kg). Firm at cell selection.
-
-## 5. Recommendation / use
-- **Publish all three** in the open-source repo as the pack menu; **High = our reference build** (the full-thesis bus, tows the toad, goes far), **Mid = the recommended default** for most buyers, **Entry = the budget/local option**.
-- Fold the chosen *reference* (High) into the mass budget + floor-plan v0.6; keep Entry/Mid as documented variants.
-
-## 6. Open / next
-- Credit the lighter tiers' efficiency gain (re-range Entry/Mid after the mass drop).
-- Confirm Entry's vehicle-level weight vs axle/CDL thresholds (possible extra selling point).
-- Cost model: firm cell $/kWh + the retail multiple with the BOM.
-
----
-*3-tier pack line, 2026-07-03. Same 102 in structural shell; tier = cell count; cell-free zones = light honeycomb (NOT foam — foam ≈ 5× denser, would erase the saving). ENTRY 155 kWh (125+30) ~2,845 lb ~$12.4k → ~99-115 mi; MID 280 (250+30) ~4,356 lb ~$22.4k → ~198-230 mi; HIGH 390 (360+30) ~5,688 lb ~$31.2k → ~286-331 mi. Δ Entry vs High −2,845 lb, ~−$33k retail. Sodium throughout (LFP blade ~1.45×, NMC ~450-550 rejected on fire). High = reference build, Mid = default, Entry = budget/local. See pack_three_tier.png.*
+- Pack mass = cells + inter-cell foam potting (~12%) + honeycomb fill + Al faces/frame (~220 kg). Firm at
