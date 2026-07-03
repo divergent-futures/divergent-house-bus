@@ -61,4 +61,4 @@ See `pack_width_bodyover_crosssection.png`.
 
 **Width cross-section, per side (cell-edge → body-edge = 205 mm):** skin 15 + **body rocker 130** (Al extrusion + UHSS steel) + gap 15 (pack bolts to body) + pack side rail 30 + thermal edge 15.
 
-**BODY WIDTH → 102 in (2,591 mm) — the US legal max** on the National Network, excl. mirrors/safety devices (STAA 1982; Hawaii 108). *Was drawn at 98 in conservatively.* Going to the full 102 in is what **pays for the 
+**BODY WIDTH → 102 in (2,591 mm) — DECIDED (TJ, 2026-07-03), the US legal max** on the National Network (excl. mirrors; STAA 1982; Hawaii 108). *Reasoning (evolved through 98 in):* a 25 ft bus needs RV/oversized parkin
