@@ -1,6 +1,25 @@
 # Bus Layout & Floor Plan - V2 (integrated bus)
 
-**Status:** Layout v0.5 (mech bay moved to the rear e-axle module — for iteration)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging
+**Status:** Layout v0.6 (102 in; plan + interior side elevation with heights — for iteration)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging
+
+---
+
+## 0.6 — v0.6: multi-view packaging (2026-07-03)
+
+![House BUS V2 floor plan v0.6](bus_floorplan_v0_6.png)
+
+Adds the **interior side elevation** so we can read **heights + vertical packaging**, and updates the body to **102 in**. Two panels: **plan** (fore/aft + side-to-side) and **side elevation** (how tall everything is + what stacks above/below).
+
+**Vertical packaging bands (floor = 0):**
+- **Below floor:** structural pack (cells, ~220 mm) front+mid; **rear mech + energy module + e-axle** aft (under the raised bed).
+- **0–900 mm:** seats, galley counter (900), WC (500), water-tank tops, low storage.
+- **900–1,500 mm:** fridge column (~1,500), windows, hydro-wall mid.
+- **1,500–1,930 mm:** overhead cabinets + standing head clearance (**6'4" standing** through cab → lounge/galley → wet room).
+- **Bedroom:** bed on a **raised platform (~500 mm)** over the mech module; mattress top ~850; **boat-tail roof** above = sit/lie (~1,100–1,200 mm), no standing; rear hatch egress.
+
+**Key fixed heights:** standing 1,930 mm · counter 900 · WC 500 · shower enclosure full-standing 1,930 · hydro wall ~400–1,830 · bed platform 500 / sleep surface ~850.
+
+**Next:** **transverse sections** at the **wet room** (shower + WC + hydro width/height) and the **galley** (counter + fridge + overhead) to fix side-to-side + height packaging per station. *(v0.3–v0.5 images retained.)*
 
 ---
 
@@ -83,28 +102,4 @@ Four zones - **driving cabin, main lounge, bath/hydroponics, bedroom** - each wi
 ## 8. Slide-outs, roof & underfloor
 
 - **Slide-outs** widen the lounge and bedroom when parked (accepted thermal-bridge trade; winter occasional).
-- **Roof:** ~3.5 kW fixed solar + deployable array (to ~5-10 kW); ventilation built into the loop; kept clear.
-- **Underfloor:** the 400 V/48 V structural pack spans the floor - lowest CG, stiff, rollover-resistant; ~8.7 in thick with wheel-well notches.
-
-## 9. Circulation & egress
-
-- **Main entry** front by the lounge/cab.
-- **Rear emergency hatch + window** at the bed - the second independent exit, so a mid-bus fault never traps you.
-- **External service door** to the central bay.
-- Clear walk-through aisle; the central core is passed on one side.
-
-## 10. Why this arrangement
-
-Heaviest mass central + low (battery floor) -> stable handling; thermal core central -> shortest loops + best heat harvest; wet cluster central -> one plumbing zone, condensate harvested where made; sleep rear -> quietest, own egress; cab sealable -> condition only the front on the move.
-
-## 11. Open questions (toward v0.3 / measured)
-
-- Galley along the lounge wall vs wrapped into the core.
-- Bath vs hydroponics split within the wet cluster (rail-mounted shower/hydro space-share idea).
-- Cab seat count (2 vs 3-4); convert/stow.
-- Storage volume targets per zone.
-- Exact slide-out extents.
-- Pack wheel-well notch geometry vs the bay/bath footprint above it.
-
----
-*Layout v0.2 (2026-06-29). V2 integrated bus; firmed footprints folded in (400 V/48 V dual-domain structural pack, CO2 dual-circuit core, all-DC distribution). Dimensions provisional. Next: measured v0.3 once the central-bay and water-inventory volumes are fixed.*
+- **Roof:** ~3.5 kW fixed solar + deployable array (to ~5-10 kW); ventilation built into the loop; kept cl
