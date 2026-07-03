@@ -1,6 +1,34 @@
 # Bus Layout & Floor Plan - V2 (integrated bus)
 
-**Status:** Layout v0.3 (measured, 25 ft — for iteration)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging
+**Status:** Layout v0.5 (mech bay moved to the rear e-axle module — for iteration)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging
+
+---
+
+## 0. v0.5 — the packaging move (2026-07-03)
+
+![House BUS V2 floor plan v0.5](bus_floorplan_v0_5.png)
+
+**What changed from v0.4:** the **mechanical/energy bay leaves mid-bus** and becomes a **rear module clustered around the e-axle**, under the raised bed platform (see `Eaxle_RideHeight_and_Rear_Packaging.md`). The e-axle already has cooling, skid/impact structure, the fattest cabling, and rear serviceability, and this keeps the **mid-belly clear for off-road**. Two panels now: a **plan** (top-down) and a **side elevation** showing the packaging — pack-as-floor, the pack notching up into the raised rear floor, the rear mech module around the e-axle, the skid low-line, and the ground-clearance band (~10–11 in nominal; ~6–7 dropped; ~13–15 lifted).
+
+**Consequences folded in:**
+- **Mid-length freed:** lounge/galley grows 6.0 → **7.0 ft**; the mid "central core" is now just the **wet cluster** (~4.0 ft: shower + WC + hydro wall + dryer-mode).
+- **Fridge/freezer** relocates to the **galley** (fed by the core loop); **hydro wall** is vertical; **convenience inverter** on the bath branch.
+- **Rear module** (over the e-axle, under the bed): compressors, manifold, plate HXs, buffers, power electronics (DC-DC/PDM/IMD/charger/controls), CHP (sealed), heat-rejection gas-cooler + fan (shares the rear air path). **All bolted to the sprung pack/rear-subframe, never the axle beam**, above jounce, above the skid line.
+- **Ext. service door** moves to the rear (mech access); **rear hatch** stays as egress; **peripheral spine** carries plumbing/wiring forward (~0 kWh).
+- **Balance watch:** water tanks (SS drinking + grey) stay under the galley as the **rear-axle-load trim weight**; front-cab thermal loop sized for the long run.
+
+### v0.5 zone allocation (front → rear) — 25 ft (300 in)
+| Zone | Length | Contents |
+|---|---|---|
+| Front crush | 2.0 ft | crumple, steering, lighting, frunk; no HV/pressure vessels |
+| Driving cabin | 4.5 ft | 2 seats; sealable insulated bulkhead; cab air-handler |
+| **Lounge / galley** | **7.0 ft** | dinette/sofa-bed; 48 V induction + DC oven + sink + **fridge/freezer**; slide-out widens |
+| **Wet cluster** | **4.0 ft** | shower + composting WC; hydro wall; drying (dryer mode) |
+| **Bedroom (raised)** | **6.5 ft** | transverse bed on a raised platform; **rear mech + energy module + e-axle below**; rear hatch egress; slide-out widens |
+| Rear crush | 1.0 ft | rear crumple, hitch for the toad |
+| **Total** | **25.0 ft** | mech bay is now vertical-under-bed, not a mid-bus room |
+
+*(v0.3/v0.4 images retained: `bus_floorplan_v0_3.png`, `bus_floorplan_v0_4.png`.)*
 **Part of:** House BUS subsystem design tracks. Where the now-sized components become a physical arrangement.
 
 ---
@@ -67,4 +95,16 @@ Four zones - **driving cabin, main lounge, bath/hydroponics, bedroom** - each wi
 
 ## 10. Why this arrangement
 
-Heaviest mass central + low (battery floor) -> stable handling; thermal core central -> shortest loops + best heat harvest; we
+Heaviest mass central + low (battery floor) -> stable handling; thermal core central -> shortest loops + best heat harvest; wet cluster central -> one plumbing zone, condensate harvested where made; sleep rear -> quietest, own egress; cab sealable -> condition only the front on the move.
+
+## 11. Open questions (toward v0.3 / measured)
+
+- Galley along the lounge wall vs wrapped into the core.
+- Bath vs hydroponics split within the wet cluster (rail-mounted shower/hydro space-share idea).
+- Cab seat count (2 vs 3-4); convert/stow.
+- Storage volume targets per zone.
+- Exact slide-out extents.
+- Pack wheel-well notch geometry vs the bay/bath footprint above it.
+
+---
+*Layout v0.2 (2026-06-29). V2 integrated bus; firmed footprints folded in (400 V/48 V dual-domain structural pack, CO2 dual-circuit core, all-DC distribution). Dimensions provisional. Next: measured v0.3 once the central-bay and water-inventory volumes are fixed.*
