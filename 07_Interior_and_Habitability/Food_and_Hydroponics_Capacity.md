@@ -43,8 +43,5 @@ A 35 × 35 in × ~5-tier hydro stack gives 3 people a **daily fresh-greens + mic
 - **Total ~3.3 kWh/day** for the full stack. **Solar-covered in summer**; in winter it's a **real load (~20–30% of the ~10–15 kWh/day house use)** — a deliberate trade for fresh food. (Theoretical optimized ceiling from the energy figure is ~20 kg/mo; ~11 kg is a realistic home-system estimate — headroom exists if lit harder.)
 - **Motion note:** greens/microgreens tolerate the daily slide + road motion; fruiting crops would not — another reason the crop list is greens-first.
 
-## 6. Feeds / next
-- **Energy model:** add the ~3.3 kWh/day grow-light load (seasonal).
-- **Water/nutrient:** the urine-diverted nutrient loop supplies N (sodium-bleed caveat); size the reservoir + dosing to this crop mix.
-- **Interior:** the sprout drawer in the galley; the stack lighting spectrum/driver selection.
-- **Standard variant:** likely a much smaller grow shelf or none — this full stack is a Signature feature.
+### Shared ceiling light (top tier) + control logic (TJ, 2026-07-03) — see `06_.../hydro_light_sharing.png`
+- **The bathroom ceiling light doubles as the TOP-tier grow light** — a **dimmable, spectrum-tunable white LED** that runs at grow spectrum + PPFD when the block is docked, and dims to a comfortable warm white for showering. **No separate top-tier fixture** ("best part is no part"). Tiers 2–5 keep dedicated LED 
