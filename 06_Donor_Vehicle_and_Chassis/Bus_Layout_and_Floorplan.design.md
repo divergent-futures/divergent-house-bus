@@ -12,7 +12,7 @@ Adds the **interior side elevation** so we can read **heights + vertical packagi
 
 **Vertical packaging bands (floor = 0):**
 - **Below floor:** structural pack (cells, ~220 mm) front+mid; **rear mech + energy module + e-axle** aft (under the raised bed).
-- **0–900 mm:** seats, galley counter (900), WC (500), water-tank tops, low storage.
+- **0–900 mm:** seats, galley counter (900), **extended composting WC** (seat ~460–500; body ~660–710 tall × ~510 W × ~560–610 D — larger chamber for ~2× capacity, ~6–10 wks between empties for 2–3 people), water-tank tops, low storage.
 - **900–1,500 mm:** windows, hydro-wall mid.
 - **Full-size FRIDGE + FREEZER (galley):** **30 × 60 × 30 in (762 × 1,524 × 762 mm), ~20 cu ft internal** — a real household fridge/freezer for 2–3 people on the road. **Loop-fed advantage:** because cooling comes from the central thermal loop (+ the low-temp circuit for the freezer), there is **no compressor/condenser pack in the cabinet** — just an insulated box + evaporator plate — so it **reclaims the depth normally lost to the compressor bay** and keeps full internal volume in a shallower external unit. Floor-standing; a short overhead cabinet sits above (~1,620–1,900).
 - **1,500–1,930 mm:** overhead cabinets + standing head clearance (**6'4" standing** through cab → lounge/galley → wet room).
@@ -93,5 +93,4 @@ Bath + closed-loop reticulating shower, composting toilet (urine -> hydroponics)
 ## 6. Electrical distribution (all-DC)
 
 - **No whole-bus AC bus.** 48 V backbone (induction, big pumps, dryer) + 12/24 V + USB-C via point-of-use bucks.
-- A small **~1.5 kW switchable convenience inverter near the bathroom** (hair-dryer-driven, off by default) feeds **GFCI AC outlets at bath (primary), galley, and lounge**.
-- Shore AC -> DC charger; solar -> 48 V MPPT; DC fast charge (NACS
+- A small **~1.5 kW switchable convenience inverter near the bathroom** 

@@ -24,16 +24,19 @@ This maps onto the project's standing philosophy: *extrapolate every permutation
 
 So one small footprint does **bathroom + growing + storage** by time-sharing the volume between the galley, the wet room, and a sliver of the bedroom.
 
-## 3. The consideration (honest trade)
-- **Signature** buys space/function density at the cost of **mechanism complexity** — rails, seals, and the non-trivial problem of **moving a (composting) toilet** and wet fixtures repeatedly. More to maintain, more to get right; a demonstrator, not a mass product.
-- **Standard** trades that space-sharing for **reliability and simplicity** — the thing the target buyer (esp. retirees) actually wants, and the thing mass-market RVs fail at.
-- **Bedroom impact (Signature):** the hydro's stow position eats a small portion of the rear bedroom — fold into the bedroom packaging when the wet-room section is drawn.
+## 2b. Assumption — EXTENDED composting toilet
+Both variants assume an **extended (larger-capacity) composting toilet**, not the compact standard, because 2–3 people full-time need more time between empties.
+- **Reference:** a compact unit (Nature's Head class) is **~21"H × 20"W × 19"D** and holds only **~60–80 solid uses** (~3 uses/day for a couple ⇒ ~3–4 weeks).
+- **Extended (assumed):** a larger solids chamber for **~2× capacity** (~6–10 weeks for 2–3 people) → estimated envelope **~20"W × ~22–24"D × ~26–28"H** (~510 × ~560–610 × ~660–710 mm). Confirm the exact model at sourcing (Water/Safety tracker).
 
-## 4. Feeds / next
-- **Floor-plan:** draw **two wet-zone layouts** — a fixed Standard wet room and the Signature reconfigurable states — in the upcoming **wet-room transverse section**.
-- **Tiers/personas:** Standard = the Entry/Mid product; Signature = the reference/halo (aligns with `Pack_Three_Tier_Product_Line.md` + `Customer_Segmentation_and_Personas.md`).
-- **Structure/mechanisms:** if Signature proceeds, spec the **rails, seals, and wet-fixture slide** (the risky bits) separately.
-- Decide whether other subsystems also fork (e.g., Signature-only closed-loop shower, sauna, deployable solar wings vs Standard's simpler set).
+**Fit check:**
+- **Signature stow (under the galley cabinet, on rails):** the galley counter is **900 mm** high, so a ~660–710 mm extended unit **still clears** with ~190–240 mm to spare — but the cabinet needs to be **~600 mm deep** to swallow the ~560–610 mm depth, and the **overhead cabinet above shrinks**. Tight but workable; the rail run + seal must handle the deeper/heavier unit (part of the mechanism-complexity trade).
+- **Standard fixed wet room:** the extended WC just takes a **bigger share of the small wet bath** (~510 × ~600 mm footprint) — still fits a compact combined shower+WC, but plan the wet room around it.
+- **Height in use:** seat at ~460–500 mm; the taller extended body sits **below the seat/bin line**, so standing/sitting ergonomics are unchanged — the extra size is chamber depth, not seat height.
 
----
-*Two variants, 2026-07-03. Both open source. STANDARD = realistic, simple, buildable-by-anyone (fixed small shower+WC wet room; Entry/Mid buyers). SIGNATURE = TJ's thesis demonstrator with a RECONFIGURABLE wet room: hydro slides aside (into the bedroom edge, displacing a small cabinet) to free the shower; composting WC slides out on rails from under a galley cabinet; both stow back after use — one footprint = bathroom + growing + storage. Trade: Signature = space/function at the cost of mechanism complexity (rails/seals/moving a wet toilet); Standard = space traded for reliability (what the target buyer wants). Maps to the extrapolate-vs-adopt philosophy + the tier/persona line. Next: two wet-zone layouts in the wet-room transverse section. See wet_room_two_variants.png.*
+## 2c. SIGNATURE wet room — detailed spec (TJ, 2026-07-03)
+A **decent-sized bathroom — big enough for two people to shower.** See `06_.../signature_wetroom.png` (plan in shower mode + shower-wall elevation).
+
+**Layout & fixtures:**
+- **Shower against the galley-side wall** (forward end of the wet room), at the bottom corner. Two-person size (~1.2 × 1.5 m opened up).
+- **Fixtures:** a **ceiling rain head** (~1,950 mm) *plus* a **wall-recessed handheld wand on a long hose** — pull it out, drop it on a holder (high ~1,500 / low ~1,080) for a **multidirectional** shower; thermostatic mixer
