@@ -37,6 +37,6 @@ Both variants assume an **extended (larger-capacity) composting toilet**, not th
 ## 2c. SIGNATURE wet room — detailed spec (TJ, 2026-07-03)
 A **decent-sized bathroom — big enough for two people to shower.** See `06_.../signature_wetroom.png` (plan in shower mode + shower-wall elevation).
 
-**Layout & fixtures:**
-- **Shower against the galley-side wall** (forward end of the wet room), at the bottom corner. Two-person size (~1.2 × 1.5 m opened up).
-- **Fixtures:** a **ceiling rain head** (~1,950 mm) *plus* a **wall-recessed handheld wand on a long hose** — pull it out, drop it on a holder (high ~1,500 / low ~1,080) for a **multidirectional** shower; thermostatic mixer
+**Toilet-in-shower = wet bath (corrected).** The extended composting toilet sits **inside the shower** — the whole room is the shower pan, drains centrally. Its **width (~20 in / 508 mm) is what sizes the shower**.
+
+**The shower and the hydro are the SAME footprint (time-shared)** — the shower is *exactly as wide as* the hydro system because they occupy the same space at differen
