@@ -14,6 +14,21 @@
 
 This maps onto the project's standing philosophy: *extrapolate every permutation (Signature) but adopt-off-the-shelf where a simple solution genuinely fits (Standard).* Publishing both means a builder picks the complexity they want.
 
+## 1b. What actually diverges — one platform, one forked module
+The two buses share **~95% of the build**; they fork at **essentially one module: the bathroom (+ its plumbing).** See `variant_divergence_map.png`.
+
+**SHARED PLATFORM (both variants):** 25 ft × 102 in body · structural sodium pack (Entry/Mid/High tiers) · body-over-pack rocker · rear e-axle + rear mech/energy module · CO₂ thermal core · all-DC electrical · solar + air suspension · galley + 20 cu ft fridge · dinette/sofa-bed · rear bed on raised platform · aero/boat-tail · **water tanks + drinking line + wand shower (rain+handheld+basin-tap) + urine-diverting composting toilet.**
+
+**THE FORK — bathroom module:**
+| | STANDARD | SIGNATURE |
+|---|---|---|
+| Fixtures | fixed small combined wet bath | transforming wet room; hydro = shower (76 in); pocket door |
+| Hydroponics | none (optional simple grow shelf) | full sliding grow system (button-driven) |
+| Mechanisms | none — just a door | actuator + rails + seals; hydro slides into the bedroom (the risk) |
+| **Plumbing (Signature adds)** | fresh+grey+drinking (shared); wand + central drain; urine → container | **+ hydro water & NUTRIENT loop** (reservoir, pump, dosing, drip/NFT, EC/pH); **urine → hydro nutrient** (Na-bleed caveat); **moving-block** flexible/quick-disconnect water+drain+power (or a self-contained tank) |
+
+**Why fork:** the transforming hydro bathroom isn't everyone's jam (complexity, maintenance) — so **Standard is the simple bathroom anyone can build**, Signature is TJ's integrated demonstrator. Because everything *upstream* of the bathroom is shared, **most of the plumbing is common too**; the divergence is the hydro loop + the moving-block connections + urine routing.
+
 ## 2. First divergence — the wet room
 **STANDARD:** one **small, fixed combined wet room** — a compact shower + composting toilet in the same space. No moving parts. Simple, robust, cheap; anyone can build it.
 
@@ -26,17 +41,4 @@ So one small footprint does **bathroom + growing + storage** by time-sharing the
 
 ## 2b. Assumption — EXTENDED composting toilet
 Both variants assume an **extended (larger-capacity) composting toilet**, not the compact standard, because 2–3 people full-time need more time between empties.
-- **Reference:** a compact unit (Nature's Head class) is **~21"H × 20"W × 19"D** and holds only **~60–80 solid uses** (~3 uses/day for a couple ⇒ ~3–4 weeks).
-- **Extended (assumed):** a larger solids chamber for **~2× capacity** (~6–10 weeks for 2–3 people) → estimated envelope **~20"W × ~22–24"D × ~26–28"H** (~510 × ~560–610 × ~660–710 mm). Confirm the exact model at sourcing (Water/Safety tracker).
-
-**Fit check:**
-- **Signature stow (under the galley cabinet, on rails):** the galley counter is **900 mm** high, so a ~660–710 mm extended unit **still clears** with ~190–240 mm to spare — but the cabinet needs to be **~600 mm deep** to swallow the ~560–610 mm depth, and the **overhead cabinet above shrinks**. Tight but workable; the rail run + seal must handle the deeper/heavier unit (part of the mechanism-complexity trade).
-- **Standard fixed wet room:** the extended WC just takes a **bigger share of the small wet bath** (~510 × ~600 mm footprint) — still fits a compact combined shower+WC, but plan the wet room around it.
-- **Height in use:** seat at ~460–500 mm; the taller extended body sits **below the seat/bin line**, so standing/sitting ergonomics are unchanged — the extra size is chamber depth, not seat height.
-
-## 2c. SIGNATURE wet room — detailed spec (TJ, 2026-07-03)
-A **decent-sized bathroom — big enough for two people to shower.** See `06_.../signature_wetroom.png` (plan in shower mode + shower-wall elevation).
-
-**Toilet-in-shower = wet bath (corrected).** The extended composting toilet sits **inside the shower** — the whole room is the shower pan, drains centrally. Its **width (~20 in / 508 mm) is what sizes the shower**.
-
-**The shower and the hydro are the SAME footprint (time-shared)** — the shower is *exactly as wide as* the hydro system because they occupy the same space at differen
+- **Reference:** a compact unit (Nature's Head class) is **~21"H × 20"W × 19"D** and holds only **~60–80 solid uses** (~3 
