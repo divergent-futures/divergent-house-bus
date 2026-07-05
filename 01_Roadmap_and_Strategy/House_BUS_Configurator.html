@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>House BUS — Build Configurator (open-source prototype)</title>
+<style>
+  :root{--navy:#1f3a56;--green:#2f6b2f;--accent:#6aa84f;--rust:#8a3d17;--paper:#f7f9fb;--line:#dce3ea;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--navy);background:#eef2f6;}
+  header{background:var(--navy);color:#fff;padding:18px 22px;}
+  header h1{margin:0;font-size:20px;}
+  header p{margin:4px 0 0;font-size:12.5px;opacity:.85;}
+  .wrap{display:flex;flex-wrap:wrap;gap:18px;padding:18px;max-width:1180px;margin:0 auto;}
+  .options{flex:1 1 560px;min-width:320px;}
+  .summary{flex:1 1 320px;min-width:280px;position:sticky;top:12px;align-self:flex-start;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+  .card h3{margin:0 0 4px;font-size:14px;color:var(--navy);}
+  .card .hint{font-size:11.5px;color:#6b7785;margin:0 0 10px;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;}
+  .opt{border:1.5px solid var(--line);border-radius:8px;padding:8px 11px;cursor:pointer;font-size:12.5px;flex:1 1 auto;min-width:120px;transition:.12s;background:#fff;}
+  .opt small{display:block;color:#7a8794;font-size:10.8px;margin-top:2px;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.sel{border-color:var(--green);background:#eef6e9;box-shadow:0 0 0 2px #eef6e9;}
+  .summary .card{background:#fff;}
+  .sum-h{background:var(--green);color:#fff;border-radius:10px 10px 0 0;margin:-14px -16px 12px;padding:12px 16px;}
+  .sum-h h3{color:#fff;margin:0;font-size:15px;}
+  .big{display:flex;justify-content:space-between;align-items:baseline;margin:7px 0;}
+  .big b{font-size:22px;color:var(--navy);}
+  .big span{font-size:12px;color:#6b7785;}
+  .profile{background:#fbf6ec;border:1px solid #d9c9a0;border-radius:8px;padding:9px 11px;margin:10px 0;font-size:12.5px;color:var(--rust);font-weight:600;}
+  .lst{font-size:11.8px;color:#3a4652;margin:8px 0 0;padding-left:16px;}
+  .lst li{margin:2px 0;}
+  .del{color:#a33;}
+  footer{font-size:11px;color:#6b7785;text-align:center;padding:14px;}
+  .note{font-size:11px;color:#8a3d17;background:#fff;border:1px dashed #d9c9a0;border-radius:8px;padding:8px 10px;margin-top:8px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>House BUS — Build Configurator <span style="opacity:.6;font-size:13px;">· open-source prototype</span></h1>
+  <p>Choose-your-own-adventure: pick the branches you want. One platform, many builds. Numbers are first-order estimates for iteration.</p>
+</header>
+
+<div class="wrap">
+  <div class="options" id="options"></div>
+  <div class="summary">
+    <div class="card">
+      <div class="sum-h"><h3>Your build</h3></div>
+      <div class="profile" id="profile">—</div>
+      <div class="big"><span>Battery</span><b id="kwh">—</b></div>
+      <div class="big"><span>Range @65 mph</span><b id="range">—</b></div>
+      <div class="big"><span>Curb weight</span><b id="mass">—</b></div>
+      <div class="big"><span>Battery + options (cost basis)</span><b id="cost">—</b></div>
+      <ul class="lst" id="incl"></ul>
+      <div class="note">First-order only. Full build adds the fixed platform cost (structure, body, interior, thermal, controls). Retail ≈ ~1.75× the cell/option cost basis.</div>
+    </div>
+  </div>
+</div>
+<footer>House BUS · Divergent Futures / Terrestrial Technology · open-source (CERN-OHL-S / MIT / CC-BY). Prototype configurator — every branch is a real design fork.</footer>
+
+<script>
+const BASE_CURB=9640; // lb, non-pack platform
+const cfg=[
+ {key:"tier",label:"Battery tier",hint:"How far you roam sets the pack size.",opts:[
+   {id:"entry",name:"Entry ~100 mi",sub:"155 kWh · stay-local",kwh:155,mi:111,packlb:2845,cost:12400},
+   {id:"mid",name:"Mid ~200 mi",sub:"280 kWh · the default",kwh:280,mi:217,packlb:4356,cost:22400,def:1},
+   {id:"high",name:"High ~300 mi",sub:"390 kWh · cross-country",kwh:390,mi:307,packlb:5688,cost:31200},
+ ]},
+ {key:"chem",label:"Cell chemistry",hint:"Sodium is the safe baseline; LFP blade is denser.",opts:[
+   {id:"na",name:"Sodium (baseline)",sub:"non-flammable, −40 °C",rmult:1.0,def:1},
+   {id:"lfp",name:"LFP blade (BYD-class)",sub:"~1.45× range, same size",rmult:1.45,kmult:1.45,note:"LFP fire-class + weaker cold than sodium. Adopt when the blade pack/shell is sold outside BYD."},
+ ]},
+ {key:"drive",label:"Drivetrain",hint:"RWD + a toad, or onboard AWD.",opts:[
+   {id:"rwd",name:"RWD (rear e-axle)",sub:"lightest · toad for extreme",addlb:0,cost:0,rmult:1.0,def:1},
+   {id:"awd",name:"AWD (+ front e-axle)",sub:"Overlander · Utah off-road",addlb:900,cost:8000,rmult:0.97,note:"No toad needed for moderate off-road; +weight, small range hit."},
+ ]},
+ {key:"bath",label:"Bathroom",hint:"Simple, or the transforming grow-shower.",opts:[
+   {id:"std",name:"Standard wet bath",sub:"fixed · simple · light",addlb:60,cost:2000,def:1},
+   {id:"sig",name:"Signature",sub:"transforming hydro-shower + garden",addlb:210,cost:9000,note:"Sliding hydro block, dock-only water/power, ~12 kg/mo fresh greens."},
+ ]},
+ {key:"chp",label:"Winter heat (CHP genset)",hint:"Agnostic bolt-in. Exhaust runs through an onboard heat-exchanger (quiet), then out the bottom/side.",opts:[
+   {id:"none",name:"None",sub:"warm-climate · grid/solar only",addlb:0,cost:0,def:1},
+   {id:"chp35",name:"3.5 kW diesel CHP",sub:"cold-climate",addlb:180,cost:3500,note:"Heat is the product — exhaust heat-exchanger feeds the loop."},
+   {id:"chp5",name:"5 kW diesel CHP",sub:"Alaska/Siberia · 6 cold months",addlb:240,cost:4500},
+ ]},
+ {key:"rear",label:"Rear hardpoints / towing",hint:"Design the hitch + hardpoints in from the start.",opts:[
+   {id:"rnone",name:"None",sub:"clean tail",addlb:0,cost:0,def:1},
+   {id:"bike",name:"Hitch + bike rack",sub:"toys on the back",addlb:60,cost:800},
+   {id:"toy",name:"Toy / storage trailer hardpoints",sub:"tow a small cargo/toy hauler",addlb:40,cost:1200,note:"Rear hardpoints + wiring; the trailer is separate."},
+   {id:"toad",name:"Tow a 4WD toad",sub:"extreme off-road (non-AWD)",addlb:80,cost:1000},
+ ]},
+ {key:"solar",label:"Solar",hint:"Fixed roof, or add deployable wings.",opts:[
+   {id:"roof",name:"Roof fixed (~3.4 kW)",sub:"drives on top",addlb:0,cost:0,def:1},
+   {id:"wings",name:"+ Deployable wings (~8.7 kW)",sub:"net-positive parked · shades the bus",addlb:120,cost:4000},
+ ]},
+];
+
+const state={};
+cfg.forEach(c=>{state[c.key]=c.opts.find(o=>o.def)?.id||c.opts[0].id;});
+
+function render(){
+  const root=document.getElementById("options"); root.innerHTML="";
+  cfg.forEach(c=>{
+    const card=document.createElement("div"); card.className="card";
+    card.innerHTML=`<h3>${c.label}</h3><p class="hint">${c.hint}</p>`;
+    const row=document.createElement("div"); row.className="opts";
+    c.opts.forEach(o=>{
+      const el=document.createElement("div");
+      el.className="opt"+(state[c.key]===o.id?" sel":"");
+      el.innerHTML=`${o.name}<small>${o.sub||""}</small>`;
+      el.onclick=()=>{state[c.key]=o.id;render();compute();};
+      row.appendChild(el);
+    });
+    card.appendChild(row); root.appendChild(card);
+  });
+}
+function get(k){return cfg.find(c=>c.key===k).opts.find(o=>o.id===state[k]);}
+
+function compute(){
+  const tier=get("tier"),chem=get("chem"),drive=get("drive"),bath=get("bath"),chp=get("chp"),rear=get("rear"),solar=get("solar");
+  const kwh=Math.round(tier.kwh*(chem.kmult||1));
+  const range=Math.round(tier.mi*chem.rmult*drive.rmult);
+  let mass=BASE_CURB+tier.packlb+drive.addlb+bath.addlb+chp.addlb+rear.addlb+solar.addlb;
+  let cost=tier.cost+drive.cost+bath.cost+chp.cost+rear.cost+solar.cost;
+  document.getElementById("kwh").textContent=kwh+" kWh";
+  document.getElementById("range").textContent="~"+range+" mi";
+  document.getElementById("mass").textContent=mass.toLocaleString()+" lb";
+  document.getElementById("cost").textContent="~$"+(Math.round(cost/100)*100).toLocaleString();
+  // profile
+  let p="Custom build";
+  if(drive.id==="awd"&&solar.id==="wings") p="🏔️ Overlander / off-grid";
+  else if(tier.id==="entry"&&bath.id==="std"&&chp.id==="none") p="🏡 Stay-local / budget";
+  else if(tier.id==="high") p="🛣️ Cross-country full-timer";
+  else if(bath.id==="sig") p="🌱 Full-time roamer (grow-your-own)";
+  else if(chp.id!=="none") p="❄️ Cold-climate dweller";
+  document.getElementById("profile").textContent=p;
+  // included / deleted list
+  const notes=[];
+  [tier,chem,drive,bath,chp,rear,solar].forEach(o=>{if(o.note)notes.push(o.note);});
+  const incl=document.getElementById("incl"); incl.innerHTML="";
+  const line=(t,del)=>{const li=document.createElement("li");li.textContent=t;if(del)li.className="del";incl.appendChild(li);};
+  line((chem.id==="na"?"Sodium cells (safe/cold)":"LFP blade cells (denser)"));
+  line((drive.id==="awd"?"Onboard AWD — no toad needed":"RWD + toad for the rough stuff"));
+  line((bath.id==="sig"?"Signature transforming grow-bathroom":"Standard simple wet bath"));
+  if(chp.id==="none") line("No genset — grid + solar only",1); else line(chp.name+" (onboard exhaust heat-exchanger)");
+  if(rear.id!=="rnone") line(rear.name);
+  if(solar.id==="wings") line("Deployable solar wings");
+  notes.forEach(n=>{const li=document.createElement("li");li.style.color="#8a3d17";li.textContent="⚑ "+n;incl.appendChild(li);});
+}
+render();compute();
+</script>
+</body>
+</html>
