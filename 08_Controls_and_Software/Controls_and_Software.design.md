@@ -1,6 +1,6 @@
 # Controls & Software - Design Track
 
-**Status:** Detailed v0.2 (Ethernet backbone + phone/tablet access)  ·  **Priority/Sequence:** 2  ·  **Depends on:** Electrical, Thermal (and reads from every track)
+**Status:** Detailed v0.2 (Ethernet backbone + phone/tablet access) → **see `Controls_Brain_Orchestration_v0_3.md` for the full intelligent-orchestration layer (6-layer stack, load-shed ladder, state machine, predictive MPC)**  ·  **Priority/Sequence:** 2  ·  **Depends on:** Electrical, Thermal (and reads from every track)
 **Part of:** House BUS subsystem design tracks. Integration is the thesis - and this is the track that makes the integration actually happen.
 
 ---
