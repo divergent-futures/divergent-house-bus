@@ -1,27 +1,12 @@
 # BMS (traction + house)
 
-**Subsystem:** Battery/Electrical  ·  **Status:** researching  ·  **Qty:** 1-2
-**Function:** cell V/T, SOC/SOH, balancing, charge/temp gating; 2 SOC estimators (twin redundancy map)
-**Source spec:** 03_.../Battery_and_Pack_Vetting.md
+**Subsystem:** Battery/Electrical · **Status:** candidate-selected · **Qty:** 2 (one per domain)
+**Function:** cell V/T, SOC/SOH, balancing, charge/temp gating, contactor + interlock control. Feeds the Controls L1 safety layer (twin redundancy map wants 2 cross-checked SOC estimators).
+**Source spec:** `03_.../Battery_and_Pack_Vetting.md`, `Controls_Brain_Spec_v0_4.md` · **Figure:** `photos/bms_options.png` · **Researched:** 2026-07-07.
 
-## Key specs
-- cells: ~100S+ TBD
-- comms: CAN->Ethernet gateway
-- Dimensions (mm): TBD
-- Mass (kg): ~5
+---
 
-## Candidate suppliers
-- **Orion** BMS 2/Jr — proven EV-conversion BMS
-- **REC** BMS — marine/off-grid
-- **JK/Batrium**  — DIY-grade
+## Two roles, because the pack is dual-domain
+The structural pack is **two electrically-distinct sub-packs sharing one enclosure + thermal loop**, bridged by the bidirectional DC-DC — so there are **two BMS jobs**:
 
-## Selected
-_(none yet)_
-
-## Photos
-Drop reference photos in `photos/` (for measurement + 3D matching).
-
-## 3D model
-Drop the GLB/OBJ in `models/` (manufacturer CAD, phone scan, or AI-gen). Set TRUE dimensions.
-
-## Notes
+1. **Traction BMS** — ~**133S, 

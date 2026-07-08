@@ -57,45 +57,62 @@ window.COMPONENTS = [
     "id": "bms",
     "name": "BMS (traction + house)",
     "subsystem": "Battery/Electrical",
-    "fn": "cell V/T, SOC/SOH, balancing, charge/temp gating; 2 SOC estimators (twin redundancy map)",
+    "fn": "TWO roles: traction (~133S/400V, EV-grade) + house (~16S/48V, simpler). Sodium needs a CONFIGURABLE voltage window (~1.5-4.0V), not an LFP-hardcoded BMS. Feeds Controls L1 + 2-SOC cross-check.",
     "specs": {
-      "cells": "~100S+ TBD",
-      "comms": "CAN->Ethernet gateway"
+      "traction": "~133S 400V 360kWh",
+      "house": "~16S 48V 30kWh",
+      "sodium": "configurable 1.5-4.0V + balance; NO cold-charge lockout",
+      "comms": "CAN->Ethernet gateway + contactor control"
     },
-    "dims_mm": "TBD",
-    "mass_kg": "~5",
+    "dims_mm": "Orion 02 ~ compact ECU + cell taps",
+    "mass_kg": "~5 (both)",
     "qty": "1-2",
-    "status": "researching",
+    "status": "candidate-selected",
     "candidates": [
       {
-        "supplier": "Orion",
-        "product": "BMS 2/Jr",
-        "note": "proven EV-conversion BMS"
+        "supplier": "Orion (Ewert Energy)",
+        "product": "BMS 2 (02) Expandable",
+        "note": "RECO TRACTION: 24-180 cells to 800V, cell 0.5-5.0V (covers sodium), configurable, dual-CAN+contactor, EV-proven, ~$2-2.5k"
+      },
+      {
+        "supplier": "foxBMS (Fraunhofer)",
+        "product": "open-source BMS",
+        "note": "OPEN-SOURCE alt (on-thesis): 1-hundreds cells, configurable; R&D platform = more engineering, less turnkey"
+      },
+      {
+        "supplier": "Nuvation",
+        "product": "G4 HV",
+        "note": "to 1500V, multi-chemistry, functional-safety, ESS/utility grade; pricier"
+      },
+      {
+        "supplier": "Batrium",
+        "product": "Core + K9 + Blockmons",
+        "note": "modular per-cell monitoring, configurable; ~$0.7-1.8k; DIY/ESS"
       },
       {
         "supplier": "REC",
         "product": "BMS",
-        "note": "marine/off-grid"
+        "note": "HOUSE 48V option: marine/off-grid, ~16S+, ~$0.6-1k"
       },
       {
-        "supplier": "JK/Batrium",
-        "product": "",
-        "note": "DIY-grade"
+        "supplier": "JK/Daly/Seplos",
+        "product": "cheap DIY",
+        "note": "HOUSE only + ONLY if voltage-configurable for sodium (many are LFP-preset - verify!)"
       }
     ],
-    "selected": "",
+    "selected": "Traction: Orion 02 Expandable (or foxBMS if open-source) \u00b7 House: REC/Batrium",
     "source": "03_.../Battery_and_Pack_Vetting.md",
     "photo": "components/bms/photos/",
     "model3d": "components/bms/models/",
     "spec_doc": "components/bms/spec.md",
     "sourcing": {
-      "est_unit_usd": 1400,
+      "est_unit_usd": 1800,
       "qty": 2,
-      "est_total_usd": 2800,
+      "est_total_usd": 3600,
       "region": "China/West",
-      "channel": "Orion(US) or JK/Batrium(CN)",
-      "confidence": "rough",
-      "rfq_status": "not started"
+      "channel": "Orion(US/Ewert) traction + REC(SI)/Batrium(AU) house; foxBMS open-src",
+      "confidence": "researched (traction ~$2-2.5k, house ~$0.6-1k)",
+      "rfq_status": "ready to RFQ"
     }
   },
   {
