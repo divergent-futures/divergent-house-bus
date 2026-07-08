@@ -20,20 +20,37 @@ The hard part is that "light + thin" and "impact-strong" usually fight. The reso
 
 *(On TJ's mentions: **Tesla** panels are strong but residential glass — too heavy and still shatterable for a vehicle roof. **Polydrops**-style teardrop builds use thin/flexible panels; the eArc / Merlin category is exactly that class, done durably.)*
 
+## Manufacturer directory (Europe · US · China)
+Broad sweep across regions (`photos/solar_manufacturers.png`). Grouped by the technology class that actually decides light-vs-strong:
+
+**Glass-free composite / honeycomb (BEST for impact + weight):**
+- **Sunman (CN, eArc)** — glass-free composite, "airplane-window" skin, no-shatter, ~19.3 %. *(the class flagship)*
+- **SunWare (DE)** — glass-FREE (Nowoflon fluoropolymer film), marine since 1987, salt-proof, deliberately "no dangerous glass on board."
+- **Solarge + EconCore (NL)** — glass-free **honeycomb** composite, ~65 % lighter, recyclable.
+- **Levante (IT)** — glass-free **carbon-fibre**, waterproof, recycled CF (collab with Solbian), new (2025).
+- **Bila Solar (US)** — glass-less silicon + composite frame (new, 2024).
+
+**Reinforced flexible (good — light + tough cells):**
+- **Merlin Solar (US)** — metal-grid, **walkable, ~50× cell durability**, marine/military.
+- **Solbian (IT)** — premium ETFE, Maxeon cells up to **25.9 %**, marine-extreme durability (thermal shock, salt, impact).
+- **Sunbeam System (SE/DE)** — "Tough" walkable marine *(verify spec)*.
+- **Sunport Power (CN)** — MWT ETFE flexible 370–380 W, **buyable mid-tier**.
+
+**Thin-film CIGS / a-Si (most impact-tolerant + ultralight, but LOW efficiency → needs ~2–3× area):**
+- **Ascent Solar (US)** — CIGS thin-film, rugged/impact, aerospace.
+- **PowerFilm (US)** — a-Si thin-film, 30-yr durable, weatherproof.
+
+**Rigid glass (highest eff + cheapest $/W, but HEAVY + shatters → cost/efficiency anchor, not the roof):**
+- **Maxeon / SunPower (US)** — up to **22.7 %**, hail-resistant, 40-yr warranty (premium cells; flexible options exist).
+- **LONGi / JinkoSolar / Trina / JA / DAH (CN)** — mass rigid glass, ~22 %, cheapest $/W — the cost anchor.
+- **Meyer Burger (CH/DE)** — high-eff glass, European-made (heavy).
+
+**Budget flexible (AVOID the cheap end):**
+- **Renogy / BougeRV / Rich Solar (US brands, CN-made)**, **Sungold / Lensun (CN)**, generic Alibaba OEM — many are cheap PET (poor lifespan/punctures). Verify ETFE + a real datasheet before buying.
+
+**Regional sourcing read:** *Europe* = premium marine-grade durability (Solbian, SunWare) + glass-free innovators (Solarge, Levante); *US* = the toughness leaders (Merlin walkable, Ascent/PowerFilm rugged thin-film) + Maxeon cells; *China* = the class flagship **Sunman eArc** + buyable mid-tier (Sunport) + the cheapest rigid glass (LONGi/Jinko) if a tier is cost-driven.
+
 ## Why glass-free wins the impact case
 - **Sunman eArc** — no glass, so nothing to smash; the composite skin absorbs/flexes on impact and passes hail testing. Comes in many wattages (100 W → 520 W) → **fits the different roof zones** (big roof panels, smaller fold-outs, narrow vertical side strips, slide-top panels).
 - **Merlin** — the metal-grid makes the *cells* ~50× more crack-tolerant and the panel **walkable** (you can stand on the roof array). Also multiple sizes.
-- Both are **semi-flexible**: mount **rigid** on the flat roof + fold-outs (for the PV/T cooling-plate bond), or let them **conform** to a curved boat-tail. This also matches the `Solar_PVT_Cooling_Loop.md` plan (rigid panels get cooling plates).
-
-## Recommendation
-**Sunman eArc as the primary** (lightest, glass-free/no-shatter, thin, sized per zone) — with **Merlin** as the walkable/toughest alternative where foot traffic or max crack-resistance matters. **Avoid glass** (weight + shatter) and **cheap PET flexibles** (durability). Wire panels in **series strings (65–450 V)** to suit the Victron MPPT RS input window; keep each roof zone on its own MPPT tracker so orientations don't drag each other down.
-
-## Open / next
-- **Quote eArc + Merlin** in the sizes we need (roof-main, fold-out, side-strip, slide-top) → $/W + kg each; pick per zone.
-- Confirm **impact/hail rating** figures on the datasheets (eArc composite test class; Merlin cell-crack spec).
-- Tie to **PV/T**: which panels get cooling plates (rigid roof/fold-outs) vs air-cooled (any that conform).
-- String design → MPPT tracker map (see `mppt/spec.md`).
-- Photos + a GLB (flat panel boxes at true size) → this folder.
-
----
-*Solar panels, researched 2026-07-07 (TJ: lightweight + strong/impact-resistant + thin; branch/hail smash is the worry). ~12 kW deployed across roof-main + 2-3 fold-outs + vertical sides + slide-tops (mixed sizes). KEY: go GLASS-FREE (glass = heavy AND shatters). CANDIDATES: Sunman eArc glass-free COMPOSITE (~70% lighter than glass, 430W~11kg, ~19.3%, 'airplane-window' composite = NO shatter, passes hail, semi-flex to 240deg, sizes 100-520W) = RECO; Merlin metal-grid (<12lb, ~19.6%, WALKABLE, ~50x cell crack-resistance, marine/military) = RECO-alt toughest cells; Maxeon flexible (highest eff ~22%, hail-resist, 40yr) = premium pricey; rigid glass/Tesla = strong but HEAVY + shatters (wrong for a roof); cheap PET flexible = AVOID (poor lifespan/punctures). Tesla = residential glass too heavy; Polydrops-class thin panels = the eArc/Merlin category. Both eArc+Merlin semi-flexible → mount RIGID on flat roof/fold-outs (PV/T cooling-plate bond) or conform to curves. Wire series strings 65-450V for Victron MPPT RS; each zone its own tracker. RECO: eArc primary + Merlin where walkable/toughest needed; avoid glass+PET. Next: quote eArc+Merlin per zone ($/W+kg), confirm impact/hail datasheet ratings, PV/T which-get-cooling, string→tracker map. See photos/solar_options.png. Sources: sunman-energy.com, merlinsolar.com, maxeon.com, pv-magazine.*
+- Both are **semi-flexible**: mount **rigid** on the flat 

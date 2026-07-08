@@ -1063,27 +1063,62 @@ window.COMPONENTS = [
     "status": "candidate-selected",
     "candidates": [
       {
-        "supplier": "Sunman",
+        "supplier": "Sunman (CN)",
         "product": "eArc glass-free composite",
-        "note": "RECO: ~70% lighter than glass, 'airplane-window' composite = NO shatter, passes hail, semi-flex, sizes 100-520W ~19.3%"
+        "note": "RECO: airplane-window composite, NO shatter, ~70% lighter, ~19.3%, sizes 100-520W \u2014 class flagship"
       },
       {
-        "supplier": "Merlin Solar",
+        "supplier": "Merlin Solar (US)",
         "product": "metal-grid flexible/rigid",
-        "note": "RECO-alt: WALKABLE, ~50x cell crack-resistance, marine/military, ~19.6%"
+        "note": "RECO-alt: WALKABLE, ~50x cell crack-resistance, marine/military"
       },
       {
-        "supplier": "Maxeon",
-        "product": "flexible",
-        "note": "highest eff ~22%, hail-resist, 40yr, premium/pricey"
+        "supplier": "SunWare (DE)",
+        "product": "glass-free (Nowoflon film) marine",
+        "note": "EU glass-free, salt-proof, since 1987 \u2014 durable marine"
+      },
+      {
+        "supplier": "Solbian (IT)",
+        "product": "premium ETFE flexible",
+        "note": "Maxeon cells ~25.9%, marine-extreme durability; premium"
+      },
+      {
+        "supplier": "Solarge+EconCore (NL)",
+        "product": "glass-free honeycomb",
+        "note": "~65% lighter, recyclable; EU rooftop-lightweight"
+      },
+      {
+        "supplier": "Levante (IT)",
+        "product": "carbon-fibre glass-free",
+        "note": "waterproof, recycled CF (w/ Solbian), new 2025"
+      },
+      {
+        "supplier": "Maxeon/SunPower (US)",
+        "product": "flexible/rigid",
+        "note": "highest eff ~22.7%, hail, 40yr \u2014 premium cells"
+      },
+      {
+        "supplier": "Ascent Solar / PowerFilm (US)",
+        "product": "CIGS / a-Si thin-film",
+        "note": "most impact-tolerant + ultralight BUT low eff \u2192 ~2-3x area"
+      },
+      {
+        "supplier": "Sunport Power (CN)",
+        "product": "MWT ETFE flexible 370-380W",
+        "note": "buyable mid-tier"
+      },
+      {
+        "supplier": "LONGi/Jinko/Trina/JA (CN)",
+        "product": "rigid glass ~22%",
+        "note": "cheapest USD/W but HEAVY+shatters \u2014 cost anchor only"
       },
       {
         "supplier": "AVOID",
-        "product": "rigid glass/Tesla + cheap PET flexible",
-        "note": "glass = heavy + shatters; PET = poor lifespan/punctures"
+        "product": "Renogy/Sungold/Lensun/OEM cheap PET",
+        "note": "poor lifespan/punctures \u2014 verify ETFE+datasheet"
       }
     ],
-    "selected": "Sunman eArc primary + Merlin where walkable/toughest needed",
+    "selected": "Sunman eArc primary (glass-free) + Merlin/SunWare/Solbian where walkable/toughest/EU-marine; avoid glass+cheap-PET",
     "source": "Solar_Everywhere_and_Waste_Heat_Verdict.md + TJ impact-resistance ask 2026-07-07",
     "photo": "components/solar-panels/photos/",
     "model3d": "components/solar-panels/models/",
