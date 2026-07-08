@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DF Materials Matrix</title>
+<style>
+ :root{--navy:#1f3a56;--line:#dde4ea;}
+ body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#243;background:#f6f8fa;}
+ header{background:var(--navy);color:#fff;padding:16px 22px;}
+ header h1{margin:0;font-size:19px;} header p{margin:4px 0 0;font-size:12px;color:#b9c6d3;}
+ .wrap{max-width:1200px;margin:0 auto;padding:14px 18px 60px;}
+ .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center;}
+ select{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+ table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:12px;}
+ th,td{padding:6px 7px;border-bottom:1px solid #eef2f5;text-align:center;}
+ th{background:#eef3f7;color:var(--navy);font-size:10px;text-transform:uppercase;cursor:pointer;}
+ th.l,td.l{text-align:left;}
+ .nm{font-weight:700;color:var(--navy);text-align:left;cursor:pointer;}
+ .cat{font-size:9px;color:#8a99a8;}
+ .sc{color:#fff;font-weight:700;border-radius:4px;display:inline-block;width:22px;height:22px;line-height:22px;}
+ .wt{font-weight:700;color:var(--navy);}
+ .pc{font-size:10.5px;color:#566;text-align:left;}
+ .pc b.p{color:#1f8a4c;} .pc b.co{color:#c0392b;}
+ .note{font-size:11.5px;color:#66707a;margin:10px 0;}
+</style></head><body>
+<header><h1>DF Materials Matrix</h1><p>One 1–5 scorecard for every material, vehicle-dwelling weighted. Sort by any column; click a name for pros/cons. Data: <code>materials_matrix.js</code>.</p></header>
+<div class="wrap">
+ <div class="controls"><select id="fCat"><option value="">All categories</option></select><span id="count" style="font-size:12px;color:#6a7b8a;"></span></div>
+ <table id="tbl"><thead><tr id="head"></tr></thead><tbody id="body"></tbody></table>
+ <div class="note">Weights: performance/lightness ×1.5 · durability/health ×1.2 · cost/workability ×1.0 · sustainability ×0.8. Green = strong, red = weak. The weighted total is a guide — always read the axes for the specific job.</div>
+</div>
+<script src="materials_matrix.js"></script>
+<script>
+const AX=window.MATRIX_AXES, MATS=window.MATERIALS;
+const head=document.getElementById('head'),body=document.getElementById('body'),fCat=document.getElementById('fCat');
+[...new Set(MATS.map(m=>m.category))].sort().forEach(c=>fCat.add(new Option(c,c)));
+// header
+head.innerHTML=`<th class="l" data-k="name">Material</th>`+AX.map(a=>`<th data-k="ax:${a}">${a.slice(0,5)}</th>`).join('')+`<th data-k="weighted">Σ wtd</th>`;
+function col(v){v=(v-1)/4; return v<0.5?`rgb(${190},${76+80*v},${50})`:`rgb(${90-40*v},158,80)`;}
+let sortK='weighted',dir=-1;
+function render(){
+ let list=MATS.filter(m=>!fCat.value||m.category===fCat.value);
+ const key=m=>sortK==='name'?m.name:sortK==='weighted'?m.weighted:m.scores[sortK.split(':')[1]];
+ list.sort((a,b)=>{const x=key(a),y=key(b);return (typeof x==='number'?x-y:(''+x).localeCompare(''+y))*dir;});
+ document.getElementById('count').textContent=`${list.length} materials`;
+ body.innerHTML='';
+ list.forEach(m=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="l"><span class="nm" onclick="this.closest('tr').nextSibling.style.display=this.closest('tr').nextSibling.style.display==='none'?'':'none'">${m.name}</span><div class="cat">${m.category}</div></td>`
+    +AX.map(a=>`<td><span class="sc" style="background:${col(m.scores[a])}">${m.scores[a]}</span></td>`).join('')
+    +`<td class="wt">${m.weighted}</td>`;
+  const det=document.createElement('tr'); det.style.display='none';
+  det.innerHTML=`<td colspan="${AX.length+2}" class="pc"><b>perf:</b> ${m.perf_metric} &nbsp;·&nbsp; <b>weight:</b> ${m.weight_note} &nbsp;·&nbsp; <b>cost:</b> ${m.cost_note}<br><b class="p">+ ${m.pros}</b> &nbsp;·&nbsp; <b class="co">− ${m.cons}</b> &nbsp;·&nbsp; <i>${m.status}</i></td>`;
+  body.appendChild(tr); body.appendChild(det);
+ });
+}
+head.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k; if(sortK===k)dir*=-1; else{sortK=k;dir=k==='name'?1:-1;} render();});
+fCat.onchange=render; render();
+</script></body></html>
