@@ -1,6 +1,35 @@
 # Bus Layout & Floor Plan - V2 (integrated bus)
 
-**Status:** Layout v0.7 (the four daytime MODES; plan v0.6 + reconfigurable modes)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging + `07_.../Reconfigurable_Interior_Slide_Out_Modes.md` + the controls state machine
+**Status:** Layout v0.8 (slide structure + seals + fold-down mechanisms; sections)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging + `07_.../Reconfigurable_Interior_Slide_Out_Modes.md` + the controls state machine + the v0.6 heat-loss model
+
+---
+
+## 0.8 — v0.8: making the slides real — structure, seals, fold-down mechanisms (2026-07-07)
+
+![Slide transverse section](slide_transverse_section.png)
+![Slide mechanism + seals + thermal penalty](slide_mechanism_and_seals.png)
+
+v0.7 showed *what* the modes are; v0.8 details *how the slides physically work* — the structure that carries a person doing yoga, the seals (which is exactly where the winter penalty lives), and the fold-down furniture.
+
+**1 · Slide-floor structure (carries live load).** The slide floor **cantilevers out ~34 in** on **twin steel rails** (upper + lower) with rollers, driven by a **self-locking screw actuator** (holds position with *no standing power*). When deployed it lands on a **drop-down jack** that takes the live load, so the floor is sized for **~200 kg** (a person exercising, or a desk + occupant) — not just its own weight. Aluminium-extrusion slide-box frame; the floor bears on the main floor rail when stowed.
+
+**2 · Seals + the thermal penalty (the honest winter cost).** The slide is the envelope's **weak point**: its outer walls are **~R-10** (thinner than the shell's ~R-20 + VIP), and it has a seal perimeter. **Triple bulb seals + a wipe seal** (with a **heated-wire option** to melt ice and cut winter leakage) limit it. Quantified against the v0.6 UA model:
+
+| State | Whole-bus UA | Heat demand @ −12 °C |
+|---|---|---|
+| **Slides IN** (sealed / travel) | ~48 W/K | ~38 kWh/day |
+| One slide OUT | ~54 W/K | ~43 kWh/day |
+| **Both slides OUT** | ~60 W/K | ~47 kWh/day |
+
+Each deployed slide adds **~6 W/K** (≈thinner walls + seal leak); both out is **~+23 %** heat. Since you deploy slides **parked** and **rarely in deep winter** (you can live slides-in when it's brutal), this is the **accepted trade** flagged back in v0.7 — and now it's a number, not a hand-wave.
+
+**3 · Fold-down furniture (one space, many modes).** All wall-mounted and stowable so the same floor serves every mode: a **Murphy-style bed** that folds up to the fixed wall (clears the Exercise floor); **drop-leaf desks** in both the lounge and the bedroom (Work mode); a **fold-down dinette table**; the **screen wall** (fixed rails, doubles as work display + media). The "exercise floor" is simply the cleared slide floor — no dedicated part.
+
+**4 · Work-zone power + data.** DC outlets + **USB-C PD** + data (Starlink/LTE) at **three points**: the lounge desk, the bedroom desk, and an **exterior work point** (off the V2X exterior outlets) for working outside.
+
+**5 · The DRIVE interlock is physical.** A **hard travel latch** engages when each slide is fully stowed and is **sensed by the DRIVE-entry guard** (controls v0.4 §2.1) — so "slides stowed" is a real, sensed interlock (fail-to-unsafe: a missing latch signal reads as *not stowed* and blocks DRIVE), not a software checkbox.
+
+**Open / next (toward v0.9):** actuator + jack load path FEA; seal spec + the heated-wire winter draw; Murphy-bed + drop-leaf hardware selection; slide-box insulation vs weight (can we get the outer wall past R-10?); the two interior + one exterior power/data runs; travel-latch sensor redundancy.
 
 ---
 
@@ -103,49 +132,4 @@ Front (cab) at left, rear (bed) at right. **25 ft (locked) x ~98 in body**, slid
 
 ## 4. The central mechanical bay (the heart)
 
-Mid-bus, on the structural pack. Holds the **CO2 dual-circuit thermal core** (high-temp 400 V CO2 compressor + low-temp 48 V Secop), the **18-port manifold**, **hot-water gas-cooler tank + hot/cold buffers**, the **power electronics** (Vicor HV->48 V DC-DC, contactors, Bender IMD), the **HV + 48 V distribution**, and the **CHP genset**. Both pack BMS are accessed here. Fire-contained enclosure, reachable from inside and from an **external service door**.
-
-Centre placement keeps coolant loops and HV/48 V runs short and captures recovered heat right where the mid-bus wet cluster uses it.
-
-## 5. The wet / utility cluster (mid-bus)
-
-Bath + closed-loop reticulating shower, composting toilet (urine -> hydroponics), hydroponic green wall, fridge/freezer, drying + dehumid - all around the central bay, so the heat-reuse loop, condensate harvest, and hot water happen in one tight plumbing zone. The CO2 gas cooler's 60-95 C water feeds the shower and the drying right here.
-
-## 6. Electrical distribution (all-DC)
-
-- **No whole-bus AC bus.** 48 V backbone (induction, big pumps, dryer) + 12/24 V + USB-C via point-of-use bucks.
-- A small **~1.5 kW switchable convenience inverter near the bathroom** (hair-dryer-driven, off by default) feeds **GFCI AC outlets at bath (primary), galley, and lounge**.
-- Shore AC -> DC charger; solar -> 48 V MPPT; DC fast charge (NACS, MCS-ready) -> the 400 V pack.
-
-## 7. Living zones & air quality
-
-Four zones - **driving cabin, main lounge, bath/hydroponics, bedroom** - each with its own air-quality array (CO / CO2 / O2 / humidity / particulates) feeding ventilation logic. Driving cabin seals from the rear so only it is conditioned on the move.
-
-## 8. Slide-outs, roof & underfloor
-
-- **Slide-outs** widen the lounge and bedroom when parked (accepted thermal-bridge trade; winter occasional).
-- **Roof:** ~3.5 kW fixed solar + deployable array (to ~5-10 kW); ventilation built into the loop; kept clear.
-- **Underfloor:** the 400 V/48 V structural pack spans the floor - lowest CG, stiff, rollover-resistant; ~8.7 in thick with wheel-well notches.
-
-## 9. Circulation & egress
-
-- **Main entry** front by the lounge/cab.
-- **Rear emergency hatch + window** at the bed - the second independent exit, so a mid-bus fault never traps you.
-- **External service door** to the central bay.
-- Clear walk-through aisle; the central core is passed on one side.
-
-## 10. Why this arrangement
-
-Heaviest mass central + low (battery floor) -> stable handling; thermal core central -> shortest loops + best heat harvest; wet cluster central -> one plumbing zone, condensate harvested where made; sleep rear -> quietest, own egress; cab sealable -> condition only the front on the move.
-
-## 11. Open questions (toward v0.3 / measured)
-
-- Galley along the lounge wall vs wrapped into the core.
-- Bath vs hydroponics split within the wet cluster (rail-mounted shower/hydro space-share idea).
-- Cab seat count (2 vs 3-4); convert/stow.
-- Storage volume targets per zone.
-- Exact slide-out extents.
-- Pack wheel-well notch geometry vs the bay/bath footprint above it.
-
----
-*Layout v0.2 (2026-06-29). V2 integrated bus; firmed footprints folded in (400 V/48 V dual-domain structural pack, CO2 dual-circuit core, all-DC distribution). Dimensions provisional. Next: measured v0.3 once the central-bay and water-inventory volumes are fixed.*
+Mid-bus, on the structural pack. Holds the **CO2 dual-circuit thermal core** (high-temp 400 V CO2 compressor + low-temp 48 V Secop), the **18-port manifold**, **hot-water gas-cooler tan
