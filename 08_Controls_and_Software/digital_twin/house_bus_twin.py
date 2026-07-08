@@ -72,7 +72,7 @@ class Twin:
         self.chp_run_left = 0.0
         self.diesel_L = 0.0
         self.log = []
-        self.acc = dict(solar=0, chp=0, load=0, export=0, shed=0, dumped=0, chp_heat=0)
+        self.acc = dict(solar=0, chp=0, load=0, export=0, shed=0, dumped=0, chp_heat=0, hvac_elec=0)
         self.reserve_breaches = 0   # parked SOC below the floor -> must be 0
         self.stranded = 0           # hit SOC-min mid-drive -> must be 0
         self.min_soc = self.soc
@@ -90,6 +90,7 @@ class Twin:
             used = min(hvac, offset)
             hvac -= used
             self.acc['chp_heat'] += used
+        self.acc['hvac_elec'] += hvac   # battery electricity actually spent on heating
         return nonhvac, hvac
 
     def solar_gen(self, hour, weather, driving):
@@ -216,7 +217,4 @@ if __name__ == "__main__":
     # D) Bus in storage 10 d, unoccupied, mild
     D = run(240, tout_fn=lambda t: 15.0, weather_fn=lambda t: 0.6, occupied=False,
             reserve_fn=lambda t: drive_reserve_kwh(D_safe=50), soc0=0.9)
-    report("D: Bus STORAGE 10 d (unoccupied)", D)
-
-    print("\n" + "="*74)
-    print("BASELINE COMPLETE.")
+    rep
