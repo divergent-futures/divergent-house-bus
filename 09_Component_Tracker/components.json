@@ -796,51 +796,54 @@
     "id": "insulation",
     "name": "Insulation (walls/roof/floor)",
     "subsystem": "Structure/Insulation",
-    "fn": "four-season envelope; target UA ~48 W/K (v0.6). Walls ~R-20, roof ~R-25, floor ~R-20",
+    "fn": "Four-season envelope (UA ~48 W/K: walls R-20, roof R-25, floor R-20) in a VEHICLE-THIN wall, NON-TOXIC, precise/low-waste. NO spray foam (TJ). Ranked by R-per-inch (thermal density).",
     "specs": {
-      "wall": "~R-20",
-      "roof": "~R-25",
-      "approach": "VIP + PIR/polyiso hybrid; aerogel at bridges"
+      "target": "walls R-20, roof R-25, floor R-20 (UA ~48)",
+      "metric": "R per inch (thin wall)",
+      "stack": "VIP flat + aerogel flex",
+      "toxicity": "non-toxic silica, no off-gas",
+      "mass": "~280 kg",
+      "note": "NO spray foam"
     },
-    "dims_mm": "~90 m2 opaque envelope",
-    "mass_kg": "~120",
+    "dims_mm": "~90 m\u00b2 opaque envelope; VIP ~0.5in flat, aerogel ~2in flex",
+    "mass_kg": "~280 (premium VIP+aerogel stack)",
     "qty": "bulk",
-    "status": "researching",
+    "status": "candidate-selected",
     "candidates": [
       {
-        "supplier": "VIP - va-Q-tec / Panasonic",
-        "product": "vacuum insulated panels",
-        "note": "R-40+/in; thin; use where depth-limited"
+        "supplier": "VIP \u2014 Panasonic ADVANC-R / va-Q-tec / Kingspan OPTIM-R / Kevothermal",
+        "product": "vacuum insulated panel",
+        "note": "RECO flat zones: ~R35-66/in (design R-40), ~0.5in for R-20, non-toxic, NO foam; panel-only (no cut/pierce), ages to ~R18, fragile ~$10/sqft"
       },
       {
-        "supplier": "PIR/polyiso - Kingspan/Recticel",
+        "supplier": "Aerogel \u2014 Aspen",
+        "product": "Spaceloft blanket (6/10mm)",
+        "note": "RECO flex zones: ~R10/in, non-toxic silica, fire-safe -460/+390F, flexible cut-to-fit; curves/bridges/slide-seals"
+      },
+      {
+        "supplier": "Phenolic \u2014 Kingspan Kooltherm",
         "product": "board",
-        "note": "R-6/in; main fill"
+        "note": "BUDGET/Explorer-tier fallback (a foam): best foam R8/in, ~2.5in, ~$1.5k \u2014 only if no-foam rule relaxes"
       },
       {
-        "supplier": "Aerogel - Aspen",
-        "product": "Spaceloft/Cryogel",
-        "note": "thermal-bridge + curved areas"
-      },
-      {
-        "supplier": "Havelock/Thinsulate",
-        "product": "wool/synthetic",
-        "note": "non-VIP cavities, non-toxic"
+        "supplier": "AVOID",
+        "product": "spray foam",
+        "note": "TJ REJECTED: imprecise, wasteful, isocyanate off-gas (moderately toxic in a sealed space)"
       }
     ],
-    "selected": "",
-    "source": "Heat_Load_and_Winter_Diesel_v0_6.md (UA model)",
+    "selected": "VIP (flat: floor/roof/flat walls) + Aspen Spaceloft aerogel (curves/bridges/slide-seals). NO spray foam.",
+    "source": "Heat_Load_and_Winter_Diesel_v0_6.md (UA model) + TJ no-spray-foam 2026-07-07",
     "photo": "components/insulation/photos/",
     "model3d": "components/insulation/models/",
     "spec_doc": "components/insulation/spec.md",
     "sourcing": {
-      "est_unit_usd": 3000,
+      "est_unit_usd": 11000,
       "qty": 1,
-      "est_total_usd": 3000,
+      "est_total_usd": 11000,
       "region": "West mostly",
-      "channel": "VIP(va-Q-tec)+PIR(Kingspan)+aerogel(Aspen)",
-      "confidence": "rough - materials",
-      "rfq_status": "not started"
+      "channel": "Panasonic/va-Q-tec/Kingspan VIP + Aspen aerogel dealers",
+      "confidence": "~$11k premium stack (or ~$1.5k phenolic budget tier)",
+      "rfq_status": "ready to RFQ"
     }
   },
   {
