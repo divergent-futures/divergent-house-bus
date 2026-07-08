@@ -221,34 +221,52 @@
     "id": "mppt",
     "name": "Solar MPPT controllers",
     "subsystem": "Battery/Electrical",
-    "fn": "multi-array (roof+foldouts+sides) -> 48V; ~12 kW deployed",
+    "fn": "Multi-array (~12 kW) into 48V with INDEPENDENT trackers per roof zone (roof/fold-outs/vertical sides/slide-tops).",
     "specs": {
-      "total": "~12 kW"
+      "total": "~12 kW deployed",
+      "controller": "Victron SmartSolar MPPT RS 450 (65-450V in, 48V out)",
+      "trackers": "independent dual per unit",
+      "comms": "VE.Can -> Cerbo/VRM"
     },
-    "dims_mm": "TBD",
-    "mass_kg": "~10 total",
+    "dims_mm": "RS 450 ~440x350x180 ea",
+    "mass_kg": "~15 (2 units)",
     "qty": "several",
-    "status": "researching",
+    "status": "candidate-selected",
     "candidates": [
       {
         "supplier": "Victron",
-        "product": "SmartSolar MPPT RS",
-        "note": "pairs w/ Cerbo/VRM"
+        "product": "SmartSolar MPPT RS 450/100 (5.76kW) \u00d72",
+        "note": "RECO: 4 independent trackers for mixed orientations; VE.Can -> Cerbo; ~$2.5-3k"
+      },
+      {
+        "supplier": "Victron",
+        "product": "SmartSolar MPPT RS 450/200 (11.52kW)",
+        "note": "single unit but only 2 trackers"
+      },
+      {
+        "supplier": "Victron",
+        "product": "SmartSolar MPPT 250/100 (small)",
+        "note": "for the always-on side-panel strings on their own tracker"
+      },
+      {
+        "supplier": "EPEVER/other",
+        "product": "",
+        "note": "cheaper but breaks the Victron/VRM ecosystem"
       }
     ],
-    "selected": "",
+    "selected": "2\u00d7 Victron SmartSolar MPPT RS 450/100 (4 trackers)",
     "source": "Solar_Everywhere_and_Waste_Heat_Verdict.md",
     "photo": "components/mppt/photos/",
     "model3d": "components/mppt/models/",
     "spec_doc": "components/mppt/spec.md",
     "sourcing": {
-      "est_unit_usd": 1200,
-      "qty": 1,
-      "est_total_usd": 1200,
+      "est_unit_usd": 1300,
+      "qty": 2,
+      "est_total_usd": 2600,
       "region": "West",
-      "channel": "Victron(NL)",
-      "confidence": "rough",
-      "rfq_status": "not started"
+      "channel": "Victron(NL) dealers",
+      "confidence": "researched",
+      "rfq_status": "ready to RFQ"
     }
   },
   {
@@ -1025,6 +1043,58 @@
       "channel": "RecPro(US) retail",
       "confidence": "TJ-provided (verify model/COP/heat)",
       "rfq_status": "found \u2014 verify"
+    }
+  },
+  {
+    "id": "solar-panels",
+    "name": "Solar panels (glass-free, impact-resistant)",
+    "subsystem": "Battery/Electrical",
+    "fn": "~12 kW deployed across roof-main + 2-3 fold-outs + vertical sides + slide-tops. LIGHTWEIGHT + THIN + IMPACT-RESISTANT (branch/hail must not smash it) \u2192 go GLASS-FREE.",
+    "specs": {
+      "deployed": "~12 kW",
+      "type": "glass-free composite / metal-grid semi-flexible",
+      "impact": "no glass to shatter; hail/walkable rated",
+      "sizes": "multiple (100-520W) per roof zone"
+    },
+    "dims_mm": "various per zone",
+    "mass_kg": "~ (eArc 430W ~11kg; ~70% lighter than glass)",
+    "qty": "many (multi-array)",
+    "status": "candidate-selected",
+    "candidates": [
+      {
+        "supplier": "Sunman",
+        "product": "eArc glass-free composite",
+        "note": "RECO: ~70% lighter than glass, 'airplane-window' composite = NO shatter, passes hail, semi-flex, sizes 100-520W ~19.3%"
+      },
+      {
+        "supplier": "Merlin Solar",
+        "product": "metal-grid flexible/rigid",
+        "note": "RECO-alt: WALKABLE, ~50x cell crack-resistance, marine/military, ~19.6%"
+      },
+      {
+        "supplier": "Maxeon",
+        "product": "flexible",
+        "note": "highest eff ~22%, hail-resist, 40yr, premium/pricey"
+      },
+      {
+        "supplier": "AVOID",
+        "product": "rigid glass/Tesla + cheap PET flexible",
+        "note": "glass = heavy + shatters; PET = poor lifespan/punctures"
+      }
+    ],
+    "selected": "Sunman eArc primary + Merlin where walkable/toughest needed",
+    "source": "Solar_Everywhere_and_Waste_Heat_Verdict.md + TJ impact-resistance ask 2026-07-07",
+    "photo": "components/solar-panels/photos/",
+    "model3d": "components/solar-panels/models/",
+    "spec_doc": "components/solar-panels/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1.1,
+      "qty": 12000,
+      "est_total_usd": 13200,
+      "region": "West/China",
+      "channel": "Sunman/Merlin dealers or direct",
+      "confidence": "~$1-1.2/W glass-free class",
+      "rfq_status": "ready to RFQ"
     }
   }
 ]

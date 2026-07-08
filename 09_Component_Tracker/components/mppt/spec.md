@@ -1,24 +1,10 @@
 # Solar MPPT controllers
 
-**Subsystem:** Battery/Electrical  ·  **Status:** researching  ·  **Qty:** several
-**Function:** multi-array (roof+foldouts+sides) -> 48V; ~12 kW deployed
-**Source spec:** Solar_Everywhere_and_Waste_Heat_Verdict.md
+**Subsystem:** Battery/Electrical (Solar) · **Status:** candidate-selected · **Qty:** ~2 units (multi-tracker)
+**Function:** MPPT solar charge controllers taking the **multi-array (~12 kW deployed)** into the **48 V** house bus, with independent tracking per roof zone.
+**Source spec:** `03_.../Solar_Everywhere_and_Waste_Heat_Verdict.md` · **Figure:** `photos/solar_options.png` · **Researched:** 2026-07-07.
 
-## Key specs
-- total: ~12 kW
-- Dimensions (mm): TBD
-- Mass (kg): ~10 total
+---
 
-## Candidate suppliers
-- **Victron** SmartSolar MPPT RS — pairs w/ Cerbo/VRM
-
-## Selected
-_(none yet)_
-
-## Photos
-Drop reference photos in `photos/` (for measurement + 3D matching).
-
-## 3D model
-Drop the GLB/OBJ in `models/` (manufacturer CAD, phone scan, or AI-gen). Set TRUE dimensions.
-
-## Notes
+## The job
+We have **several sub-arrays at different orientations**: roof-main + 2–3 fold-outs (flat), **vertical side panels** (great for low winter sun), and **slide-out t
