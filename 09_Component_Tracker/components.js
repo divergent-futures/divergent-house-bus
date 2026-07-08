@@ -1126,11 +1126,11 @@ window.COMPONENTS = [
     "sourcing": {
       "est_unit_usd": 1.1,
       "qty": 12000,
-      "est_total_usd": 13200,
+      "est_total_usd": 13000,
       "region": "West/China",
       "channel": "Sunman/Merlin dealers or direct",
-      "confidence": "~$1-1.2/W glass-free class",
-      "rfq_status": "ready to RFQ"
+      "confidence": "~$1-1.2/W glass-free \u2192 ~$12-14k for ~12kW",
+      "rfq_status": "RFQ ready (per-zone)"
     }
   }
 ];

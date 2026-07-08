@@ -20,6 +20,18 @@ The hard part is that "light + thin" and "impact-strong" usually fight. The reso
 
 *(On TJ's mentions: **Tesla** panels are strong but residential glass — too heavy and still shatterable for a vehicle roof. **Polydrops**-style teardrop builds use thin/flexible panels; the eArc / Merlin category is exactly that class, done durably.)*
 
+## Zones for quoting (RFQ) — see `photos/solar_zones.png` + `../../RFQ_solar_panels_template.md`
+~12 kW split into 4 zones so each can be quoted + wired to its own MPPT tracker:
+
+| Zone | Target | ~Area | Mounting |
+|---|---|---|---|
+| **A — Roof-main** (fixed) | ~3.4 kW | ~18 m² | rigid flat (PV/T) |
+| **B — Fold-out wings** (×2–3, parked) | ~6.6 kW | ~34 m² | rigid flat (PV/T) |
+| **C — Vertical sides** (fixed) | ~1.3 kW | ~7 m² | rigid vertical (winter sun) |
+| **D — Slide-out tops** (parked) | ~0.7 kW | ~3.6 m² | rigid flat |
+
+Budget ~12 kW × ~$1–1.2/W (glass-free class) ≈ **~$12–14k** panels. The **ready-to-send RFQ** (`RFQ_solar_panels_template.md`) asks each supplier for panels/zone, kg, $/W, hail class, and **custom narrow sizes** for the sides + wings.
+
 ## Manufacturer directory (Europe · US · China)
 Broad sweep across regions (`photos/solar_manufacturers.png`). Grouped by the technology class that actually decides light-vs-strong:
 
@@ -48,9 +60,4 @@ Broad sweep across regions (`photos/solar_manufacturers.png`). Grouped by the te
 **Budget flexible (AVOID the cheap end):**
 - **Renogy / BougeRV / Rich Solar (US brands, CN-made)**, **Sungold / Lensun (CN)**, generic Alibaba OEM — many are cheap PET (poor lifespan/punctures). Verify ETFE + a real datasheet before buying.
 
-**Regional sourcing read:** *Europe* = premium marine-grade durability (Solbian, SunWare) + glass-free innovators (Solarge, Levante); *US* = the toughness leaders (Merlin walkable, Ascent/PowerFilm rugged thin-film) + Maxeon cells; *China* = the class flagship **Sunman eArc** + buyable mid-tier (Sunport) + the cheapest rigid glass (LONGi/Jinko) if a tier is cost-driven.
-
-## Why glass-free wins the impact case
-- **Sunman eArc** — no glass, so nothing to smash; the composite skin absorbs/flexes on impact and passes hail testing. Comes in many wattages (100 W → 520 W) → **fits the different roof zones** (big roof panels, smaller fold-outs, narrow vertical side strips, slide-top panels).
-- **Merlin** — the metal-grid makes the *cells* ~50× more crack-tolerant and the panel **walkable** (you can stand on the roof array). Also multiple sizes.
-- Both are **semi-flexible**: mount **rigid** on the flat 
+**Regional sourcing read:** *Europe* = premium marine-grade durability (Solbian, SunWare) + glass-free innovators (Sola
