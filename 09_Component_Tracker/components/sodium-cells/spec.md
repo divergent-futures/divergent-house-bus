@@ -1,31 +1,18 @@
 # Sodium-ion cells (pack)
 
-**Subsystem:** Battery/Electrical  ·  **Status:** researching  ·  **Qty:** ~ per kWh
-**Function:** 390 kWh nameplate structural pack; 0V-safe, cold-tolerant, non-flammable
-**Source spec:** 03_.../Pack_Capacity_Usable_and_BMS_Window.md, Two_Structural_Packs_Blade_vs_Sodium.md
+**Subsystem:** Battery/Electrical · **Status:** candidate-selected (buildable baseline chosen) · **Qty:** ~650 for 390 kWh
+**Function:** the structural pack's cells — 390 kWh nameplate; 0 V-safe, cold-tolerant, non-flammable.
+**Source spec:** `03_.../Pack_Capacity_Usable_and_BMS_Window.md`, `Two_Structural_Packs_Blade_vs_Sodium.md` · **Figure:** `photos/cell_pack_fit.png`
+**Researched:** 2026-07-07 (web).
 
-## Key specs
-- chemistry: Na-ion (hard-carbon anode)
-- nameplate: 390 kWh
-- usable: ~351 kWh
-- format: prismatic/blade TBD
-- Dimensions (mm): cell TBD (drives pack layout)
-- Mass (kg): ~2600 (pack cells)
+---
 
-## Candidate suppliers
-- **CATL** Naxtra — mass prod Dec'25; -50C charge; 10k cycle; automotive
-- **HiNa Battery** NaCR32140/blade — China; EV+ESS cells
-- **Hithium** Na-ion ESS — ~20k cycle ESS cell
-- **Faradion (Reliance)** Na-ion — UK/India; 0V-safe pioneer
-- **Natron** Prussian-blue — US; very high power but low energy density - likely NOT for a big pack
+## The split: buyable NOW vs the automotive pipeline
 
-## Selected
-_(none yet)_
+TJ's ask = cells that are **approved + mass-produced** (sourceable), plus a look at CATL's **patent/pipeline** larger cells.
 
-## Photos
-Drop reference photos in `photos/` (for measurement + 3D matching).
-
-## 3D model
-Drop the GLB/OBJ in `models/` (manufacturer CAD, phone scan, or AI-gen). Set TRUE dimensions.
-
-## Notes
+### ✅ Baseline — sourceable TODAY (retail): HiNa 200 Ah prismatic
+- **Model:** HiNa **NaCP73174207-ME200** (and ME185 = 185 Ah, same box).
+- **Dimensions:** **73 × 174 × 207 mm** (the part number literally encodes it). ← **the 207 mm height ≈ our ~220 mm structural floor.**
+- **Electrical:** 3.0 V nominal, **200 Ah = 600 Wh**; ~**120–140 Wh/kg** (~4.3–5 kg/cell); ~228 Wh/L.
+- **Life/temp:** ~**4,000+ cycles**; **−40 to +60 °C**; ≤0.8 mΩ; 1C charge/disch

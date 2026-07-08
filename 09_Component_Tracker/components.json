@@ -5,43 +5,39 @@
     "subsystem": "Battery/Electrical",
     "fn": "390 kWh nameplate structural pack; 0V-safe, cold-tolerant, non-flammable",
     "specs": {
-      "chemistry": "Na-ion (hard-carbon anode)",
+      "chemistry": "Na-ion layered-oxide + hard-carbon",
       "nameplate": "390 kWh",
       "usable": "~351 kWh",
-      "format": "prismatic/blade TBD"
+      "baseline cell": "HiNa 200Ah 3.0V 600Wh, 73x174x207mm, ~133 Wh/kg",
+      "pack": "~650 cells, ~133S5P ~399V"
     },
-    "dims_mm": "cell TBD (drives pack layout)",
-    "mass_kg": "~2600 (pack cells)",
+    "dims_mm": "73 x 174 x 207 (HiNa 200Ah baseline)",
+    "mass_kg": "~2930 (pack, HiNa) / ~2230 (Naxtra-class)",
     "qty": "~ per kWh",
-    "status": "researching",
+    "status": "candidate-selected",
     "candidates": [
       {
-        "supplier": "CATL",
-        "product": "Naxtra",
-        "note": "mass prod Dec'25; -50C charge; 10k cycle; automotive"
-      },
-      {
-        "supplier": "HiNa Battery",
-        "product": "NaCR32140/blade",
-        "note": "China; EV+ESS cells"
+        "supplier": "HiNa",
+        "product": "NaCP73174207-ME200 (200Ah) / ME185",
+        "note": "BUYABLE NOW ~$88/cell retail; 73x174x207mm; ~4000 cyc; -40/60C; fits our 220mm floor; also 270Ah/80Ah-blade"
       },
       {
         "supplier": "Hithium",
-        "product": "Na-ion ESS",
-        "note": "~20k cycle ESS cell"
+        "product": "\u221eCell N162Ah",
+        "note": "95 Wh/kg, 20,000 cycles (cheapest cycles) but heaviest pack ~4100kg; ESS channel"
+      },
+      {
+        "supplier": "CATL",
+        "product": "Naxtra passenger (175 Wh/kg) + 300+Ah large-format (160)",
+        "note": "ASPIRATIONAL: best density ~700kg lighter, mass-prod 2025-26, in Changan sodium EV \u2014 but OEM channel, NO retail, dims unpublished"
       },
       {
         "supplier": "Faradion (Reliance)",
         "product": "Na-ion",
-        "note": "UK/India; 0V-safe pioneer"
-      },
-      {
-        "supplier": "Natron",
-        "product": "Prussian-blue",
-        "note": "US; very high power but low energy density - likely NOT for a big pack"
+        "note": "0V-safe pioneer; India ramp"
       }
     ],
-    "selected": "",
+    "selected": "HiNa (baseline build) \u2014 design Naxtra-ready",
     "source": "03_.../Pack_Capacity_Usable_and_BMS_Window.md, Two_Structural_Packs_Blade_vs_Sodium.md",
     "photo": "components/sodium-cells/photos/",
     "model3d": "components/sodium-cells/models/",
