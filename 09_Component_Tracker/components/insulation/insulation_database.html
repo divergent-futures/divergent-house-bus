@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>House BUS — Insulation Materials Database</title>
+<style>
+ :root{--navy:#1f3a56;--line:#dde4ea;}
+ body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#243;background:#f6f8fa;}
+ header{background:var(--navy);color:#fff;padding:16px 22px;}
+ header h1{margin:0;font-size:19px;} header p{margin:4px 0 0;font-size:12px;color:#b9c6d3;}
+ .wrap{max-width:1280px;margin:0 auto;padding:14px 18px 60px;}
+ .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center;}
+ select,input{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+ table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:12px;}
+ th,td{padding:6px 8px;border-bottom:1px solid #eef2f5;text-align:left;vertical-align:top;}
+ th{background:#eef3f7;color:var(--navy);font-size:10.5px;text-transform:uppercase;cursor:pointer;position:sticky;top:0;}
+ td.num{text-align:right;font-variant-numeric:tabular-nums;}
+ tr:hover td{background:#fafcfe;}
+ .cat{font-size:9.5px;padding:1px 7px;border-radius:20px;color:#fff;}
+ .c-natural{background:#2a9a5a;} .c-mineral{background:#8a99a8;} .c-foam{background:#e0a800;} .c-specialty{background:#2a6f8a;} .c-advanced{background:#6a4a9a;}
+ .yes{color:#1f8a4c;font-weight:600;} .no{color:#c0392b;font-weight:600;}
+ .nm{font-weight:700;color:var(--navy);}
+ .pc{font-size:10.5px;color:#667;}
+ .pc b.p{color:#1f8a4c;} .pc b.co{color:#c0392b;}
+ .note{font-size:11.5px;color:#66707a;margin:10px 0;}
+</style></head><body>
+<header><h1>House BUS — Insulation Materials Database</h1>
+<p>Every material from hemp/wool to VIP, scored for a vehicle. Sort by any column (click headers). Default sort: cheapest per R. Source data: <code>insulation_materials.js</code>.</p></header>
+<div class="wrap">
+ <div class="controls">
+   <select id="fCat"><option value="">All categories</option></select>
+   <label style="font-size:12px;"><input type="checkbox" id="fNontox"/> non-toxic only</label>
+   <label style="font-size:12px;"><input type="checkbox" id="fNofoam"/> no foam</label>
+   <span id="count" style="font-size:12px;color:#6a7b8a;"></span>
+ </div>
+ <table id="tbl"><thead><tr>
+  <th data-k="name">Material</th><th data-k="category">Cat</th>
+  <th data-k="r_per_in" class="num">R/in</th>
+  <th data-k="thickness_mm_R20" class="num">R-20 mm</th>
+  <th data-k="density_kgm3" class="num">kg/m³</th>
+  <th data-k="cost_R20_per_m2_usd" class="num">$ R-20/m²</th>
+  <th data-k="non_toxic">non-toxic</th><th data-k="foam">foam</th>
+  <th data-k="puncture">puncture</th><th data-k="cuttability">cut</th>
+  <th data-k="conform">conform</th><th data-k="thermal_bridging">bridging</th><th data-k="fire">fire</th>
+ </tr></thead><tbody id="body"></tbody></table>
+ <div class="note">Columns: <b>R/in</b> = thermal density (higher = thinner). <b>R-20 mm</b> = wall thickness to hit R-20. <b>$ R-20/m²</b> = normalized cost to reach R-20 (the fair cost metric). <b>puncture</b> = does a puncture ruin it (critical for VIP). <b>conform</b> = wrap curves/edges. Click a row's name to see pros/cons.</div>
+</div>
+<script src="insulation_materials.js"></script>
+<script>
+const D=window.INSULATION||[]; const body=document.getElementById('body');
+const fCat=document.getElementById('fCat'),fNontox=document.getElementById('fNontox'),fNofoam=document.getElementById('fNofoam');
+[...new Set(D.map(m=>m.category))].sort().forEach(c=>fCat.add(new Option(c,c)));
+let sortK='cost_R20_per_m2_usd',dir=1;
+function fmtYN(v){ if(/^yes/i.test(v))return `<span class="yes">${v}</span>`; if(/^(no|low|iso|REJECT|critical|NO)/i.test(v))return `<span class="no">${v}</span>`; return v; }
+function render(){
+ let list=D.filter(m=>(!fCat.value||m.category===fCat.value)&&(!fNontox.checked||/^yes/i.test(m.non_toxic))&&(!fNofoam.checked||m.foam==='no'));
+ list.sort((a,b)=>{const x=a[sortK],y=b[sortK];return (typeof x==='number'?x-y:(''+x).localeCompare(''+y))*dir;});
+ document.getElementById('count').textContent=`${list.length} materials`;
+ body.innerHTML='';
+ list.forEach(m=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><span class="nm" style="cursor:pointer" onclick="this.closest('tr').nextSibling.style.display=this.closest('tr').nextSibling.style.display==='none'?'':'none'">${m.name}</span></td>
+   <td><span class="cat c-${m.category}">${m.category}</span></td>
+   <td class="num">${m.r_per_in}</td><td class="num">${m.thickness_mm_R20}</td>
+   <td class="num">${m.density_kgm3}</td><td class="num">$${m.cost_R20_per_m2_usd}</td>
+   <td>${fmtYN(m.non_toxic)}</td><td>${fmtYN(m.foam)}</td>
+   <td>${fmtYN(m.puncture)}</td><td>${m.cuttability}</td><td>${m.conform}</td><td>${m.thermal_bridging}</td><td>${m.fire}</td>`;
+  const det=document.createElement('tr'); det.style.display='none';
+  det.innerHTML=`<td colspan="13" class="pc"><b class="p">+ ${m.pros}</b> &nbsp;·&nbsp; <b class="co">− ${m.cons}</b> &nbsp;·&nbsp; moisture: ${m.moisture} &nbsp;·&nbsp; ~$${m.cost_per_bf_usd}/board-ft</td>`;
+  body.appendChild(tr); body.appendChild(det);
+ });
+}
+document.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{const k=th.dataset.k; if(sortK===k)dir*=-1; else{sortK=k;dir=1;} render();});
+fCat.onchange=render;fNontox.onchange=render;fNofoam.onchange=render;
+render();
+</script></body></html>
