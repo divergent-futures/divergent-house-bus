@@ -34,10 +34,17 @@
 
 ## First results
 - **Glazing:** **Acrylic (PMMA) dual-pane wins (3.82)** for living-area windows — lightest, clearest (92%), no-shatter, UV-stable, insulating (RV-proven). **Polycarbonate (3.62)** for impact zones / skylights (~250× glass impact, but scratches + yellows). **Laminated glass** is the mandated **windshield**. Vacuum glazing is a premium niche for a thin high-R view pane.
-- **Structural (provisional):** **aluminium honeycomb (4.02)** and **aluminium extrusion (4.0)** lead on light + workable; **carbon fibre** is strongest-per-weight but the matrix correctly discounts it for cost + repairability.
+- **Structural (now scored with real specific-strength + cost/kg — see `figures/structural_ashby.png`):** ranked, **aluminium 6063 extrusion (4.27)** leads (the dry-frame material: strong-per-kg, cheap, T-slot-easy), then **6061-T6 (4.02)** and **aluminium honeycomb sandwich (4.02)** for panels, **7075 (3.82)** for high-load fittings, **UHSS/AHSS (3.68)** for the crash structure. **Titanium (3.59)** and **carbon fibre (3.41)** have the best strength-to-weight but the matrix correctly discounts them for cost (~$40 and ~$30/kg) + repairability — CFRP is the "spaceship" material, aluminium is the "bus." **316L (3.38)** scores low overall but is *mandatory* for the wet trays (corrosion + food-safe).
 
-## Categories to populate next
-glazing ✓ · structural (provisional) · insulation (in the tracker) · **exterior skin/cladding** · **flooring** · **sealants/adhesives** · **fasteners** · **interior surfaces**. Each is scored on the same seven axes → one comparable database across the whole build.
-
----
-*DF Materials Matrix, 2026-07-07 (TJ: one matrix system for every material). Universal 1-5 axes: performance, lightness, cost, workability, durability, health, sustainability. Vehicle-dwelling weights: performance/lightness ×1.5, durability/health ×1.2, cost/workability ×1.0, sustainability ×0.8; weighted=Σ(axis×w)/8.2. Same schema for ALL categories (insulation DB already uses it). GLAZING scored (research): Acrylic dual-pane 3.82 = RECO living windows (lightest ~40% of glass, clearest 92%, no-shatter, UV-stable, insulating, RV-proven); Polycarbonate 3.62 = impact zones (~250x glass impact but scratches+yellows); laminated glass = mandated windshield; tempered glass 3.21; vacuum glazing 2.84 premium-niche; ETFE 3.43 skylight-niche. STRUCTURAL provisional: Al-honeycomb 4.02 + Al-extrusion 4.0 lead (light+workable); UHSS steel 3.56 (crash but heavy); carbon fibre 3.41 (best strength/weight but cost+repair penalized); FRP 3.41; marine-ply 3.43. Files: materials_matrix.js/.json + materials_matrix.html + figures/materials_matrix_heatmap.png. Next: fill structural scores, add exterior-skin/flooring/sealants/fasteners categories.*
+## Structural — material-to-role map (for this bus)
+The winner isn't one material; it's the *right* material per job:
+| Role | Material | Why |
+|---|---|---|
+| **Dry frame + slide-out frames** | **Aluminium 6063 extrusion** | strong-per-kg, cheap, T-slot cut/join, corrosion-safe |
+| **Rocker sill + crash/crush zones** | **UHSS/AHSS** (Tesla-M3-style Al sill + steel) | highest strength for impact structure |
+| **Floor + wall panels** | **Aluminium honeycomb sandwich** | best stiffness-to-weight, flat, ultralight |
+| **High-load fittings / hardpoints** | **Aluminium 7075** (or CFRP where weight-critical) | near-steel strength at 1/3 the weight |
+| **Wet trays, tanks, hydro** | **Stainless 316L** | corrosion + food-safe (no aluminium in nutrient water) |
+| **Cabinetry / wet substrate** | **Coosa board** (or bamboo ply budget) | rot-proof, screws like wood, light |
+| **Molded skins / exterior parts** | **GFRP** | moldable, corrosion-proof, tough |
+| **Brackets / subfr
