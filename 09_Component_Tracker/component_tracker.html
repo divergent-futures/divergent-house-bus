@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>House BUS — Component Tracker</title>
+<style>
+  :root{--navy:#1f3a56;--line:#d9e0e7;--bg:#f6f8fa;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#243;background:var(--bg);}
+  header{background:var(--navy);color:#fff;padding:18px 22px;}
+  header h1{margin:0;font-size:20px;}
+  header p{margin:4px 0 0;font-size:12.5px;color:#b9c6d3;}
+  .wrap{max-width:1200px;margin:0 auto;padding:18px 22px 60px;}
+  .summary{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:120px;}
+  .stat .n{font-size:22px;font-weight:700;color:var(--navy);}
+  .stat .l{font-size:11px;color:#6a7b8a;text-transform:uppercase;letter-spacing:.03em;}
+  .bar{height:8px;border-radius:5px;background:#e7edf2;overflow:hidden;display:flex;margin-top:6px;}
+  .bar i{display:block;height:100%;}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 18px;align-items:center;}
+  select,input{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  input[type=search]{min-width:220px;flex:1;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .card h3{margin:0 0 2px;font-size:15.5px;color:var(--navy);}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px;}
+  .tag{font-size:10.5px;padding:2px 8px;border-radius:20px;background:#eef2f6;color:#4a5b6a;}
+  .badge{font-size:10.5px;padding:2px 9px;border-radius:20px;color:#fff;font-weight:600;}
+  .fn{font-size:12.5px;color:#4a5867;margin:2px 0 8px;}
+  .kv{font-size:11.5px;color:#5a6b7a;margin:2px 0;}
+  .kv b{color:#33404c;}
+  .cands{margin:8px 0 0;padding:8px 0 0;border-top:1px dashed var(--line);}
+  .cands .c{font-size:11.5px;margin:3px 0;color:#455;}
+  .cands .c b{color:var(--navy);}
+  .sel{background:#eafaf0;border-left:3px solid #2a9a5a;padding-left:6px;}
+  .links{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+  .links a{font-size:11.5px;text-decoration:none;color:var(--navy);border:1px solid var(--line);padding:4px 9px;border-radius:7px;background:#fbfdff;}
+  .links a:hover{background:#eef4fb;}
+  .miss{color:#b06; font-size:11px;}
+  footer{color:#8a99a8;font-size:11.5px;margin-top:26px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>House BUS — Component Tracker</h1>
+  <p>Single source of truth is <code>components.js</code>. Each part has a folder under <code>components/</code> with <code>photos/</code>, <code>models/</code>, and <code>spec.md</code>. Shell / roof / glass / solar deliberately excluded (simple).</p>
+</header>
+<div class="wrap">
+  <div class="summary" id="summary"></div>
+  <div class="controls">
+    <select id="fSub"><option value="">All subsystems</option></select>
+    <select id="fStatus"><option value="">All statuses</option></select>
+    <input type="search" id="fSearch" placeholder="Search name, supplier, function…"/>
+    <span id="count" style="font-size:12px;color:#6a7b8a;"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+  <footer>Statuses: idea → researching → candidate-selected → sourced → ordered → installed. Edit <code>components.js</code> to add parts, pick suppliers, or advance status; the configurator reads the same file.</footer>
+</div>
+<script src="components.js"></script>
+<script>
+const STATUS_ORDER=["idea","researching","candidate-selected","sourced","ordered","installed"];
+const STATUS_COLOR={idea:"#9aa7b3",researching:"#e0a800","candidate-selected":"#2a6f8a",sourced:"#2a9a5a",ordered:"#6a4a9a",installed:"#2a7a4a"};
+const C = window.COMPONENTS||[];
+const grid=document.getElementById('grid'), fSub=document.getElementById('fSub'),
+      fStatus=document.getElementById('fStatus'), fSearch=document.getElementById('fSearch'),
+      countEl=document.getElementById('count');
+
+// populate filters
+[...new Set(C.map(c=>c.subsystem))].sort().forEach(s=>fSub.add(new Option(s,s)));
+STATUS_ORDER.forEach(s=>{ if(C.some(c=>c.status===s)) fStatus.add(new Option(s,s)); });
+
+function summary(){
+  const el=document.getElementById('summary'); el.innerHTML='';
+  const byStatus={}; STATUS_ORDER.forEach(s=>byStatus[s]=0);
+  C.forEach(c=>byStatus[c.status]=(byStatus[c.status]||0)+1);
+  const total=C.length;
+  const add=(n,l)=>{const d=document.createElement('div');d.className='stat';d.innerHTML=`<div class="n">${n}</div><div class="l">${l}</div>`;el.appendChild(d);};
+  add(total,'components');
+  add(C.filter(c=>c.status==='researching').length,'researching');
+  add(C.filter(c=>['candidate-selected','sourced','ordered','installed'].includes(c.status)).length,'progressing');
+  add([...new Set(C.map(c=>c.subsystem))].length,'subsystems');
+  // progress bar
+  const barWrap=document.createElement('div'); barWrap.className='stat'; barWrap.style.flex='1'; barWrap.style.minWidth='240px';
+  let bars=STATUS_ORDER.map(s=>{const pct=100*(byStatus[s]||0)/total;return pct?`<i style="width:${pct}%;background:${STATUS_COLOR[s]}" title="${s}: ${byStatus[s]}"></i>`:''}).join('');
+  barWrap.innerHTML=`<div class="l">progress by status</div><div class="bar">${bars}</div>`;
+  el.appendChild(barWrap);
+}
+
+function render(){
+  const sub=fSub.value, st=fStatus.value, q=fSearch.value.toLowerCase();
+  grid.innerHTML='';
+  const list=C.filter(c=>(!sub||c.subsystem===sub)&&(!st||c.status===st)&&
+    (!q|| (c.name+' '+c.fn+' '+JSON.stringify(c.candidates)).toLowerCase().includes(q)));
+  countEl.textContent=`${list.length} of ${C.length} shown`;
+  list.sort((a,b)=>a.subsystem.localeCompare(b.subsystem)||a.name.localeCompare(b.name));
+  list.forEach(c=>{
+    const card=document.createElement('div'); card.className='card';
+    const specs=Object.entries(c.specs||{}).map(([k,v])=>`${k}: ${v}`).join(' · ');
+    const cands=(c.candidates||[]).map(x=>{
+      const isSel=c.selected&&x.supplier===c.selected;
+      return `<div class="c ${isSel?'sel':''}"><b>${x.supplier}</b>${x.product?' '+x.product:''}${x.note?' — '+x.note:''}</div>`;
+    }).join('');
+    card.innerHTML=`
+      <h3>${c.name}</h3>
+      <div class="tags">
+        <span class="tag">${c.subsystem}</span>
+        <span class="badge" style="background:${STATUS_COLOR[c.status]||'#999'}">${c.status}</span>
+        <span class="tag">qty ${c.qty}</span>
+      </div>
+      <div class="fn">${c.fn}</div>
+      ${specs?`<div class="kv"><b>Specs:</b> ${specs}</div>`:''}
+      <div class="kv"><b>Dims (mm):</b> ${c.dims_mm} &nbsp; <b>Mass:</b> ${c.mass_kg} kg</div>
+      <div class="cands"><div class="kv" style="margin-bottom:2px;"><b>Candidate suppliers:</b></div>${cands}</div>
+      <div class="links">
+        <a href="${c.spec_doc}">spec.md</a>
+        <a href="${c.photo}">photos ▸</a>
+        <a href="${c.model3d}">3D model ▸</a>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+summary(); render();
+[fSub,fStatus].forEach(e=>e.onchange=render); fSearch.oninput=render;
+</script>
+</body>
+</html>

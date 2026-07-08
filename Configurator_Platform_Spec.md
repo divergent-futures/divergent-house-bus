@@ -116,7 +116,7 @@ Layout: option-card grid left, sticky summary card right, green summary header, 
 
 1. **Shared parts get shared IDs.** Components used by both products carry the same part slug in BOM output: `victron-multiplus2-48-3000`, `victron-cerbo-gx`, `victron-mppt`, `nema-14-50-inlet`, `curt-echo`, `48v-linear-actuator`. The 48V Victron spine is the platform: both products speak the same electrical language.
 2. **Same fork vocabulary where concepts overlap.** `battery`, `chem`, `solar`, `season`, `rear` (hardpoints/geometry) keep consistent key names so the app can cross-reference ("your bus tows your trailer" checks live here — bus `rear: toy` hardpoints ↔ trailer existence).
-3. **Bus ↔ trailer interaction.** A bus configured with towing hardpoints can be paired with a Slipstream config; the app should run the trailer's derived weight checks against the *bus* as tow vehicle (add a `bus` option to the trailer's tow-vehicle fork when the app lands).
+3. **Products stay independent.** The bus does not tow the trailer; there is no cross-product pairing. Each product's config is self-contained, and the future app treats them as separate catalog entries that happen to share a schema, parts vocabulary, and design language. Amalgamation into one app happens only after each product's design settles — the configurator app is its own project, later.
 4. **Rationale travels with the fork.** Every non-obvious option carries a `note` — the configurator teaches, it doesn't just tally. This is the "smart fork" principle from the Slipstream handoff.
 
 ## 8. File inventory
@@ -135,5 +135,4 @@ Layout: option-card grid left, sticky summary card right, green summary header, 
 - BOM output format (per-config parts list with shared part slugs) — inherit bus BOM infrastructure or define fresh (Slipstream handoff §9).
 - Pricing model: cost basis → retail multiplier per product (bus ~1.75×; trailer TBD).
 - Drawings/build-doc generation per configuration.
-- Jurisdiction/regulatory layer (trailer weight/length/lighting by state; bus compliance).
-- Kit vs. finished delivery fork (business, not product, decision).
+- Jurisdiction/regulatory layer (trail
