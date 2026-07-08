@@ -1,27 +1,11 @@
-# Bidirectional DC-DC (400<->48V)
+# Bidirectional DC-DC (400↔48V)
 
-**Subsystem:** Battery/Electrical  ·  **Status:** researching  ·  **Qty:** 1
-**Function:** the single 400V<->48V gateway; genset+solar->pack, pack->house, V2X
-**Source spec:** 03_.../Power_Electronics_Vetting.md, Bidirectional_V2X_Power_Station.md
+**Subsystem:** Battery/Electrical · **Status:** candidate-selected · **Qty:** 1 (~8–10 kW; may be modular)
+**Function:** the single **400 V ↔ 48 V gateway** between the traction domain and the all-DC house. Solar/genset charge the pack through it; the pack powers the house through it; it enables V2X.
+**Source spec:** `03_.../Power_Electronics_Vetting.md`, `Bidirectional_V2X_Power_Station.md` · **Figure:** `photos/power_conversion.png` · **Researched:** 2026-07-07.
 
-## Key specs
-- power: ~7-10 kW
-- in: 400V
-- out: 48V
-- Dimensions (mm): TBD
-- Mass (kg): ~8
+---
 
-## Candidate suppliers
-- **Vicor** NBM/DCM — high power density modules
-- **BorgWarner/Sevcon**  — EV-grade
-
-## Selected
-_(none yet)_
-
-## Photos
-Drop reference photos in `photos/` (for measurement + 3D matching).
-
-## 3D model
-Drop the GLB/OBJ in `models/` (manufacturer CAD, phone scan, or AI-gen). Set TRUE dimensions.
-
-## Notes
+## Where it sits (the hub)
+Traction runs off the **400 V** pack directly (e-axle, DC-fast port). The DC-DC is the **hub** between that 400 V world and the **48 V** house bus:
+- **solar (48 V MPPT

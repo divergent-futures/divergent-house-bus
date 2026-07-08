@@ -1,27 +1,10 @@
 # Bidirectional inverter-charger
 
-**Subsystem:** Battery/Electrical  ·  **Status:** researching  ·  **Qty:** 1
-**Function:** shore charge + AC export (V2H/V2G) + AC tools; the ONE add for AC export
-**Source spec:** Bidirectional_V2X_Power_Station.md
+**Subsystem:** Battery/Electrical · **Status:** candidate-selected · **Qty:** 1–2 (split-phase) · ~7.6 kW
+**Function:** the **AC gateway** on the 48 V bus — shore charging in, and **AC export out (V2H/V2G + AC power tools)**. This is the "one add" that unlocks AC export on top of the all-DC system.
+**Source spec:** `Bidirectional_V2X_Power_Station.md` · **Figure:** `photos/power_conversion.png` · **Researched:** 2026-07-07.
 
-## Key specs
-- power: ~7.6 kW
-- phase: split-phase 120/240V
-- features: anti-islanding, GFCI
-- Dimensions (mm): TBD
-- Mass (kg): ~30
+---
 
-## Candidate suppliers
-- **Victron** MultiPlus-II / Quattro — proven, VRM integration
-- **Sol-Ark**  — US split-phase hybrid
-
-## Selected
-_(none yet)_
-
-## Photos
-Drop reference photos in `photos/` (for measurement + 3D matching).
-
-## 3D model
-Drop the GLB/OBJ in `models/` (manufacturer CAD, phone scan, or AI-gen). Set TRUE dimensions.
-
-## Notes
+## Where it sits
+On the **48 V house bus**: shore AC (120/240 V) → charges the bus (and via the DC-DC, the 400 V pack); and 48 V → **120/240 V split-phase AC out** for home backup (V2H), grid export (V2G, where allowed), or job-site AC tools. DC-fast chargi

@@ -99,7 +99,7 @@
         "note": "HOUSE only + ONLY if voltage-configurable for sodium (many are LFP-preset - verify!)"
       }
     ],
-    "selected": "Traction: Orion 02 Expandable (or foxBMS if open-source) \u00b7 House: REC/Batrium",
+    "selected": "Traction: Orion BMS 2 Expandable (TURNKEY \u2014 decided, safety-first) \u00b7 House: REC/Batrium",
     "source": "03_.../Battery_and_Pack_Vetting.md",
     "photo": "components/bms/photos/",
     "model3d": "components/bms/models/",
@@ -120,27 +120,38 @@
     "subsystem": "Battery/Electrical",
     "fn": "the single 400V<->48V gateway; genset+solar->pack, pack->house, V2X",
     "specs": {
-      "power": "~7-10 kW",
-      "in": "400V",
-      "out": "48V"
+      "power": "~8-10 kW bidirectional",
+      "in": "400V traction",
+      "out": "48V house",
+      "isolation": "galvanic"
     },
-    "dims_mm": "TBD",
-    "mass_kg": "~8",
+    "dims_mm": "~56x196x272 (BRUSA BSC)",
+    "mass_kg": "~4-8",
     "qty": "1",
-    "status": "researching",
+    "status": "candidate-selected",
     "candidates": [
       {
-        "supplier": "Vicor",
-        "product": "NBM/DCM",
-        "note": "high power density modules"
+        "supplier": "BRUSA HyPower",
+        "product": "BSC7xx",
+        "note": "RECO (turnkey/safety): bidir, 400&800V, galvanic isolation, ~<4kg, automotive-grade"
       },
       {
-        "supplier": "BorgWarner/Sevcon",
-        "product": "",
-        "note": "EV-grade"
+        "supplier": "Vicor",
+        "product": "BCM6135 \u00d7~4 parallel",
+        "note": "2.5kW ea, 98% eff, AEC-Q100; density but needs paralleling+eng"
+      },
+      {
+        "supplier": "PROGREEN (CN)",
+        "product": "48<->400 ESS DC-DC",
+        "note": "packaged, buyable, cheaper, less pedigree"
+      },
+      {
+        "supplier": "BorgWarner",
+        "product": "HV DC/DC",
+        "note": "OEM/integrator, rugged"
       }
     ],
-    "selected": "",
+    "selected": "BRUSA BSC (turnkey) \u2014 Vicor modular as density alt",
     "source": "03_.../Power_Electronics_Vetting.md, Bidirectional_V2X_Power_Station.md",
     "photo": "components/dcdc-bidir/photos/",
     "model3d": "components/dcdc-bidir/models/",
@@ -150,9 +161,9 @@
       "qty": 1,
       "est_total_usd": 2500,
       "region": "West",
-      "channel": "Vicor(US)/BorgWarner",
-      "confidence": "rough",
-      "rfq_status": "not started"
+      "channel": "BRUSA HyPower(CH) / Vicor(US)",
+      "confidence": "researched",
+      "rfq_status": "ready to RFQ"
     }
   },
   {
@@ -162,38 +173,48 @@
     "fn": "shore charge + AC export (V2H/V2G) + AC tools; the ONE add for AC export",
     "specs": {
       "power": "~7.6 kW",
-      "phase": "split-phase 120/240V",
-      "features": "anti-islanding, GFCI"
+      "phase": "120/240V split-phase",
+      "features": "anti-islanding, GFCI, VRM"
     },
     "dims_mm": "TBD",
     "mass_kg": "~30",
     "qty": "1",
-    "status": "researching",
+    "status": "candidate-selected",
     "candidates": [
       {
         "supplier": "Victron",
-        "product": "MultiPlus-II / Quattro",
-        "note": "proven, VRM integration"
+        "product": "MultiPlus-II \u00d72 (split-phase)",
+        "note": "RECO (turnkey/ecosystem): built-in anti-islanding, Cerbo/VRM native \u2192 ties to controls brain"
+      },
+      {
+        "supplier": "Victron",
+        "product": "Quattro-II",
+        "note": "split-phase autotransformer + 2 AC inputs (shore+gen); ~30% more"
       },
       {
         "supplier": "Sol-Ark",
+        "product": "12K/15K",
+        "note": "US split-phase all-in-one hybrid, EV-charge, future V2G"
+      },
+      {
+        "supplier": "Schneider/EG4/Outback",
         "product": "",
-        "note": "US split-phase hybrid"
+        "note": "other off-grid split-phase"
       }
     ],
-    "selected": "",
+    "selected": "Victron MultiPlus-II split-phase pair (or Quattro-II)",
     "source": "Bidirectional_V2X_Power_Station.md",
     "photo": "components/inverter-charger/photos/",
     "model3d": "components/inverter-charger/models/",
     "spec_doc": "components/inverter-charger/spec.md",
     "sourcing": {
-      "est_unit_usd": 2500,
-      "qty": 1,
-      "est_total_usd": 2500,
+      "est_unit_usd": 1600,
+      "qty": 2,
+      "est_total_usd": 3200,
       "region": "West",
-      "channel": "Victron(NL)/Sol-Ark(US)",
-      "confidence": "rough",
-      "rfq_status": "not started"
+      "channel": "Victron(NL) dealers",
+      "confidence": "researched",
+      "rfq_status": "ready to RFQ"
     }
   },
   {
@@ -967,6 +988,43 @@
       "channel": "OnLogic/Neousys + Victron Cerbo",
       "confidence": "rough",
       "rfq_status": "not started"
+    }
+  },
+  {
+    "id": "heatpump-48v-rooftop",
+    "name": "48V DC rooftop heat pump (Explorer tier)",
+    "subsystem": "Thermal/CHP",
+    "fn": "Native 48V DC rooftop heat pump (cool+heat) running STRAIGHT off the house bus \u2014 ZERO inverter load. The simple 'Explorer-tier' HVAC alternative to the flagship integrated CO2 core (no waste-heat/DHW/battery-loop integration).",
+    "specs": {
+      "type": "48V DC rooftop heat pump",
+      "capacity": "9,500 BTU (~2.8 kW) cool+heat",
+      "source": "air-source",
+      "integration": "none (standalone, all-DC)"
+    },
+    "dims_mm": "rooftop unit TBD",
+    "mass_kg": "~30",
+    "qty": "1",
+    "status": "candidate-selected",
+    "candidates": [
+      {
+        "supplier": "RecPro",
+        "product": "48V DC rooftop AC/heat pump 9,500 BTU",
+        "note": "TJ's find: $1,850, cool+heat, native 48V DC, zero inverter load \u2014 Explorer-tier"
+      }
+    ],
+    "selected": "RecPro 48V DC rooftop (Explorer tier)",
+    "source": "TJ 2026-07-07; contrast w/ co2-compressor-ht flagship core",
+    "photo": "components/heatpump-48v-rooftop/photos/",
+    "model3d": "components/heatpump-48v-rooftop/models/",
+    "spec_doc": "components/heatpump-48v-rooftop/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1850,
+      "qty": 1,
+      "est_total_usd": 1850,
+      "region": "West",
+      "channel": "RecPro(US) retail",
+      "confidence": "TJ-provided (verify model/COP/heat)",
+      "rfq_status": "found \u2014 verify"
     }
   }
 ]
