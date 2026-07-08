@@ -36,7 +36,19 @@ Earlier the tiers used a fixed kWh/mi (didn't credit the lighter packs). Fixed: 
 2. **The bus eats ~1.0 kWh/mi (~5× a car)** because a 25-ft dwelling is a big, draggy brick — so **155 kWh ≈ ~110 mi at highway is correct**, not a low estimate. Car intuition (155 kWh should go far) doesn't transfer to a rolling apartment.
 3. **Weight + aero both pay off at low speed** (aero energy ∝ v²): at ~50 mph the Entry tier does **~165 mi** (not 110), the whole line stretches (Mid ~321, High ~450). Since the Entry buyer drives **local/slower**, the "~100 mi" label is the conservative *highway* figure — real local use is 150+.
 
+> **v0.6 note (2026-07-07):** these ranges are computed on **nameplate** kWh at an idealized ~1.08 kWh/mi. Two honesty corrections from the digital twin (`08_.../Digital_Twin_v0_5.md`, `Pack_Capacity_Usable_and_BMS_Window.md`): (a) usable capacity is **~90 % of nameplate** (BMS window), and (b) real-world highway consumption is **~1.15–1.2 kWh/mi** (HVAC, wind, margin). Net: treat the highway figures as **~10 % optimistic planning numbers** — e.g. High tier ~307 → **~275–290 mi** real. Low-speed/local figures are more forgiving.
+
 ## 4. Assumptions / caveats
 - Range @65 mph (highway planning) and @~50 mph (local); real-world in-band. Loaded masses: Entry ~14,252 lb, Mid ~15,763, High ~17,095 (non-pack curb ~9,640 + pack + payload ~1,767).
 - Cells ~$80/kWh sodium (cost basis, rough); retail ~1.75× on the **cell delta** (pack structure/BMS/electronics are ~common across tiers, so the *difference* is mostly cells).
-- Pack mass = cells + inter-cell foam potting (~12%) + honeycomb fill + Al faces/frame (~220 kg). Firm at
+- Pack mass = cells + inter-cell foam potting (~12%) + honeycomb fill + Al faces/frame (~220 kg). Firm at cell selection.
+
+## 5. Recommendation / use
+- **Publish all three** in the open-source repo as the pack menu; **High = our reference build** (the full-thesis bus, tows the toad, goes far), **Mid = the recommended default** for most buyers, **Entry = the budget/local option**.
+- Fold the chosen *reference* (High) into the mass budget + floor-plan v0.6; keep Entry/Mid as documented variants.
+
+## 6. Open / next
+- Credit the lighter tiers' efficiency gain (re-range Entry/Mid after the mass drop).
+- Confirm Entry's vehicle-level weight vs axle/CDL thresholds (possible extra selling point).
+- Cost model: firm cell $/kWh + the retail multiple with the BOM.
+

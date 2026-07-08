@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 """
-COLD-WEATHER PRECONDITIONING EXPERIMENT
-Tests TJ's claim: "you lose LESS battery by having the diesel CHP."
-Same cold spell run twice:
-  A) CHP available -> its waste heat carries the cabin; battery is spared the heating load
-  B) CHP dead      -> the heat pump must make all heat from BATTERY electricity
-Compare heat demand, where the heat came from, comfort lost, and diesel.
+COLD-WEATHER PRECONDITIONING EXPERIMENT (v0.6 heat model)
+Same cold spell run twice, with the corrected UA-based heat load + heat pump:
+  A) CHP available -> its waste heat displaces heat-pump load; battery spared
+  B) CHP dead      -> the heat pump makes all heat from BATTERY electricity
 """
 import numpy as np
 from house_bus_twin import run, drive_reserve_kwh, P
@@ -20,20 +18,22 @@ A = run(**cold)
 B = run(**cold, faults={'chp_dead': True})
 
 def line(tag, tw):
-    demand = tw.acc['hvac_elec'] + tw.acc['chp_heat']
-    batt = tw.acc['hvac_elec'] - tw.acc['shed']
-    print("  %-26s demand=%6.1f  from-CHP=%6.1f  from-battery=%6.1f  COMFORT-SHED(cold)=%6.1f  diesel=%4.1fL  endSOC=%4.1f%%"
-          % (tag, demand, tw.acc['chp_heat'], batt, tw.acc['shed'], tw.diesel_L, tw.soc/P['pack_gross']*100))
+    hd  = tw.acc['heat_demand']        # kWh THERMAL demand
+    chp = tw.acc['chp_heat']           # kWh THERMAL from CHP waste heat
+    hpe = tw.acc['hvac_elec']          # kWh ELECTRIC drawn by heat pump for HVAC
+    print("  %-24s heat-demand=%6.0f(th)  from-CHP=%6.0f(th)  heat-pump-ELEC=%6.0f  COMFORT-SHED=%6.0f  diesel=%4.1fL  endSOC=%4.1f%%"
+          % (tag, hd, chp, hpe, tw.acc['shed'], tw.diesel_L, tw.soc/P['pack_gross']*100))
 
-print("COLD-WEATHER PRECONDITIONING  -  10 days @ -12C, thin sun, start 55%  (kWh unless noted)")
-print("="*112)
+print("COLD PRECONDITIONING  -  10 days @ -12C, thin sun, start 55%  (th = kWh thermal)")
+print("="*124)
 line("A) CHP available", A)
-line("B) CHP DEAD (battery heat)", B)
-print("-"*112)
-demand = A.acc['hvac_elec'] + A.acc['chp_heat']
-print("  Same heat DEMAND both cases (~%.0f kWh / 10 d, ~%.0f kWh/day at -12C)." % (demand, demand/10))
-print("  WITH CHP: delivered ~%.0f kWh heat (~%.0f kWh/day) for %.1f L (~%.1f L/day); comfort met; reserve held."
-      % (A.acc['chp_heat'], A.acc['chp_heat']/10, A.diesel_L, A.diesel_L/10))
-print("  WITHOUT it: battery hits the reserve floor and ~%.0f kWh of heat is SHED -> cold cabin." % B.acc['shed'])
-print("  => Genset turns a freeze-or-breach dilemma into a non-issue for <1 L/day, AND keeps the pack warm")
-print("     so it accepts REGEN when driving. Recovered heat + regen is why you 'lose less battery'.")
+line("B) CHP DEAD (heat pump)", B)
+print("-"*124)
+hd = A.acc['heat_demand']
+print("  Cabin heat DEMAND ~%.0f kWh THERMAL / 10 d (~%.0f kWh/day at -12C) -> via heat pump COP %.1f = ~%.0f kWh/day ELECTRIC."
+      % (hd, hd/10, P['cop_heat'], hd/10/P['cop_heat']))
+print("  WITH CHP: ~%.0f kWh of that heat came free from the genset (%.1f L, ~%.1f L/day); comfort met; reserve held."
+      % (A.acc['chp_heat'], A.diesel_L, A.diesel_L/10))
+print("  WITHOUT CHP: heat pump draws ~%.0f kWh electric over 10 d from battery+solar; comfort-shed=%.0f kWh."
+      % (B.acc['hvac_elec'], B.acc['shed']))
+print("  NB sodium pack needs NO warming to charge/discharge cold -> this heat is CABIN + water/pipes, not battery.")

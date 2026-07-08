@@ -37,7 +37,9 @@ P = dict(
     house_base_kw   = 0.30,    # standby+network+controls, continuous
     fridge_kwh_day  = 1.5,
     grow_kwh_day    = 2.67,    # energy-aware grow light (Food_Hydro doc)
-    hvac_kw_per_dC  = 0.06,    # heat-pump ELECTRIC kW per degC |Tout-Tset| (COP-blended)
+    ua_w_per_k      = 48.5,    # WHOLE-BUS heat-loss coefficient (envelope+windows+ERV vent); see heat_loss_model.py
+    cop_heat        = 2.2,     # cold-climate heat-pump COP (CO2/boosted) at low temp
+    cop_cool        = 3.0,     # cooling COP (summer)
     t_set           = 21.0,    # cabin setpoint degC
     reserve_margin  = 0.20,    # m in the reserve formula
 )
@@ -72,25 +74,31 @@ class Twin:
         self.chp_run_left = 0.0
         self.diesel_L = 0.0
         self.log = []
-        self.acc = dict(solar=0, chp=0, load=0, export=0, shed=0, dumped=0, chp_heat=0, hvac_elec=0)
+        self.acc = dict(solar=0, chp=0, load=0, export=0, shed=0, dumped=0, chp_heat=0, hvac_elec=0, heat_demand=0)
         self.reserve_breaches = 0   # parked SOC below the floor -> must be 0
         self.stranded = 0           # hit SOC-min mid-drive -> must be 0
         self.min_soc = self.soc
 
     def loads(self, tout, occupied, hour, chp_running):
-        """(nonhvac_kwh, hvac_elec_kwh) for a 1 h step."""
+        """(nonhvac_kwh, hvac_elec_kwh) for a 1 h step. Heat is UA*dT thermal, met by a
+        heat pump (heat/COP electric); the CHP's waste heat displaces heat-pump heat directly."""
         nonhvac = P['house_base_kw'] + P['fridge_kwh_day']/24
         nonhvac += P['grow_kwh_day']/24 * (1.0 if 6 <= hour <= 20 else 0.2)
-        dT = abs(tout - P['t_set'])
-        occ_factor = 1.0 if occupied else 0.25
-        hvac = P['hvac_kw_per_dC'] * dT * occ_factor
-        # CHP waste heat offsets heating: chp_heat_kw of heat == chp_heat_kw/COP electric
-        if chp_running and tout < P['t_set']:
-            offset = P['chp_heat_kw'] / self.COP
-            used = min(hvac, offset)
-            hvac -= used
-            self.acc['chp_heat'] += used
-        self.acc['hvac_elec'] += hvac   # battery electricity actually spent on heating
+        occ = 1.0 if occupied else 0.5           # setback when away (protect pipes/plants, not full comfort)
+        ua = P['ua_w_per_k']/1000                 # kW per K
+        if tout < P['t_set']:                     # HEATING
+            q_heat = ua * (P['t_set'] - tout) * occ    # kW thermal demand
+            self.acc['heat_demand'] += q_heat
+            if chp_running:                        # CHP waste heat covers heat DIRECTLY (not via COP)
+                cover = min(q_heat, P['chp_heat_kw'])
+                self.acc['chp_heat'] += cover
+                q_heat -= cover
+            hvac = q_heat / P['cop_heat']          # remaining heat via heat pump -> electric
+        else:                                      # COOLING
+            q_cool = ua * (tout - P['t_set']) * occ
+            self.acc['heat_demand'] += q_cool
+            hvac = q_cool / P['cop_cool']
+        self.acc['hvac_elec'] += hvac              # electricity actually drawn for HVAC
         return nonhvac, hvac
 
     def solar_gen(self, hour, weather, driving):
@@ -204,17 +212,4 @@ if __name__ == "__main__":
             soc0=0.85)
     report("B: Winter ski week (7 d, -8C, thin sun)", B)
 
-    # C) Mountain drive day: 6 h drive incl a 900 m pass, then park.
-    #    Guard requires enough to drive ~180 mi + climb + arrival reserve => start ~full.
-    C = run(24, tout_fn=lambda t: 2.0, weather_fn=lambda t: 0.5,
-            driving_fn=lambda t: 8 <= t < 14, miles_fn=lambda t: 30.0,
-            dH_fn=lambda t: 900.0 if t == 10 else 0.0,
-            # arrives at a resort WITH charging nearby -> small D_safe -> modest parked reserve
-            reserve_fn=lambda t: drive_reserve_kwh(D_safe=15, k_wx=1.2, k_terrain=1.1),
-            soc0=0.97)
-    report("C: Mountain drive day (180 mi + 900 m pass)", C)
-
-    # D) Bus in storage 10 d, unoccupied, mild
-    D = run(240, tout_fn=lambda t: 15.0, weather_fn=lambda t: 0.6, occupied=False,
-            reserve_fn=lambda t: drive_reserve_kwh(D_safe=50), soc0=0.9)
-    rep
+    # C) Mountain drive day: 6 h drive incl a 900 m pass, the

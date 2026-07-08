@@ -42,16 +42,24 @@ This is the payoff. In deep cold, without an external heat source you must make 
 ### The regen point (web-verified)
 Cold is a real EV problem: internal resistance rises, so a cold battery **can't accept charge/regen efficiently** — the BMS limits it — and cold weather can cut rated range **by ~40 % at ~20 °F**. Preconditioning from an *external* source (normally shore power) recovers **20–30 %** of that loss. **Off-grid, the CHP is that external source** — the boondocking equivalent of plugging in to precondition. Warm pack → full regen on descents → more effective range in winter.
 
-## 4. "You lose less battery by having it" — quantified in the twin
+## 4. How much heat, and how much diesel — quantified (v0.6 corrected)
 
-`digital_twin/cold_precondition_experiment.py` runs the *same* 10-day −12 °C spell twice:
+**⚠ The heat numbers here were corrected on 2026-07-07 — see `05_.../Heat_Load_and_Winter_Diesel_v0_6.md`.** An earlier draft used ~48 kWh/day *electric* for heat, which implied a leaky RV. Rebuilt from envelope physics (UA ~48 W/K): at −12 °C the cabin needs **~38 kWh/day of *heat*, ~17 kWh/day of *electricity*** (heat pump, COP ~2.2).
 
-| | Heat demand | From CHP | From battery | Comfort shed (cold) | Diesel |
-|---|---|---|---|---|---|
-| **CHP available** | ~475 kWh | **~158** | ~317 | **0** | **8.8 L** (~0.9 L/day) |
-| **CHP dead** | ~475 kWh | 0 | ~294 | **~181 kWh** | 0 L |
+The winter diesel sweep (`digital_twin/winter_diesel_sweep.py`, 10-day parked spells, heat pump + ~12 kW solar):
 
-Same heat demand (~48 kWh/day at −12 °C). **With the CHP:** it delivers ~16 kWh/day of heat for **under 1 L/day**, comfort is fully met, and the reserve holds. **Without it:** the battery hits the reserve floor and **~181 kWh of heat gets shed — a cold cabin** — because you can't spend reserve energy on comfort. So the genset converts a *freeze-or-breach* dilemma into a non-issue, and every kWh of heat it supplies is a kWh the battery didn't have to. That's the "lose less battery" claim, made concrete.
+| Spell | Heat (thermal) | **Diesel (with sun)** | Sunless steady-state |
+|---|---|---|---|
+| −5 °C, decent sun | 30 kWh/d | **0 L/day** | ~2–6 L/d |
+| −12 °C, thin sun | 38 kWh/d | **0 L/day** | ~3–7 L/d |
+| −18 °C, low sun | 45 kWh/d | **~0.3 L/day** | ~3–8 L/d |
+| −25 °C, storm | 54 kWh/d | **~1.0 L/day** | ~4–10 L/d |
+
+**With any sun, a heat pump on solar carries the cabin for ~0 diesel** even at −12 °C — the big pack buffers the gaps. Diesel is only really needed in a **sustained sunless deep freeze**, and even then **smart dispatch** (run the heat pump off the CHP's electricity at COP ~2.2 *and* capture its waste heat, ≈13 kWh heat/L) holds it to **~3 L/day at −12 °C**. So TJ's "happy to burn ~1 L/day" is comfortable for typical winter, with margin.
+
+**The rule:** make heat with the **heat pump on solar/battery** (~2.2× more effective than burning fuel for heat); the CHP's *direct* heat is a bonus you take **when it's already running to hold the reserve**, not something you fire up *for* heat while the sun is up.
+
+**And sodium removes a whole job:** the pack needs **no warming** to charge or discharge in the cold (charges to −50 °C, >85 % capacity at −40 °C), so this heat is **cabin + water + pipes only** — not battery survival. "Precondition the battery for regen" is a real benefit for *LFP*, but much weaker for our *sodium* pack (it already takes charge cold). The genset's cold value is therefore mostly **comfort heat + holding the reserve in a sunless stretch**, not keeping the battery alive.
 
 ## 5. The energy accounting (why so little diesel buys so much)
 
@@ -75,4 +83,4 @@ It's still diesel, still not zero-carbon. But: (a) it's a **backstop**, not a da
 
 ---
 
-*Genset = series range-extender + CHP, 2026-07-07. NOT A HYBRID: the diesel engine has NO mechanical path to the wheels — it spins a generator (electricity) + gives heat; the BATTERY alone drives the wheels. = series range-extender / APU (cf. BMW i3 REx, diesel-electric locomotive); keeps the "delete the diesel drivetrain / it's a BEV" identity. CONNECTION (TJ's brainstorm): recommend OPTION A — genset rectifies to the 48V HOUSE bus (like solar), the existing BIDIRECTIONAL DC-DC lifts surplus to the 400V pack; genset is small (3.5kW, job = hold-reserve + precondition, NOT bulk-charge — 3.5kW would take ~100h to fill 390kWh, so trickle-to-48V is right); the one DC-DC is the single 48V<->400V gateway. NUANCE: firing the genset does TWO feeds — electrical (charge via 48V+DC-DC) AND thermal (waste heat warms the pack via cold-plate = what 'precondition the battery' physically means; warming cells is a THERMAL job not electrical). COLD-WEATHER MULTIPLIER: one run = 6 jobs at once — (1) charge/hold reserve, (2) cabin heat, (3) hot water, (4) keep pipes warm, (5) PRECONDITION battery so it ACCEPTS REGEN when driving (cold pack can't — BMS curtails regen; you'd lose recuperation to friction brakes), (6) melt snow off solar. REGEN FACTS (web-verified): cold raises internal resistance -> BMS limits charge/regen; cold cuts range ~40% at 20F; preconditioning from an EXTERNAL source recovers 20-30% — and OFF-GRID the CHP IS that external source (boondock equivalent of plugging in). TWIN (cold_precondition_experiment.py, 10d @ -12C): same ~475 kWh heat demand; WITH CHP delivers ~158 kWh heat (~16/day) for 8.8 L (~0.9 L/day), comfort met, reserve held; WITHOUT it ~181 kWh heat SHED (cold cabin). => 'lose less battery by having it'. ENERGY ACCOUNTING per ~1 L diesel (~10 kWh): ~35% electricity + ~65% heat×~85% recovered = ~55% usable heat => ~90% total useful (vs ~35% for a plain genset). FRAMING: still diesel but a BACKSTOP (most weeks never start it), ~90% fuel utilization, saves battery + enables winter regen; architecture is APU-agnostic (cleaner range-extender can drop in). Figure: genset_series_and_cold_chp.png. Next: confirm 48V injection sizing, pack cold-plate warm-up rate, model regen in the twin, APU-agnostic note. Sources: cold-regen/preconditioning (cleantechnica, midtronics, recurrentauto).*
+*Genset = series range-extender + CHP, 2026-07-07. NOT A HYBRID: the diesel engine has NO mechanical path to the wheels — it spins a generator (electricity) + gives heat; the BATTERY alone drives the wheels. = series range-extender / APU (cf. BMW i3 REx, diesel-electric locomotive); keeps the "delete the diesel drivetrain / it's a BEV" identity. CONNECTION (TJ's brainstorm): recommend OPTION A — genset rectifies to the 48V HOUSE bus (like solar), the existing BIDIRECTIONAL DC-DC lifts surplus to the 400V pack; genset is small (3.5kW, job = hold-reserve + precondition, NOT bulk-charge — 3.5kW would take ~100h to fill 390kWh, so trickle-to-48V is right); the one DC-DC is the single 48V<->400V gateway. NUANCE: firing the genset does TWO feeds — electrical (charge via 48V+DC-DC) AND thermal (waste heat warms the pack via cold-plate = what 'precondition the battery' physically means; warming cells is a THERMAL job not electrical). COLD-WEATHER MULTIPLIER: one run = 6 jobs at once — (1) charge/hold reserve, (2) cabin heat, (3) hot water, (4) keep pipes warm, (5) PRECONDITION battery so it ACCEPTS REGEN when driving (cold pack can't — BMS curtails 

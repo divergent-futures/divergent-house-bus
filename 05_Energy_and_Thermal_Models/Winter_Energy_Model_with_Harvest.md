@@ -4,8 +4,10 @@
 
 ---
 
-## 1. Assumptions (first-order, ~-10 °C design day)
-- **Heat demand ~60 kWh/day** (~2.5 kW avg: cabin ~1.5 + battery ~0.4 + DHW ~0.5 + drying ~0.1) with high-spec insulation.
+> **⚠ SUPERSEDED (v0.6, 2026-07-07) — see `Heat_Load_and_Winter_Diesel_v0_6.md`.** Rebuilt from envelope physics (UA ~48 W/K): heat demand at −12 °C is **~38 kWh/day thermal, ~17 kWh/day electric** via the heat pump (COP ~2.2). The **battery-warming term is deleted** (sodium charges/discharges cold, no warming). With a heat pump on ~12 kW of solar, typical winter diesel is **~0–1 L/day**, sunless deep cold ~3 L/day. Section kept for history.
+
+## 1. Assumptions (first-order, ~-10 °C design day) — *superseded, see v0.6*
+- **Heat demand ~60 kWh/day** (~2.5 kW avg: cabin ~1.5 + battery ~0.4 + DHW ~0.5 + drying ~0.1) with high-spec insulation. *(v0.6: ~38 kWh/day thermal at −12 °C; the ~0.4 kW battery term removed — sodium needs no warming.)*
 - **Free heat:** fridge/freezer reject ~7 kWh/day; **drivetrain + battery ~10 kW while driving**.
 - **Solar→heat via HP:** ~6 (old, COP 3) / ~8 (new, COP 4) kWh/day.
 - **CHP heat recovery:** 46% (old, conventional HX) / **65% (new, AM gyroid + condensing)**. Diesel ~10 kWh/L.
@@ -32,8 +34,4 @@
 ## 5. Open / next
 - Firm the cabin heat-loss (UA) with the real insulation envelope + slide-out bridges → tighten the 60 kWh/day.
 - Add the harvest + revised CHP to the main energy-model spreadsheet (`House_BUS_Energy_Model.xlsx`).
-- Down-size the CHP + diesel tank in the mass budget; update the configurator CHP options.
-- Model a genset-free build (warm-climate) autonomy on solar + battery + drive-harvest only.
-
----
-*Winter energy re-run, 2026-07-03. With drivetrain harvest (~10 kW driving) + heat-pump COP 3→4 + CHP recovery 46→65% (AM gyroid): winter diesel drops from ~10 L/day to ~6.9 parked / ~3.8 edges / ~0 travel → typical ~3-4 L/day. 30 L tank ~3→~8 days. CHP down to 3.5 kW (5 not needed); many builds = 3.5 kW or none. Winter's dominant load is HEAT — making heat cheap collapses the genset. Feeds mass budget + configurator + energy-model xlsx. See winter_energy_harvest.png.*
+- Down-size the CHP + diesel tank in the mass budget; update the configurator CHP op
