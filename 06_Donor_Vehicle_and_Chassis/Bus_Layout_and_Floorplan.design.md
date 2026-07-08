@@ -1,6 +1,27 @@
 # Bus Layout & Floor Plan - V2 (integrated bus)
 
-**Status:** Layout v0.6 (102 in; plan + interior side elevation with heights — for iteration)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging
+**Status:** Layout v0.7 (the four daytime MODES; plan v0.6 + reconfigurable modes)  ·  **Applies to:** Bus **V2** (the bespoke integrated House Bus; V1 = the skoolie repower has its own simpler layout)  ·  **Depends on:** all subsystem tracks + the V1-vs-V2 staging + `07_.../Reconfigurable_Interior_Slide_Out_Modes.md` + the controls state machine
+
+---
+
+## 0.7 — v0.7: the four daytime MODES (2026-07-07)
+
+![House BUS V2 floor plan v0.7 — modes](bus_floorplan_v0_7.png)
+
+The v0.6 footprint is fixed; v0.7 shows how it **reconfigures through the day** via the two slide-outs + fold-down furniture. This is the "mobile live-work" positioning (the remote-worker/creator personas, and TJ + wife themselves), and it's what the state machine's **"mode" button** physically does — one control sets **slides + lighting + climate zone + screens** together (ties to `08_.../Controls_Brain_Orchestration_v0_3.md`).
+
+**The two slides are independent and on opposite sides:** the **lounge slide (south)** and the **bedroom slide (north)** — so they balance, deploy separately, and each unlocks a different mode. **Fixed** through every mode: the **wet room + hydro wall + galley/fridge** (mid) and the **rear mech + e-axle** (under the raised bed).
+
+| Mode | Slide | What the space becomes | Mode button also sets |
+|---|---|---|---|
+| **1 · Travel / Sleep** | **none** (both IN) | bed down, dinette down, compact — **the only mode you can DRIVE in** (all slides in, per the DRIVE-entry interlock) | travel lighting; cab-only climate; screens off |
+| **2 · Dual-office / Work** | **lounge OUT (S)** | lounge → standing/fold-down **desk + screen wall (not a TV)**; a **fold-down desk in the bedroom** too — he works the lounge, she the bedroom, or the **exterior work point** (V2X outlet) | task lighting; work-zone climate; screens on as displays |
+| **3 · Exercise (morning)** | **bedroom OUT (N)** | bed **folds up to the wall** → open **yoga / workout floor** (TJ's wife's morning routine) | bright even lighting; bedroom-zone climate; screens off/coaching |
+| **4 · Social / Relax** | **lounge OUT (S)** | lounge → **sofa/dinette open**; the same screen wall becomes **media** | warm lighting; lounge climate; screens = media |
+
+**Why it matters:** the slides are **daytime utility**, not just night sleeping room — the bed already fits the fixed footprint, so you *don't* deploy slides to sleep. Sliding is about *activity space*: a real two-person mobile office + gym + lounge, with fold-down/stowable furniture so one space serves many modes (the Signature transforming ethos beyond the bathroom). Work and Social **share the lounge slide** (furniture + screens reconfigure); Exercise uses the bedroom slide.
+
+**Open / next (toward v0.8):** slide-floor **live-load structure + seal** spec (a person doing yoga, a desk); the **fold-down desk/table + exercise-floor stow** mechanisms; DC power/data points at the **two interior + one exterior** work zones; transverse sections through a deployed slide (thermal-bridge + travel-position); confirm each mode's guard in the state machine (no DRIVE with a slide out).
 
 ---
 
@@ -93,4 +114,38 @@ Bath + closed-loop reticulating shower, composting toilet (urine -> hydroponics)
 ## 6. Electrical distribution (all-DC)
 
 - **No whole-bus AC bus.** 48 V backbone (induction, big pumps, dryer) + 12/24 V + USB-C via point-of-use bucks.
-- A small **~1.5 kW switchable convenience inverter near the bathroom** 
+- A small **~1.5 kW switchable convenience inverter near the bathroom** (hair-dryer-driven, off by default) feeds **GFCI AC outlets at bath (primary), galley, and lounge**.
+- Shore AC -> DC charger; solar -> 48 V MPPT; DC fast charge (NACS, MCS-ready) -> the 400 V pack.
+
+## 7. Living zones & air quality
+
+Four zones - **driving cabin, main lounge, bath/hydroponics, bedroom** - each with its own air-quality array (CO / CO2 / O2 / humidity / particulates) feeding ventilation logic. Driving cabin seals from the rear so only it is conditioned on the move.
+
+## 8. Slide-outs, roof & underfloor
+
+- **Slide-outs** widen the lounge and bedroom when parked (accepted thermal-bridge trade; winter occasional).
+- **Roof:** ~3.5 kW fixed solar + deployable array (to ~5-10 kW); ventilation built into the loop; kept clear.
+- **Underfloor:** the 400 V/48 V structural pack spans the floor - lowest CG, stiff, rollover-resistant; ~8.7 in thick with wheel-well notches.
+
+## 9. Circulation & egress
+
+- **Main entry** front by the lounge/cab.
+- **Rear emergency hatch + window** at the bed - the second independent exit, so a mid-bus fault never traps you.
+- **External service door** to the central bay.
+- Clear walk-through aisle; the central core is passed on one side.
+
+## 10. Why this arrangement
+
+Heaviest mass central + low (battery floor) -> stable handling; thermal core central -> shortest loops + best heat harvest; wet cluster central -> one plumbing zone, condensate harvested where made; sleep rear -> quietest, own egress; cab sealable -> condition only the front on the move.
+
+## 11. Open questions (toward v0.3 / measured)
+
+- Galley along the lounge wall vs wrapped into the core.
+- Bath vs hydroponics split within the wet cluster (rail-mounted shower/hydro space-share idea).
+- Cab seat count (2 vs 3-4); convert/stow.
+- Storage volume targets per zone.
+- Exact slide-out extents.
+- Pack wheel-well notch geometry vs the bay/bath footprint above it.
+
+---
+*Layout v0.2 (2026-06-29). V2 integrated bus; firmed footprints folded in (400 V/48 V dual-domain structural pack, CO2 dual-circuit core, all-DC distribution). Dimensions provisional. Next: measured v0.3 once the central-bay and water-inventory volumes are fixed.*
