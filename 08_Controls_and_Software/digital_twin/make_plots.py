@@ -25,9 +25,9 @@ fig.suptitle("House BUS Digital Twin v0.5 - simulated runs (SOC never crosses th
 
 def panel(a, tw, title, xlabel="hour"):
     h = series(tw, 'hour')
-    a.fill_between(h, 0, [s/P['pack_kwh']*100 for s in series(tw,'reserve')],
+    a.fill_between(h, 0, [s/P['pack_gross']*100 for s in series(tw,'reserve')],
                    color="#f2c9c2", alpha=0.6, label="reserve floor (forbidden below)")
-    a.plot(h, [s/P['pack_kwh']*100 for s in series(tw,'soc')], color="#1f6f3a", lw=2.2, label="pack SOC %")
+    a.plot(h, [s/P['pack_gross']*100 for s in series(tw,'soc')], color="#1f6f3a", lw=2.2, label="pack SOC %")
     a.set_title(title, fontsize=10, color=TXT, fontweight="bold")
     a.set_ylabel("SOC / reserve (% of pack)"); a.set_xlabel(xlabel)
     a.set_ylim(0, 100); a.grid(alpha=0.25)

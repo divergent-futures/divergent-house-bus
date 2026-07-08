@@ -13,7 +13,7 @@ an invariant is a real finding we must design against.
 import numpy as np
 from house_bus_twin import run, drive_reserve_kwh, P
 
-SMIN = P['soc_min_frac'] * P['pack_kwh']
+SMIN = P['soc_survival_frac'] * P['pack_gross']
 
 def check(name, tw, expect="safe", note=""):
     inv1 = tw.reserve_breaches == 0
@@ -23,7 +23,7 @@ def check(name, tw, expect="safe", note=""):
     verdict = "SAFE" if safe else "VIOLATION"
     tag = "OK" if (safe == (expect == "safe")) else "!! UNEXPECTED !!"
     print(f"\n[{name}]  -> {verdict}  ({tag})")
-    print(f"   min SOC={tw.min_soc:6.1f} kWh ({tw.min_soc/P['pack_kwh']*100:4.1f}%)  "
+    print(f"   min SOC={tw.min_soc:6.1f} kWh ({tw.min_soc/P['pack_gross']*100:4.1f}%)  "
           f"diesel={tw.diesel_L:4.1f} L  shed={tw.acc['shed']:6.1f} kWh")
     print(f"   INV1 reserve-held={inv1}  INV2 not-stranded={inv2}  INV3 soc-floor={inv3}")
     if note:
@@ -64,16 +64,19 @@ t4 = run(96, tout_fn=lambda t: -25 + 3*np.sin((t%24-14)/24*2*np.pi),
 results['4 -25C cold snap'] = check("4) -25C cold snap, 4 days, occupied", t4, "safe",
     "extreme heating load; CHP heat should carry cabin, pack holds reserve")
 
-# 5) REMOTE MOUNTAIN ARRIVAL, NO CHARGER (the edge case the baseline avoided)
+# 5) DEEP REMOTE MOUNTAIN ARRIVAL, NO CHARGER (the true edge on the 390 kWh pack)
+#    On the bigger High-tier pack a 180 mi backcountry day now clears; the edge moves out to
+#    ~240 mi arriving 60 mi from any charger. The twin quantifies exactly where the limit is.
 t5 = run(24, tout_fn=lambda t: 2.0, weather_fn=lambda t: 0.5,
-         driving_fn=lambda t: 8 <= t < 14, miles_fn=lambda t: 30.0,
+         driving_fn=lambda t: 8 <= t < 16, miles_fn=lambda t: 30.0,   # 240 mi
          dH_fn=lambda t: 900.0 if t == 10 else 0.0,
-         reserve_fn=lambda t: drive_reserve_kwh(D_safe=40, k_wx=1.2, k_terrain=1.1),
+         reserve_fn=lambda t: drive_reserve_kwh(D_safe=60, k_wx=1.2, k_terrain=1.1),
          soc0=0.97)
-results['5 remote mtn arrival'] = check("5) 180mi + pass, arrive 40mi from any charger", t5,
+results['5 deep remote mtn arrival'] = check("5) 240mi + pass, arrive 60mi from any charger", t5,
     "violation",
-    "EXPECTED edge: a big-climb day into the backcountry lands below ideal reserve for a few "
-    "hours until CHP/solar recover -> mitigation is a charge stop or arriving where you can plug in")
+    "EXPECTED edge (390 kWh pack): the deepest backcountry days land below ideal reserve until "
+    "CHP/solar recover -> mitigation is a charge stop or arriving where you can plug in. The bigger "
+    "pack pushes this limit out from ~180 mi (330 kWh) to ~240 mi (390 kWh).")
 
 # 6) SENSOR FAULT proxy: solar array reads 40% low all week (derate) -> control under-collects
 t6 = run(168, tout_fn=lambda t: 18.0, weather_fn=lambda t: 0.7,

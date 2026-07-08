@@ -17,9 +17,14 @@ import numpy as np
 # PARAMETERS  (traceable to project docs)
 # ----------------------------------------------------------------------------
 P = dict(
-    pack_kwh        = 330.0,   # structural pack (High tier)
-    soc_min_frac    = 0.05,    # never below 5% (pack protection)
-    soc_max_frac    = 1.00,
+    # --- capacity stack (sodium-ion, High tier) ---
+    pack_gross      = 390.0,   # NAMEPLATE gross energy (102in sodium potted)
+    soc_max_frac    = 0.95,    # daily charge ceiling (longevity + BMS balancing headroom; sodium tolerant)
+    soc_usermin_frac= 0.05,    # app "0%" -> usable window = (0.95-0.05)*390 ~= 351 kWh
+    soc_survival_frac=0.02,    # hidden survival reserve floor: below user-0, CRITICAL loads only
+    #   sodium is 0V-safe (100% DOD, no mechanical degradation) so the bottom buffer is a
+    #   DESIGN CHOICE (keep-the-lights-on sliver), not a chemistry limit.
+    crit_load_kw    = 0.25,    # what the survival sliver must sustain (BMS, controls, comms, egress)
     e_drive_act     = 1.2,     # kWh/mi ACTUAL driving consumption (330 kWh -> ~275 mi)
     e_drive_res     = 1.3,     # kWh/mi RESERVE planning base rate (multipliers on top)
     m_veh_kg        = 7400.0,  # loaded mass (axle-load doc ~16,327 lb)
@@ -61,7 +66,7 @@ class Twin:
     COP = 2.5  # heat-pump COP (season-blended)
 
     def __init__(self, soc0_frac=0.85, faults=None):
-        self.soc = soc0_frac * P['pack_kwh']
+        self.soc = soc0_frac * P['pack_gross']
         self.faults = faults or {}
         self.chp_on = False
         self.chp_run_left = 0.0
@@ -95,7 +100,8 @@ class Twin:
 
     def step(self, hour, tout, weather, occupied, driving, miles, dH_m,
              reserve_kwh, allow_export=0.0):
-        smin = P['soc_min_frac'] * P['pack_kwh']
+        smin = P['soc_survival_frac'] * P['pack_gross']   # hard floor (sodium)
+        usermin = P['soc_usermin_frac'] * P['pack_gross']  # app 0%
         solar = self.solar_gen(hour, weather, driving)
         nonhvac, hvac = self.loads(tout, occupied, hour, self.chp_on)
         load = nonhvac + hvac
@@ -109,7 +115,7 @@ class Twin:
         shed = export = dumped = 0.0
 
         if net >= 0:
-            room = P['soc_max_frac']*P['pack_kwh'] - self.soc
+            room = P['soc_max_frac']*P['pack_gross'] - self.soc
             charge = min(net, room); self.soc += charge
             leftover = net - charge
             if allow_export > 0 and (self.soc - reserve_kwh) > 0:
@@ -130,7 +136,7 @@ class Twin:
                     self.chp_on = True; self.chp_run_left = P['chp_min_block_h']
                 chp_e = P['chp_kw']
                 cover = min(unmet, chp_e); unmet -= cover
-                to_pack = min(chp_e - cover, P['soc_max_frac']*P['pack_kwh'] - self.soc)
+                to_pack = min(chp_e - cover, P['soc_max_frac']*P['pack_gross'] - self.soc)
                 self.soc += to_pack
                 self.diesel_L += chp_e / P['diesel_kwh_per_L']
                 self.acc['chp'] += chp_e
@@ -147,7 +153,7 @@ class Twin:
 
         if (not driving) and self.soc < reserve_kwh - 1e-6:
             self.reserve_breaches += 1
-        self.soc = min(max(self.soc, smin), P['soc_max_frac']*P['pack_kwh'])
+        self.soc = min(max(self.soc, smin), P['soc_max_frac']*P['pack_gross'])
         self.min_soc = min(self.min_soc, self.soc)
         self.log.append(dict(hour=hour, soc=self.soc, solar=solar, load=load,
                              chp=self.chp_on, shed=shed, export=export,
@@ -172,7 +178,7 @@ def run(hours, tout_fn, weather_fn, occupied=True, driving_fn=None, miles_fn=Non
 def report(name, tw):
     a = tw.acc
     print(f"\n=== {name} ===")
-    print(f"  hours={len(tw.log):3d}  final SOC={tw.soc:6.1f} kWh ({tw.soc/P['pack_kwh']*100:4.1f}%)  min SOC={tw.min_soc:6.1f} kWh")
+    print(f"  hours={len(tw.log):3d}  final SOC={tw.soc:6.1f} kWh ({tw.soc/P['pack_gross']*100:4.1f}%)  min SOC={tw.min_soc:6.1f} kWh")
     print(f"  solar={a['solar']:6.1f}  chp_e={a['chp']:5.1f}  chp_heat(elec-eq)={a['chp_heat']:5.1f}  load={a['load']:6.1f}  export={a['export']:6.1f}  shed={a['shed']:6.1f}  dumped={a['dumped']:6.1f}  diesel={tw.diesel_L:4.1f} L")
     flag_r = "OK" if tw.reserve_breaches == 0 else "*** FAIL ***"
     flag_s = "OK" if tw.stranded == 0 else "*** FAIL ***"
