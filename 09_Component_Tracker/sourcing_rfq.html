@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>House BUS — Sourcing & RFQ</title>
+<style>
+ :root{--navy:#1f3a56;--line:#d9e0e7;}
+ body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#243;background:#f6f8fa;}
+ header{background:var(--navy);color:#fff;padding:16px 22px;}
+ header h1{margin:0;font-size:19px;} header p{margin:4px 0 0;font-size:12px;color:#b9c6d3;}
+ .wrap{max-width:1150px;margin:0 auto;padding:16px 22px 60px;}
+ .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;}
+ .stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 16px;}
+ .stat .n{font-size:20px;font-weight:700;color:var(--navy);} .stat .l{font-size:11px;color:#6a7b8a;text-transform:uppercase;}
+ .controls{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px;}
+ select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+ table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:12.5px;}
+ th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #eef2f5;}
+ th{background:#eef3f7;color:var(--navy);font-size:11px;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;}
+ td.num{text-align:right;font-variant-numeric:tabular-nums;}
+ tr:hover td{background:#fafcfe;}
+ .badge{font-size:10px;padding:2px 8px;border-radius:20px;color:#fff;}
+ .r-china{background:#c0392b;} .r-west{background:#2a6f8a;} .r-oem{background:#6a4a9a;} .r-custom{background:#a67c00;} .r-other{background:#888;}
+ tfoot td{font-weight:700;background:#eef3f7;color:var(--navy);font-size:13.5px;}
+ .note{font-size:11.5px;color:#8a99a8;margin-top:12px;}
+ .rfq{font-size:11px;padding:2px 8px;border-radius:20px;}
+ .rfq-ready{background:#eafaf0;color:#1f8a4c;border:1px solid #b9e6cd;}
+ .rfq-none{background:#f4f6f8;color:#8a99a8;border:1px solid #e2e8ee;}
+</style></head><body>
+<header><h1>House BUS — Sourcing &amp; RFQ</h1>
+<p>Rough bulk-order estimates (NOT quotes). Prices are placeholders until you RFQ a supplier. Cells are researched (~$80-105/kWh); the rest are ballpark. Sorted biggest-cost first.</p></header>
+<div class="wrap">
+ <div class="stats" id="stats"></div>
+ <div class="controls">
+   <select id="fRegion"><option value="">All regions</option></select>
+   <select id="fRfq"><option value="">All RFQ statuses</option></select>
+ </div>
+ <table id="tbl"><thead><tr>
+   <th data-k="name">Component</th><th data-k="subsystem">Subsystem</th>
+   <th data-k="region">Region</th><th>Channel</th>
+   <th data-k="qty" class="num">Qty</th><th data-k="unit" class="num">Unit est $</th>
+   <th data-k="total" class="num">Est total $</th><th data-k="rfq">RFQ</th>
+ </tr></thead><tbody id="body"></tbody>
+ <tfoot><tr><td colspan="6">BULK-RUN ESTIMATE (rough)</td><td class="num" id="grand"></td><td></td></tr></tfoot>
+ </table>
+ <div class="note">Confidence shown on hover of each row. "Region" groups the realistic supply channel: <b>China</b> = tier-1 maker / Alibaba bulk (cells, sensors, pumps, extrusion); <b>West</b> = brand parts (Victron, Vicor, Dorin); <b>OEM</b> = specialist (e-axle); <b>Custom</b> = fabricated (fridge, tanks, manifold). A single "bulk run" realistically = the China-channel rows together; brand/OEM/custom are separate orders.</div>
+</div>
+<script src="components.js"></script>
+<script>
+const C=window.COMPONENTS||[];
+const body=document.getElementById('body'), fRegion=document.getElementById('fRegion'), fRfq=document.getElementById('fRfq');
+function regionClass(r){r=(r||'').toLowerCase(); if(r.includes('china'))return'r-china'; if(r.includes('west'))return'r-west'; if(r.includes('oem'))return'r-oem'; if(r.includes('custom'))return'r-custom'; return'r-other';}
+[...new Set(C.map(c=>c.sourcing.region))].sort().forEach(r=>fRegion.add(new Option(r,r)));
+[...new Set(C.map(c=>c.sourcing.rfq_status))].sort().forEach(r=>fRfq.add(new Option(r,r)));
+let sortK='total', sortDir=-1;
+function fmt(n){return '$'+n.toLocaleString();}
+function render(){
+  const reg=fRegion.value, rf=fRfq.value;
+  let list=C.filter(c=>(!reg||c.sourcing.region===reg)&&(!rf||c.sourcing.rfq_status===rf));
+  const key=c=>({name:c.name,subsystem:c.subsystem,region:c.sourcing.region,qty:c.sourcing.qty,unit:c.sourcing.est_unit_usd,total:c.sourcing.est_total_usd,rfq:c.sourcing.rfq_status}[sortK]);
+  list.sort((a,b)=>{const x=key(a),y=key(b);return (typeof x==='number'?x-y:(''+x).localeCompare(''+y))*sortDir;});
+  body.innerHTML='';
+  let grand=0;
+  list.forEach(c=>{
+    const s=c.sourcing; grand+=s.est_total_usd;
+    const rfqCls=s.rfq_status.includes('ready')?'rfq-ready':'rfq-none';
+    const tr=document.createElement('tr'); tr.title='confidence: '+s.confidence;
+    tr.innerHTML=`<td><b>${c.name}</b></td><td>${c.subsystem}</td>
+      <td><span class="badge ${regionClass(s.region)}">${s.region}</span></td>
+      <td style="font-size:11.5px;color:#556">${s.channel}</td>
+      <td class="num">${s.qty}</td><td class="num">${fmt(s.est_unit_usd)}</td>
+      <td class="num">${fmt(s.est_total_usd)}</td>
+      <td><span class="rfq ${rfqCls}">${s.rfq_status}</span></td>`;
+    body.appendChild(tr);
+  });
+  document.getElementById('grand').textContent=fmt(grand);
+  stats(list,grand);
+}
+function stats(list,grand){
+  const el=document.getElementById('stats'); el.innerHTML='';
+  const byReg={}; C.forEach(c=>byReg[c.sourcing.region]=(byReg[c.sourcing.region]||0)+c.sourcing.est_total_usd);
+  const add=(n,l)=>{const d=document.createElement('div');d.className='stat';d.innerHTML=`<div class="n">${n}</div><div class="l">${l}</div>`;el.appendChild(d);};
+  add(fmt(grand),'shown total');
+  add(fmt(byReg['China']||0),'China-channel');
+  add(C.filter(c=>c.sourcing.rfq_status.includes('ready')).length,'ready to RFQ');
+  add(C.length,'components');
+}
+document.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{const k=th.dataset.k; if(sortK===k)sortDir*=-1; else{sortK=k;sortDir=(k==='total'||k==='unit'||k==='qty')?-1:1;} render();});
+fRegion.onchange=render; fRfq.onchange=render; render();
+</script></body></html>

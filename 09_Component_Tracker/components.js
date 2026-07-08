@@ -1,5 +1,4 @@
-// House BUS component data — single source of truth for the tracker AND the configurator.
-// Edit this file to add parts / update status / pick suppliers.
+// House BUS component data — single source of truth for the tracker, sourcing view, AND configurator.
 window.COMPONENTS = [
   {
     "id": "sodium-cells",
@@ -43,7 +42,16 @@ window.COMPONENTS = [
     "source": "03_.../Pack_Capacity_Usable_and_BMS_Window.md, Two_Structural_Packs_Blade_vs_Sodium.md",
     "photo": "components/sodium-cells/photos/",
     "model3d": "components/sodium-cells/models/",
-    "spec_doc": "components/sodium-cells/spec.md"
+    "spec_doc": "components/sodium-cells/spec.md",
+    "sourcing": {
+      "est_unit_usd": 60,
+      "qty": 650,
+      "est_total_usd": 39000,
+      "region": "China",
+      "channel": "tier-1 maker / Alibaba (HiNa/BYD/Veken/Zoolnasm)",
+      "confidence": "researched (~$80-105/kWh)",
+      "rfq_status": "ready to RFQ"
+    }
   },
   {
     "id": "bms",
@@ -79,7 +87,16 @@ window.COMPONENTS = [
     "source": "03_.../Battery_and_Pack_Vetting.md",
     "photo": "components/bms/photos/",
     "model3d": "components/bms/models/",
-    "spec_doc": "components/bms/spec.md"
+    "spec_doc": "components/bms/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1400,
+      "qty": 2,
+      "est_total_usd": 2800,
+      "region": "China/West",
+      "channel": "Orion(US) or JK/Batrium(CN)",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "dcdc-bidir",
@@ -111,7 +128,16 @@ window.COMPONENTS = [
     "source": "03_.../Power_Electronics_Vetting.md, Bidirectional_V2X_Power_Station.md",
     "photo": "components/dcdc-bidir/photos/",
     "model3d": "components/dcdc-bidir/models/",
-    "spec_doc": "components/dcdc-bidir/spec.md"
+    "spec_doc": "components/dcdc-bidir/spec.md",
+    "sourcing": {
+      "est_unit_usd": 2500,
+      "qty": 1,
+      "est_total_usd": 2500,
+      "region": "West",
+      "channel": "Vicor(US)/BorgWarner",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "inverter-charger",
@@ -143,7 +169,16 @@ window.COMPONENTS = [
     "source": "Bidirectional_V2X_Power_Station.md",
     "photo": "components/inverter-charger/photos/",
     "model3d": "components/inverter-charger/models/",
-    "spec_doc": "components/inverter-charger/spec.md"
+    "spec_doc": "components/inverter-charger/spec.md",
+    "sourcing": {
+      "est_unit_usd": 2500,
+      "qty": 1,
+      "est_total_usd": 2500,
+      "region": "West",
+      "channel": "Victron(NL)/Sol-Ark(US)",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "mppt",
@@ -168,7 +203,16 @@ window.COMPONENTS = [
     "source": "Solar_Everywhere_and_Waste_Heat_Verdict.md",
     "photo": "components/mppt/photos/",
     "model3d": "components/mppt/models/",
-    "spec_doc": "components/mppt/spec.md"
+    "spec_doc": "components/mppt/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1200,
+      "qty": 1,
+      "est_total_usd": 1200,
+      "region": "West",
+      "channel": "Victron(NL)",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "e-axle",
@@ -209,7 +253,16 @@ window.COMPONENTS = [
     "source": "Eaxle_RideHeight_and_Rear_Packaging.md",
     "photo": "components/e-axle/photos/",
     "model3d": "components/e-axle/models/",
-    "spec_doc": "components/e-axle/spec.md"
+    "spec_doc": "components/e-axle/spec.md",
+    "sourcing": {
+      "est_unit_usd": 8000,
+      "qty": 1,
+      "est_total_usd": 8000,
+      "region": "OEM",
+      "channel": "ZF/Dana/JJE (reman/OEM)",
+      "confidence": "rough - big uncertainty",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "co2-compressor-ht",
@@ -245,7 +298,16 @@ window.COMPONENTS = [
     "source": "04_Thermal_HeatPump_Coolant_CHP/*",
     "photo": "components/co2-compressor-ht/photos/",
     "model3d": "components/co2-compressor-ht/models/",
-    "spec_doc": "components/co2-compressor-ht/spec.md"
+    "spec_doc": "components/co2-compressor-ht/spec.md",
+    "sourcing": {
+      "est_unit_usd": 3000,
+      "qty": 1,
+      "est_total_usd": 3000,
+      "region": "West",
+      "channel": "Dorin(IT)/BITZER(DE)",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "lt-compressor",
@@ -270,7 +332,16 @@ window.COMPONENTS = [
     "source": "Thermal track",
     "photo": "components/lt-compressor/photos/",
     "model3d": "components/lt-compressor/models/",
-    "spec_doc": "components/lt-compressor/spec.md"
+    "spec_doc": "components/lt-compressor/spec.md",
+    "sourcing": {
+      "est_unit_usd": 400,
+      "qty": 1,
+      "est_total_usd": 400,
+      "region": "West/China",
+      "channel": "Secop",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "manifold",
@@ -295,7 +366,16 @@ window.COMPONENTS = [
     "source": "Thermal manifold",
     "photo": "components/manifold/photos/",
     "model3d": "components/manifold/models/",
-    "spec_doc": "components/manifold/spec.md"
+    "spec_doc": "components/manifold/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1500,
+      "qty": 1,
+      "est_total_usd": 1500,
+      "region": "Custom",
+      "channel": "fab + Belimo/Danfoss valves",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "am-hx",
@@ -325,7 +405,16 @@ window.COMPONENTS = [
     "source": "CHP_Exhaust_Heat_Recovery_AM_Gyroid.md",
     "photo": "components/am-hx/photos/",
     "model3d": "components/am-hx/models/",
-    "spec_doc": "components/am-hx/spec.md"
+    "spec_doc": "components/am-hx/spec.md",
+    "sourcing": {
+      "est_unit_usd": 3000,
+      "qty": 4,
+      "est_total_usd": 12000,
+      "region": "West",
+      "channel": "LEAP71/Conflux AM print",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "chp-genset",
@@ -362,7 +451,16 @@ window.COMPONENTS = [
     "source": "Genset_Series_RangeExtender_and_Cold_Preconditioning.md",
     "photo": "components/chp-genset/photos/",
     "model3d": "components/chp-genset/models/",
-    "spec_doc": "components/chp-genset/spec.md"
+    "spec_doc": "components/chp-genset/spec.md",
+    "sourcing": {
+      "est_unit_usd": 6000,
+      "qty": 1,
+      "est_total_usd": 6000,
+      "region": "West",
+      "channel": "Fischer Panda(DE)/Whisper Power",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "composting-toilet",
@@ -403,7 +501,16 @@ window.COMPONENTS = [
     "source": "E-House_Bus_Composting_System_Brainstorm.md",
     "photo": "components/composting-toilet/photos/",
     "model3d": "components/composting-toilet/models/",
-    "spec_doc": "components/composting-toilet/spec.md"
+    "spec_doc": "components/composting-toilet/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1200,
+      "qty": 1,
+      "est_total_usd": 1200,
+      "region": "West/Custom",
+      "channel": "Trelino/OGO or custom",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "water-pump",
@@ -433,7 +540,16 @@ window.COMPONENTS = [
     "source": "Water_Systems.design.md",
     "photo": "components/water-pump/photos/",
     "model3d": "components/water-pump/models/",
-    "spec_doc": "components/water-pump/spec.md"
+    "spec_doc": "components/water-pump/spec.md",
+    "sourcing": {
+      "est_unit_usd": 250,
+      "qty": 3,
+      "est_total_usd": 750,
+      "region": "China/West",
+      "channel": "Shurflo/Flojet or Alibaba",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "uv-steriliser",
@@ -458,7 +574,16 @@ window.COMPONENTS = [
     "source": "Water_Systems.design.md",
     "photo": "components/uv-steriliser/photos/",
     "model3d": "components/uv-steriliser/models/",
-    "spec_doc": "components/uv-steriliser/spec.md"
+    "spec_doc": "components/uv-steriliser/spec.md",
+    "sourcing": {
+      "est_unit_usd": 400,
+      "qty": 1,
+      "est_total_usd": 400,
+      "region": "West",
+      "channel": "Acuva(CA)",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "ss-tanks",
@@ -483,7 +608,16 @@ window.COMPONENTS = [
     "source": "Water_Systems.design.md",
     "photo": "components/ss-tanks/photos/",
     "model3d": "components/ss-tanks/models/",
-    "spec_doc": "components/ss-tanks/spec.md"
+    "spec_doc": "components/ss-tanks/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1200,
+      "qty": 2,
+      "est_total_usd": 2400,
+      "region": "Custom",
+      "channel": "316L fab (local or China)",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "fridge-freezer",
@@ -514,7 +648,16 @@ window.COMPONENTS = [
     "source": "Bus_Layout_and_Floorplan.design.md v0.6",
     "photo": "components/fridge-freezer/photos/",
     "model3d": "components/fridge-freezer/models/",
-    "spec_doc": "components/fridge-freezer/spec.md"
+    "spec_doc": "components/fridge-freezer/spec.md",
+    "sourcing": {
+      "est_unit_usd": 2500,
+      "qty": 1,
+      "est_total_usd": 2500,
+      "region": "Custom",
+      "channel": "bespoke loop-fed box",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "induction-cooktop",
@@ -544,7 +687,16 @@ window.COMPONENTS = [
     "source": "AC_vs_DC_Appliance_Audit.md",
     "photo": "components/induction-cooktop/photos/",
     "model3d": "components/induction-cooktop/models/",
-    "spec_doc": "components/induction-cooktop/spec.md"
+    "spec_doc": "components/induction-cooktop/spec.md",
+    "sourcing": {
+      "est_unit_usd": 700,
+      "qty": 1,
+      "est_total_usd": 700,
+      "region": "West/China",
+      "channel": "Kenyon or 48V custom",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "climate-bed",
@@ -574,7 +726,16 @@ window.COMPONENTS = [
     "source": "Systems architecture",
     "photo": "components/climate-bed/photos/",
     "model3d": "components/climate-bed/models/",
-    "spec_doc": "components/climate-bed/spec.md"
+    "spec_doc": "components/climate-bed/spec.md",
+    "sourcing": {
+      "est_unit_usd": 2000,
+      "qty": 1,
+      "est_total_usd": 2000,
+      "region": "West/Custom",
+      "channel": "Eight Sleep or loop-fed topper",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "insulation",
@@ -616,7 +777,16 @@ window.COMPONENTS = [
     "source": "Heat_Load_and_Winter_Diesel_v0_6.md (UA model)",
     "photo": "components/insulation/photos/",
     "model3d": "components/insulation/models/",
-    "spec_doc": "components/insulation/spec.md"
+    "spec_doc": "components/insulation/spec.md",
+    "sourcing": {
+      "est_unit_usd": 3000,
+      "qty": 1,
+      "est_total_usd": 3000,
+      "region": "West mostly",
+      "channel": "VIP(va-Q-tec)+PIR(Kingspan)+aerogel(Aspen)",
+      "confidence": "rough - materials",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "slide-actuator",
@@ -648,7 +818,16 @@ window.COMPONENTS = [
     "source": "Bus_Layout_and_Floorplan.design.md v0.8",
     "photo": "components/slide-actuator/photos/",
     "model3d": "components/slide-actuator/models/",
-    "spec_doc": "components/slide-actuator/spec.md"
+    "spec_doc": "components/slide-actuator/spec.md",
+    "sourcing": {
+      "est_unit_usd": 1500,
+      "qty": 2,
+      "est_total_usd": 3000,
+      "region": "West/China",
+      "channel": "LINAK/Lippert",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "al-extrusion",
@@ -678,7 +857,16 @@ window.COMPONENTS = [
     "source": "Two_Build_Variants / structure",
     "photo": "components/al-extrusion/photos/",
     "model3d": "components/al-extrusion/models/",
-    "spec_doc": "components/al-extrusion/spec.md"
+    "spec_doc": "components/al-extrusion/spec.md",
+    "sourcing": {
+      "est_unit_usd": 2500,
+      "qty": 1,
+      "est_total_usd": 2500,
+      "region": "West/China",
+      "channel": "80/20(US) or Alibaba extrusion",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "aq-sensors",
@@ -709,7 +897,16 @@ window.COMPONENTS = [
     "source": "Controls_Brain_Spec_v0_4.md (sensor map)",
     "photo": "components/aq-sensors/photos/",
     "model3d": "components/aq-sensors/models/",
-    "spec_doc": "components/aq-sensors/spec.md"
+    "spec_doc": "components/aq-sensors/spec.md",
+    "sourcing": {
+      "est_unit_usd": 120,
+      "qty": 5,
+      "est_total_usd": 600,
+      "region": "China/West",
+      "channel": "Sensirion(CH) + Alibaba",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   },
   {
     "id": "compute-host",
@@ -745,6 +942,15 @@ window.COMPONENTS = [
     "source": "Controls_and_Software.design.md + Brain v0.3",
     "photo": "components/compute-host/photos/",
     "model3d": "components/compute-host/models/",
-    "spec_doc": "components/compute-host/spec.md"
+    "spec_doc": "components/compute-host/spec.md",
+    "sourcing": {
+      "est_unit_usd": 2200,
+      "qty": 1,
+      "est_total_usd": 2200,
+      "region": "West",
+      "channel": "OnLogic/Neousys + Victron Cerbo",
+      "confidence": "rough",
+      "rfq_status": "not started"
+    }
   }
 ];

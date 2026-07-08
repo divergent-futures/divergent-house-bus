@@ -21,3 +21,8 @@ The **materials + component build list** for the bespoke bus. Open **`component_
 
 ## Workflow for the 3D build (per `3D_Modeling_Pipeline_Tool_Research.md`)
 Photo/prompt/CAD → 3D object → into `models/` → assemble in the chosen 3D tool (Vanspace / SketchUp / bespoke browser tool). Keep two layers: dimensioned boxes (real clearances) + pretty meshes (looks).
+
+## Sourcing & RFQ
+- **`sourcing_rfq.html`** — bulk-order cost roll-up: per-part qty × unit estimate = total, grouped by region/channel (China / West / OEM / Custom), with RFQ status. **Prices are rough placeholders** until you get real quotes; only the cells are researched (~$80–105/kWh).
+- **`RFQ_cells_template.md`** — a ready-to-paste RFQ for the cells + who to send it to + how to grade the replies. **You send it** (I can't contact suppliers or place orders).
+- Update `components.js` → each part's `sourcing` block (`est_unit_usd`, `qty`, `region`, `channel`, `rfq_status`) as quotes come in; both HTML views + the configurator read it.
