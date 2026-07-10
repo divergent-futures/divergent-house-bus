@@ -12,9 +12,21 @@
     }
   },
   "categories": [
-    { "id": "power", "label": "Power & drivetrain", "order": 1 },
-    { "id": "living", "label": "Living systems", "order": 2 },
-    { "id": "exterior", "label": "Exterior & towing", "order": 3 }
+    {
+      "id": "power",
+      "label": "Power & drivetrain",
+      "order": 1
+    },
+    {
+      "id": "living",
+      "label": "Living systems",
+      "order": 2
+    },
+    {
+      "id": "exterior",
+      "label": "Exterior & towing",
+      "order": 3
+    }
   ],
   "forks": [
     {
@@ -23,9 +35,35 @@
       "hint": "How far you roam sets the pack size.",
       "category": "power",
       "options": [
-        { "id": "entry", "name": "Entry ~100 mi", "sub": "155 kWh · stay-local", "effects": { "kwh": -125, "rangeMi": -106, "addLb": -1511, "addCostUsd": -10000 } },
-        { "id": "mid", "name": "Mid ~200 mi", "sub": "280 kWh · the default", "default": true, "effects": {} },
-        { "id": "high", "name": "High ~300 mi", "sub": "390 kWh · cross-country", "effects": { "kwh": 110, "rangeMi": 90, "addLb": 1332, "addCostUsd": 8800 } }
+        {
+          "id": "entry",
+          "name": "Entry ~100 mi",
+          "sub": "155 kWh · stay-local",
+          "effects": {
+            "kwh": -125,
+            "rangeMi": -106,
+            "addLb": -1511,
+            "addCostUsd": -10000
+          }
+        },
+        {
+          "id": "mid",
+          "name": "Mid ~200 mi",
+          "sub": "280 kWh · the default",
+          "default": true,
+          "effects": {}
+        },
+        {
+          "id": "high",
+          "name": "High ~300 mi",
+          "sub": "390 kWh · cross-country",
+          "effects": {
+            "kwh": 110,
+            "rangeMi": 90,
+            "addLb": 1332,
+            "addCostUsd": 8800
+          }
+        }
       ]
     },
     {
@@ -34,8 +72,23 @@
       "hint": "Sodium is the safe baseline; LFP blade is denser.",
       "category": "power",
       "options": [
-        { "id": "na", "name": "Sodium (baseline)", "sub": "non-flammable, -40 C", "default": true, "effects": {} },
-        { "id": "lfp", "name": "LFP blade (BYD-class)", "sub": "~1.45x range, same size", "effects": { "rangeMult": 1.45, "kwhMult": 1.45 }, "note": "LFP fire-class + weaker cold than sodium. Adopt when the blade pack/shell is sold outside BYD." }
+        {
+          "id": "na",
+          "name": "Sodium (baseline)",
+          "sub": "non-flammable, -40 C",
+          "default": true,
+          "effects": {}
+        },
+        {
+          "id": "lfp",
+          "name": "LFP blade (BYD-class)",
+          "sub": "~1.45x range, same size",
+          "effects": {
+            "rangeMult": 1.45,
+            "kwhMult": 1.45
+          },
+          "note": "LFP fire-class + weaker cold than sodium. Adopt when the blade pack/shell is sold outside BYD."
+        }
       ]
     },
     {
@@ -44,8 +97,24 @@
       "hint": "RWD + a toad, or onboard AWD.",
       "category": "power",
       "options": [
-        { "id": "rwd", "name": "RWD (rear e-axle)", "sub": "lightest · toad for extreme", "default": true, "effects": {} },
-        { "id": "awd", "name": "AWD (+ front e-axle)", "sub": "Overlander · Utah off-road", "effects": { "addLb": 900, "addCostUsd": 8000, "rangeMult": 0.97 }, "note": "No toad needed for moderate off-road; +weight, small range hit." }
+        {
+          "id": "rwd",
+          "name": "RWD (rear e-axle)",
+          "sub": "lightest · toad for extreme",
+          "default": true,
+          "effects": {}
+        },
+        {
+          "id": "awd",
+          "name": "AWD (+ front e-axle)",
+          "sub": "Overlander · Utah off-road",
+          "effects": {
+            "addLb": 900,
+            "addCostUsd": 8000,
+            "rangeMult": 0.97
+          },
+          "note": "No toad needed for moderate off-road; +weight, small range hit."
+        }
       ]
     },
     {
@@ -54,8 +123,23 @@
       "hint": "Simple, or the transforming grow-shower.",
       "category": "living",
       "options": [
-        { "id": "std", "name": "Standard wet bath", "sub": "fixed · simple · light", "default": true, "effects": {} },
-        { "id": "sig", "name": "Signature", "sub": "transforming hydro-shower + garden", "effects": { "addLb": 150, "addCostUsd": 7000 }, "note": "Sliding hydro block, dock-only water/power, ~12 kg/mo fresh greens." }
+        {
+          "id": "std",
+          "name": "Standard wet bath",
+          "sub": "fixed · simple · light",
+          "default": true,
+          "effects": {}
+        },
+        {
+          "id": "sig",
+          "name": "Signature",
+          "sub": "transforming hydro-shower + garden",
+          "effects": {
+            "addLb": 150,
+            "addCostUsd": 7000
+          },
+          "note": "Sliding hydro block, dock-only water/power, ~12 kg/mo fresh greens."
+        }
       ]
     },
     {
@@ -64,9 +148,32 @@
       "hint": "Agnostic bolt-in. Exhaust runs through an onboard heat-exchanger (quiet), then out the bottom/side.",
       "category": "living",
       "options": [
-        { "id": "none", "name": "None", "sub": "warm-climate · grid/solar only", "default": true, "effects": {} },
-        { "id": "chp35", "name": "3.5 kW diesel CHP", "sub": "cold-climate", "effects": { "addLb": 180, "addCostUsd": 3500 }, "note": "Heat is the product — exhaust heat-exchanger feeds the loop." },
-        { "id": "chp5", "name": "5 kW diesel CHP", "sub": "Alaska/Siberia · 6 cold months", "effects": { "addLb": 240, "addCostUsd": 4500 } }
+        {
+          "id": "none",
+          "name": "None",
+          "sub": "warm-climate · grid/solar only",
+          "default": true,
+          "effects": {}
+        },
+        {
+          "id": "chp35",
+          "name": "3.5 kW diesel CHP",
+          "sub": "cold-climate",
+          "effects": {
+            "addLb": 180,
+            "addCostUsd": 3500
+          },
+          "note": "Heat is the product — exhaust heat-exchanger feeds the loop."
+        },
+        {
+          "id": "chp5",
+          "name": "5 kW diesel CHP",
+          "sub": "Alaska/Siberia · 6 cold months",
+          "effects": {
+            "addLb": 240,
+            "addCostUsd": 4500
+          }
+        }
       ]
     },
     {
@@ -75,10 +182,41 @@
       "hint": "Design the hitch + hardpoints in from the start.",
       "category": "exterior",
       "options": [
-        { "id": "rnone", "name": "None", "sub": "clean tail", "default": true, "effects": {} },
-        { "id": "bike", "name": "Hitch + bike rack", "sub": "toys on the back", "effects": { "addLb": 60, "addCostUsd": 800 } },
-        { "id": "toy", "name": "Toy / storage trailer hardpoints", "sub": "tow a small cargo/toy hauler — or a Slipstream", "effects": { "addLb": 40, "addCostUsd": 1200 }, "note": "Rear hardpoints + wiring; the trailer is separate. Pairs with the Slipstream configurator." },
-        { "id": "toad", "name": "Tow a 4WD toad", "sub": "extreme off-road (non-AWD)", "effects": { "addLb": 80, "addCostUsd": 1000 } }
+        {
+          "id": "rnone",
+          "name": "None",
+          "sub": "clean tail",
+          "default": true,
+          "effects": {}
+        },
+        {
+          "id": "bike",
+          "name": "Hitch + bike rack",
+          "sub": "toys on the back",
+          "effects": {
+            "addLb": 60,
+            "addCostUsd": 800
+          }
+        },
+        {
+          "id": "toy",
+          "name": "Toy / storage trailer hardpoints",
+          "sub": "tow a small cargo/toy hauler — or a Slipstream",
+          "effects": {
+            "addLb": 40,
+            "addCostUsd": 1200
+          },
+          "note": "Rear hardpoints + wiring; the trailer is separate. Pairs with the Slipstream configurator."
+        },
+        {
+          "id": "toad",
+          "name": "Tow a 4WD toad",
+          "sub": "extreme off-road (non-AWD)",
+          "effects": {
+            "addLb": 80,
+            "addCostUsd": 1000
+          }
+        }
       ]
     },
     {
@@ -87,26 +225,149 @@
       "hint": "Fixed roof, or add deployable wings.",
       "category": "exterior",
       "options": [
-        { "id": "roof", "name": "Roof fixed (~3.4 kW)", "sub": "drives on top", "default": true, "effects": {} },
-        { "id": "wings", "name": "+ Deployable wings (~8.7 kW)", "sub": "net-positive parked · shades the bus", "effects": { "addLb": 120, "addCostUsd": 4000, "solarW": 5300 } }
+        {
+          "id": "roof",
+          "name": "Roof fixed (~3.4 kW)",
+          "sub": "drives on top",
+          "default": true,
+          "effects": {}
+        },
+        {
+          "id": "wings",
+          "name": "+ Deployable wings (~8.7 kW)",
+          "sub": "net-positive parked · shades the bus",
+          "effects": {
+            "addLb": 120,
+            "addCostUsd": 4000,
+            "solarW": 5300
+          }
+        }
       ]
     }
   ],
   "rules": [],
   "profiles": [
-    { "id": "overlander", "name": "Overlander / off-grid", "emoji": "🏔️", "match": { "drive": "awd", "solar": "wings" } },
-    { "id": "budget", "name": "Stay-local / budget", "emoji": "🏡", "match": { "tier": "entry", "bath": "std", "chp": "none" } },
-    { "id": "crosscountry", "name": "Cross-country full-timer", "emoji": "🛣️", "match": { "tier": "high" } },
-    { "id": "grower", "name": "Full-time roamer (grow-your-own)", "emoji": "🌱", "match": { "bath": "sig" } },
-    { "id": "coldclimate", "name": "Cold-climate dweller", "emoji": "❄️", "match": { "chp": ["chp35", "chp5"] } }
+    {
+      "id": "overlander",
+      "name": "Overlander / off-grid",
+      "emoji": "🏔️",
+      "match": {
+        "drive": "awd",
+        "solar": "wings"
+      }
+    },
+    {
+      "id": "budget",
+      "name": "Stay-local / budget",
+      "emoji": "🏡",
+      "match": {
+        "tier": "entry",
+        "bath": "std",
+        "chp": "none"
+      }
+    },
+    {
+      "id": "crosscountry",
+      "name": "Cross-country full-timer",
+      "emoji": "🛣️",
+      "match": {
+        "tier": "high"
+      }
+    },
+    {
+      "id": "grower",
+      "name": "Full-time roamer (grow-your-own)",
+      "emoji": "🌱",
+      "match": {
+        "bath": "sig"
+      }
+    },
+    {
+      "id": "coldclimate",
+      "name": "Cold-climate dweller",
+      "emoji": "❄️",
+      "match": {
+        "chp": [
+          "chp35",
+          "chp5"
+        ]
+      }
+    }
   ],
   "tiers": [
-    { "id": "entry", "name": "Entry ~100 mi", "priceRange": "cost basis ~$12-16K", "match": { "tier": "entry" } },
-    { "id": "mid", "name": "Mid ~200 mi", "priceRange": "cost basis ~$22-30K", "match": { "tier": "mid" } },
-    { "id": "high", "name": "High ~300 mi", "priceRange": "cost basis ~$31-45K", "match": { "tier": "high" } }
+    {
+      "id": "entry",
+      "name": "Entry ~100 mi",
+      "priceRange": "cost basis ~$12-16K",
+      "match": {
+        "tier": "entry"
+      }
+    },
+    {
+      "id": "mid",
+      "name": "Mid ~200 mi",
+      "priceRange": "cost basis ~$22-30K",
+      "match": {
+        "tier": "mid"
+      }
+    },
+    {
+      "id": "high",
+      "name": "High ~300 mi",
+      "priceRange": "cost basis ~$31-45K",
+      "match": {
+        "tier": "high"
+      }
+    }
   ],
   "meta": {
-    "baseline": { "tierKwh": 280, "tierRangeMi": 217, "tierPackLb": 4356, "tierCostUsd": 22400 },
+    "baseline": {
+      "tierKwh": 280,
+      "tierRangeMi": 217,
+      "tierPackLb": 4356,
+      "tierCostUsd": 22400
+    },
     "notes": "Extracted from House_BUS_Configurator.html prototype 2026-07-07. Tier deltas are relative to mid (default): entry=155kWh/111mi/2845lb/$12400, high=390kWh/307mi/5688lb/$31200. Signature bath delta vs std: +150lb/+$7000 (std itself is +60lb/$2000 over bare, already in base)."
+  },
+  "ui": {
+    "title": "House BUS — Build Configurator",
+    "subtitle": "Choose-your-own-adventure: pick the branches you want. One platform, many builds. Numbers are first-order estimates for iteration.",
+    "footer": "House BUS · Divergent Futures / Terrestrial Technology · open-source (CERN-OHL-S / MIT / CC-BY). df-configurator/v1 — data lives in house-bus.config.json.",
+    "summaryTitle": "Your build",
+    "resetLabel": "reset to defaults",
+    "note": "First-order only. Full build adds the fixed platform cost (structure, body, interior, thermal, controls). Retail ≈ ~1.75× the cell/option cost basis.",
+    "metrics": [
+      {
+        "id": "kwh",
+        "label": "Battery",
+        "base": 280,
+        "addKey": "kwh",
+        "multKey": "kwhMult",
+        "unit": " kWh"
+      },
+      {
+        "id": "range",
+        "label": "Range @65 mph",
+        "base": 217,
+        "addKey": "rangeMi",
+        "multKey": "rangeMult",
+        "unit": " mi",
+        "approx": true
+      },
+      {
+        "id": "curb",
+        "label": "Curb weight",
+        "base": 14056,
+        "addKey": "addLb",
+        "unit": " lb"
+      },
+      {
+        "id": "cost",
+        "label": "Battery + options (cost basis)",
+        "base": 24400,
+        "addKey": "addCostUsd",
+        "money": true
+      }
+    ]
   }
 }

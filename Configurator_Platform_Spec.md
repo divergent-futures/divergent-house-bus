@@ -119,20 +119,11 @@ Layout: option-card grid left, sticky summary card right, green summary header, 
 3. **Products stay independent.** The bus does not tow the trailer; there is no cross-product pairing. Each product's config is self-contained, and the future app treats them as separate catalog entries that happen to share a schema, parts vocabulary, and design language. Amalgamation into one app happens only after each product's design settles — the configurator app is its own project, later.
 4. **Rationale travels with the fork.** Every non-obvious option carries a `note` — the configurator teaches, it doesn't just tally. This is the "smart fork" principle from the Slipstream handoff.
 
-## 8. File inventory
+## 8. File inventory & the shared engine (updated 2026-07-08)
+
+**One engine, N products.** `Configurator_Engine.template.html` (this repo, root) is the single generic engine: it renders forks/rules/profiles/tiers/BOM from any `df-configurator/v1` config, and reads all product identity from a `ui` section in the config — `title`, `subtitle`, `footer`, `note`, `resetLabel`, and a `metrics` array (`{id, label, base, addKey, multKey, unit, money, approx}`; value = (base + Σ adds) × Π mults). Product-specific physics are data-gated: `ui.trailerPhysics` enables tongue/range-loss/skill/derived-tow logic, `ui.suppressBaseParts` is a match-condition that swaps out baseParts (foamie). Adding product #3 = one JSON with a `ui` section — zero engine changes. Generation: replace `__TITLE__` and `/*__CONFIG__*/` in the template with the config JSON.
 
 | File | Role |
 |---|---|
 | `Configurator_Platform_Spec.md` | this contract |
-| `01_Roadmap_and_Strategy/house-bus.config.json` | bus data, schema v1 (extracted from prototype HTML) |
-| `01_Roadmap_and_Strategy/House_BUS_Configurator.html` | bus reference UI (pre-schema; to be re-based on the JSON) |
-| `15_Slipstream_Trailer/slipstream.config.json` | trailer data, schema v1, full fork inventory |
-| `15_Slipstream_Trailer/Slipstream_Configurator.html` | trailer reference UI (schema-driven engine) |
-| `15_Slipstream_Trailer/PROJECT-SLIPSTREAM-*.md` | trailer source-of-truth docs |
-
-## 9. Open items for the app project
-
-- BOM output format (per-config parts list with shared part slugs) — inherit bus BOM infrastructure or define fresh (Slipstream handoff §9).
-- Pricing model: cost basis → retail multiplier per product (bus ~1.75×; trailer TBD).
-- Drawings/build-doc generation per configuration.
-- Jurisdiction/regulatory layer (trail
+| `Configurator_Engine.template.html`
