@@ -36,6 +36,8 @@ Earlier the tiers used a fixed kWh/mi (didn't credit the lighter packs). Fixed: 
 2. **The bus eats ~1.0 kWh/mi (~5× a car)** because a 25-ft dwelling is a big, draggy brick — so **155 kWh ≈ ~110 mi at highway is correct**, not a low estimate. Car intuition (155 kWh should go far) doesn't transfer to a rolling apartment.
 3. **Weight + aero both pay off at low speed** (aero energy ∝ v²): at ~50 mph the Entry tier does **~165 mi** (not 110), the whole line stretches (Mid ~321, High ~450). Since the Entry buyer drives **local/slower**, the "~100 mi" label is the conservative *highway* figure — real local use is 150+.
 
+> **⭐ FLAGSHIP DECISION (2026-07-07, `Tier_Cell_Flagship_Decision.md` + `tier_cell_matrix.png`):** the GVWR reconciliation resolves the tier×cell call. **Buildable-now flagship = MID 280 kWh on HiNa cells** (GVWR margin **+2,543 lb**, ~210 mi, ~$25k cells, sourceable today). **High 390 kWh is GVWR-TIGHT on HiNa (+574 lb) → build it only on Naxtra-class cells** (+2,250 lb; the pack is already designed to accept them = clean upgrade path). Entry 155 kWh is featherweight on either cell. Near-term cell RFQ = ~280 kWh (~470 cells), not 650.
+
 > **v0.6 note (2026-07-07):** these ranges are computed on **nameplate** kWh at an idealized ~1.08 kWh/mi. Two honesty corrections from the digital twin (`08_.../Digital_Twin_v0_5.md`, `Pack_Capacity_Usable_and_BMS_Window.md`): (a) usable capacity is **~90 % of nameplate** (BMS window), and (b) real-world highway consumption is **~1.15–1.2 kWh/mi** (HVAC, wind, margin). Net: treat the highway figures as **~10 % optimistic planning numbers** — e.g. High tier ~307 → **~275–290 mi** real. Low-speed/local figures are more forgiving.
 
 ## 4. Assumptions / caveats
@@ -44,11 +46,4 @@ Earlier the tiers used a fixed kWh/mi (didn't credit the lighter packs). Fixed: 
 - Pack mass = cells + inter-cell foam potting (~12%) + honeycomb fill + Al faces/frame (~220 kg). Firm at cell selection.
 
 ## 5. Recommendation / use
-- **Publish all three** in the open-source repo as the pack menu; **High = our reference build** (the full-thesis bus, tows the toad, goes far), **Mid = the recommended default** for most buyers, **Entry = the budget/local option**.
-- Fold the chosen *reference* (High) into the mass budget + floor-plan v0.6; keep Entry/Mid as documented variants.
-
-## 6. Open / next
-- Credit the lighter tiers' efficiency gain (re-range Entry/Mid after the mass drop).
-- Confirm Entry's vehicle-level weight vs axle/CDL thresholds (possible extra selling point).
-- Cost model: firm cell $/kWh + the retail multiple with the BOM.
-
+- **Publish all three** in the open-source repo as the pack menu; *
