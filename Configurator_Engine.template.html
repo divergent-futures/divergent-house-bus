@@ -208,7 +208,9 @@ function compute(){
 
   // BOM (generic; base parts suppressible via UI.suppressBaseParts; per-fork parts suppressible via UI.suppressForkParts)
   const suppress=UI.suppressBaseParts&&matches(UI.suppressBaseParts);
-  const bom=suppress?[]:[...(CONFIG.product.baseParts||[])];
+  const dropIds=new Set();
+  (UI.suppressBasePartIds||[]).forEach(r=>{ if(matches(r.when)) r.ids.forEach(i=>dropIds.add(i)); });
+  const bom=suppress?[]:(CONFIG.product.baseParts||[]).filter(p=>!dropIds.has(p.id));
   const skipForks=new Set();
   (UI.suppressForkParts||[]).forEach(r=>{ if(matches(r.when)) r.forks.forEach(k=>skipForks.add(k)); });
   CONFIG.forks.forEach(f=>{ if(skipForks.has(f.key)) return; const o=f.options.find(o=>o.id===state[f.key]);(o.parts||[]).forEach(p=>bom.push(p));});
